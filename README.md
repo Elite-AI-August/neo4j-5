@@ -2,6 +2,8 @@
 
 A combination table and document editor.
 
+See also neomem-console, which will be merged into here eventually.
+
 ## Installing
 
 npm install
