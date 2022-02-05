@@ -20,11 +20,14 @@ export class Sources {
     return this.supabase.get(query)
   }
 
-  async add({ prop, value }) {
-    return await this.supabase.add({ prop, value })
+  async add(items) {
+    return await this.supabase.add(items)
   }
 
   async set({ id, prop, value }) {
     return await this.supabase.set({ id, prop, value })
   }
+
+  //. delete
+  //. upsert?
 }

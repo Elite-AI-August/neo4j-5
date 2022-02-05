@@ -138,14 +138,22 @@ function Table({ sources }) {
     })
   }
 
-  const clickAdd = React.useCallback(() => {
-    // const id = 'lkmlkm'
+  const clickAdd = React.useCallback(async () => {
     const name = 'kjkjdnfjhb'
+    // add to database
+    // const rows = await sources.add({ prop: 'data', value: { name } }) //. add to db
     const item = { data: { name } }
-    setData(old => {
-      sources.add({ value: { data: { name } } }) //. add to db
-      return [...old, item]
-    })
+    const rows = await sources.add([item]) //. add to db
+    console.log('added', rows)
+    if (rows && rows[0]) {
+      item.id = rows[0].id
+      setData(oldRows => {
+        // add to table also
+        // const item = { id: 'new', data: { name } }
+        const newRows = [...oldRows, item]
+        return newRows
+      })
+    }
   }, [sources])
 
   return (

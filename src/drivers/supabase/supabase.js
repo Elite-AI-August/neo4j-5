@@ -24,11 +24,11 @@ export class Supabase {
     return data
   }
 
-  async add({ prop, value }) {
-    const item = { data: { [prop]: value } }
+  async add(items) {
+    // const item = { data: { [prop]: value } }
     const { data, error, status } = await this.supabase
       .from('nodes')
-      .insert([item])
+      .insert(items)
     return data
   }
 
