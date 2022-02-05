@@ -88,12 +88,10 @@ function Table({ sources }) {
       {
         Header: 'id',
         accessor: 'id', // accessor is the "key" in the data
-        Cell: EditableCell,
       },
       {
         Header: 'data',
         accessor: row => JSON.stringify(row.data),
-        Cell: EditableCell,
       },
       {
         Header: 'name',
