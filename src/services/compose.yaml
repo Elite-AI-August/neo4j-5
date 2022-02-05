@@ -1,0 +1,25 @@
+# version must be a string
+# note: '3' here means '3.0'
+
+version: '3.8'
+
+services:
+  filesys:
+    container_name: filesys
+    build: ./filesys # see Dockerfile in this folder
+    ports:
+      - '4441:4441'
+    profiles:
+      - all
+      - filesys
+    # volumes:
+    #   - ../$SETUP:/data/setup # has setup.yaml etc
+    #   - ../modules:/data/modules # has module yamls
+    #   - ../$SETUP/volumes/adapter:/data/adapter # has json cookies for backfilling
+    restart: always
+    networks:
+      - neomem
+
+networks:
+  neomem:
+    name: neomem
