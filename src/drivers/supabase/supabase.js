@@ -20,10 +20,18 @@ export class Supabase {
     return data
   }
 
-  async set({ id, prop, value }) {
+  async add({ prop, value }) {
     const item = { data: { [prop]: value } }
     const { data, error, status } = await this.supabase
       .from('nodes')
       .insert([item])
+  }
+
+  async update({ id, prop, value }) {
+    const item = { data: { [prop]: value } }
+    // const { data, error, status } = await this.supabase
+    //   .from('nodes')
+    //   .where(id=id)
+    //   .update([item])
   }
 }

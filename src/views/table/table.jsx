@@ -10,8 +10,6 @@ import './table.css'
 
 // -----------------------------------------------------
 
-// -----------------------------------------------------
-
 function TableUI({ columns, data, updateData }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
@@ -20,6 +18,7 @@ function TableUI({ columns, data, updateData }) {
       // note: this isn't part of the API, but anything we put into these
       // options will automatically be available on the instance -
       // so can call this function from our cell renderer.
+      // @ts-ignore
       updateData,
     })
 
@@ -55,9 +54,8 @@ function TableUI({ columns, data, updateData }) {
 
 function EditableCell({
   value: initialValue,
-  row: { index },
-  // column: { id },
-  column,
+  row, // { index }
+  column, // { id }
   updateData, // this is a custom function that we supplied to useTable
 }) {
   // keep and update the state of the cell normally
@@ -69,8 +67,7 @@ function EditableCell({
 
   // only update the external data when the input is blurred
   const onBlur = () => {
-    // updateData(index, id, value) // eg 1, 'notes', 'pokpok'
-    updateData(index, column, value) // eg 1, 'notes', 'pokpok'
+    updateData(row, column, value) // eg 1, 'notes', 'pokpok'
   }
 
   // if the initialValue is changed externally, sync it up with our state
@@ -124,8 +121,11 @@ function Table({ sources }) {
 
   // When our cell renderer calls updateData, we'll use
   // rowIndex, columnId and new value to update the original data.
-  function updateData(rowIndex, columnId, value) {
-    console.log(rowIndex, columnId, value) // eg 1, 'notes', 'pokpok'
+  function updateData(row, column, value) {
+    console.log(data)
+    console.log(row, column, value) // eg 1, 'notes', 'pokpok'
+    const rowIndex = row.index
+    const columnId = column.id
     setData(oldRows => {
       const newRows = oldRows.map((row, index) => {
         if (index === rowIndex) {
@@ -133,9 +133,7 @@ function Table({ sources }) {
         }
         return row
       })
-      const id = 0
-      const prop = columnId
-      sources.set({ id, prop, value })
+      sources.set({ id: row.values.id, prop: columnId, value })
       return newRows
     })
   }
@@ -144,7 +142,10 @@ function Table({ sources }) {
     const id = 'lkmlkm'
     const name = 'kjkjdnfjhb'
     const item = { id, data: { name } }
-    setData(old => [...old, item])
+    setData(old => {
+      sources.add({ prop: id, value: { data: { name } } })
+      return [...old, item]
+    })
   }, [])
 
   return (
