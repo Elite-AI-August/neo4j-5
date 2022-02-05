@@ -1,7 +1,7 @@
 // this will aggregate diff data sources
-// for now just wraps a supabase source
+//. for now just wraps a supabase source
+//. or replace this with stardog, sooner rather than later
 
-// import { environment } from '../../environments/environment'
 import { Supabase } from '../drivers/supabase/supabase'
 
 const url = process.env.REACT_APP_SUPABASE_URL
@@ -13,16 +13,18 @@ export class Sources {
   }
 
   async start() {
-    // const url = environment.supabaseUrl
-    // const key = environment.supabaseKey
     this.supabase.start({ url, key })
   }
 
-  async get({ query } = { query: {}}) {
-    return this.supabase.get({ query })
+  async get(query) {
+    return this.supabase.get(query)
+  }
+
+  async add({ prop, value }) {
+    return await this.supabase.add({ prop, value })
   }
 
   async set({ id, prop, value }) {
-    await this.supabase.set({ id, prop, value })
+    return await this.supabase.set({ id, prop, value })
   }
 }

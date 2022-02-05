@@ -123,9 +123,9 @@ function Table({ sources }) {
   // rowIndex, columnId and new value to update the original data.
   function updateData(row, column, value) {
     console.log(data)
-    console.log(row, column, value) // eg 1, 'notes', 'pokpok'
-    const rowIndex = row.index
-    const columnId = column.id
+    console.log(row, column, value)
+    const rowIndex = row.index // eg 1
+    const columnId = column.id // eg 'notes'
     setData(oldRows => {
       const newRows = oldRows.map((row, index) => {
         if (index === rowIndex) {
@@ -133,20 +133,20 @@ function Table({ sources }) {
         }
         return row
       })
-      sources.set({ id: row.values.id, prop: columnId, value })
+      sources.set({ id: row.values.id, prop: column.id, value })
       return newRows
     })
   }
 
   const clickAdd = React.useCallback(() => {
-    const id = 'lkmlkm'
+    // const id = 'lkmlkm'
     const name = 'kjkjdnfjhb'
-    const item = { id, data: { name } }
+    const item = { data: { name } }
     setData(old => {
-      sources.add({ prop: id, value: { data: { name } } })
+      sources.add({ value: { data: { name } } }) //. add to db
       return [...old, item]
     })
-  }, [])
+  }, [sources])
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
