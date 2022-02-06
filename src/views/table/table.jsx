@@ -158,6 +158,7 @@ function Table({ sources }) {
 
   const [data, setData] = React.useState([])
 
+  // fetch initial data for table
   React.useEffect(() => {
     async function fetchData() {
       const data = await sources.get() //. get ALL data for now
@@ -168,22 +169,25 @@ function Table({ sources }) {
 
   // When our cell renderer calls updateData, we'll use
   // rowIndex, columnId and new value to update the original data.
-  function updateData(row, column, value) {
-    console.log(data)
-    console.log(row, column, value)
-    const rowIndex = row.index // eg 1
-    const columnId = column.id // eg 'notes'
-    setData(oldRows => {
-      const newRows = oldRows.map((row, index) => {
-        if (index === rowIndex) {
-          return { ...oldRows[rowIndex], [columnId]: value }
-        }
-        return row
+  const updateData = React.useCallback(
+    (row, column, value) => {
+      console.log(data)
+      console.log(row, column, value)
+      const rowIndex = row.index // eg 1
+      const columnId = column.id // eg 'notes'
+      setData(oldRows => {
+        const newRows = oldRows.map((row, index) => {
+          if (index === rowIndex) {
+            return { ...oldRows[rowIndex], [columnId]: value }
+          }
+          return row
+        })
+        sources.set({ id: row.values.id, prop: column.id, value })
+        return newRows
       })
-      sources.set({ id: row.values.id, prop: column.id, value })
-      return newRows
-    })
-  }
+    },
+    [data, sources]
+  )
 
   const clickAdd = React.useCallback(async () => {
     // add to database
@@ -201,12 +205,16 @@ function Table({ sources }) {
     }
   }, [sources])
 
+  const clickFilter = React.useCallback(async () => {}, [])
+  const clickGroup = React.useCallback(async () => {}, [])
+  const clickSort = React.useCallback(async () => {}, [])
+
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
       <PrimaryButton onClick={clickAdd}>Add</PrimaryButton>
-      <DefaultButton>Filter</DefaultButton>
-      <DefaultButton>Group</DefaultButton>
-      <DefaultButton>Sort</DefaultButton>
+      <DefaultButton onClick={clickFilter}>Filter</DefaultButton>
+      <DefaultButton onClick={clickGroup}>Group</DefaultButton>
+      <DefaultButton onClick={clickSort}>Sort</DefaultButton>
       <br />
       <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
