@@ -10,76 +10,45 @@ import {
   useTable,
   useSortBy,
   useFilters,
-  useGroupBy,
-  useExpanded,
+  // useGroupBy,
+  // useExpanded,
 } from 'react-table'
 import './table.css'
 
-const stackTokens = { childrenGap: 5 }
+const view = {
+  fields: [
+    { name: 'id', readonly: true, field: 'id' },
+    // { name: 'data', readonly: true, field: 'data' },
+    { name: 'type' },
+    { name: 'name' },
+    { name: 'notes' },
+  ],
+  filters: [{ field: 'name', operator: 'contains', value: 'g' }],
+  groups: [],
+  sorts: [{ field: 'name', order: 'ascending' }],
+}
 
-// const columns = [
-//   { key: 'A', text: 'Option A' },
-//   { key: 'B', text: 'Option B' },
-//   { key: 'C', text: 'Option C' },
-//   { key: 'D', text: 'Option D' },
-// ];
+const columns = view.fields.map(field => ({
+  key: field.name,
+  text: field.name,
+}))
 
-const cols = [
-  { name: 'id', readonly: true, field: 'id' },
-  // { name: 'data', readonly: true, field: 'data' },
-  { name: 'type' },
-  { name: 'name' },
-  { name: 'notes' },
-]
-
-const columnDropdown = cols.map(col => ({ key: col.name, text: col.name }))
-
-const operators = [
+const filterOperators = [
   { key: 'contains', text: 'contains' },
   { key: 'starts with', text: 'starts with' },
   { key: 'is', text: 'is' },
   { key: 'is not', text: 'is not' },
 ]
 
-// need a dummy menu item for the dropdown to render on click
-const menuItems = [
-  { key: 'blank', text: '' },
-  // { key: 'newItem', text: 'New', onClick: () => console.log('New clicked') },
-  // {
-  //   key: 'rename',
-  //   text: 'Rename',
-  //   onClick: () => console.log('Rename clicked'),
-  // },
-  // { key: 'edit', text: 'Edit', onClick: () => console.log('Edit clicked') },
-  // {
-  //   key: 'properties',
-  //   text: 'Properties',
-  //   onClick: () => console.log('Properties clicked'),
-  // },
-  // { key: 'linkNoTarget', text: 'Link same window', href: 'http://bing.com' },
-  // {
-  //   key: 'linkWithTarget',
-  //   text: 'Link new window',
-  //   href: 'http://bing.com',
-  //   target: '_blank',
-  // },
-  // {
-  //   key: 'linkWithOnClick',
-  //   name: 'Link click',
-  //   href: 'http://bing.com',
-  //   // onClick: (ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-  //   //   alert('Link clicked');
-  //   //   ev.preventDefault();
-  //   // },
-  //   target: '_blank',
-  // },
-  // {
-  //   key: 'disabled',
-  //   text: 'Disabled item',
-  //   disabled: true,
-  //   onClick: () => console.error('Disabled item should not be clickable.'),
-  // },
+const sortOrders = [
+  { key: 'ascending', text: 'ascending' },
+  { key: 'descending', text: 'descending' },
 ]
+
+// need a dummy menu item for search etc dropdowns to render on click
+const menuItems = [{ key: 'blank', text: '' }]
+
+const stackTokens = { childrenGap: 5 }
 
 // -----------------------------------------------------
 
@@ -197,11 +166,11 @@ function FilterBox() {
         <Stack.Item align="center">
           <Text>Where</Text>
         </Stack.Item>
-        <ComboBox defaultSelectedKey="name" options={columnDropdown}></ComboBox>
+        <ComboBox defaultSelectedKey="name" options={columns}></ComboBox>
         <Dropdown
-          defaultSelectedKey={operators[0].key}
+          defaultSelectedKey={filterOperators[0].key}
           // @ts-ignore
-          options={operators}
+          options={filterOperators}
         ></Dropdown>
         <SearchBox
           ariaLabel="Filter text"
@@ -209,7 +178,29 @@ function FilterBox() {
           // onAbort={onAbort}
           // onChange={onChange}
           // styles={searchBoxStyles}
+          onSearch={newValue =>
+            console.log('SearchBox onSearch fired: ' + newValue)
+          }
         />
+      </Stack>
+    </div>
+  )
+}
+
+// -----------------------------------------------------
+
+function SortBox() {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        <Stack.Item align="center">
+          <Text>Sort By</Text>
+        </Stack.Item>
+        <Dropdown defaultSelectedKey="name" options={columns}></Dropdown>
+        <Dropdown
+          defaultSelectedKey={sortOrders[0].key}
+          options={sortOrders}
+        ></Dropdown>
       </Stack>
     </div>
   )
@@ -220,43 +211,13 @@ function FilterBox() {
 // sources is the Neomem data aggregator
 function Table({ sources }) {
   const columns = React.useMemo(() => {
-    return cols.map(col => ({
-      Header: col.name,
-      accessor: col.field || (row => row.data[col.name]),
-      // Cell: col.readonly ? () => null : EditableCell,
+    return view.fields.map(field => ({
+      Header: field.name,
+      accessor: field.field || (row => row.data[field.name]),
+      // Cell: field.readonly ? () => null : EditableCell,
       Cell: EditableCell,
     }))
   }, [])
-  //   const columns = React.useMemo(
-  //   () => [
-  //     {
-  //       Header: 'id',
-  //       accessor: 'id', // accessor is the "key" in the data
-  //       // readonly
-  //     },
-  //     // {
-  //     //   Header: 'data',
-  //     //   accessor: row => JSON.stringify(row.data),
-  //     //   // readonly
-  //     // },
-  //     {
-  //       Header: 'type',
-  //       accessor: row => row.data.type, //.
-  //       Cell: EditableCell,
-  //     },
-  //     {
-  //       Header: 'name',
-  //       accessor: row => row.data.name, //.
-  //       Cell: EditableCell,
-  //     },
-  //     {
-  //       Header: 'notes',
-  //       accessor: row => row.data.notes, //.
-  //       Cell: EditableCell,
-  //     },
-  //   ],
-  //   []
-  // )
 
   const [data, setData] = React.useState([])
 
@@ -269,8 +230,8 @@ function Table({ sources }) {
     fetchData()
   }, [sources])
 
-  // When our cell renderer calls updateData, we'll use
-  // rowIndex, columnId and new value to update the original data.
+  // when our cell renderer calls updateData, use rowIndex,
+  // columnId and the new value to update the original data.
   const updateData = React.useCallback(
     (row, column, value) => {
       console.log(data)
@@ -284,6 +245,7 @@ function Table({ sources }) {
           }
           return row
         })
+        //. update db also
         sources.set({ id: row.values.id, prop: column.id, value })
         return newRows
       })
@@ -298,46 +260,29 @@ function Table({ sources }) {
     const item = { data: { name } }
     const rows = await sources.add([item]) //. add to db
     console.log('added', rows)
+    // if worked okay add to table rows also
     if (rows && rows[0]) {
       item.id = rows[0].id
       setData(oldRows => {
-        // add to table also
         const newRows = [...oldRows, item]
         return newRows
       })
     }
   }, [sources])
 
-  // filter button handler
-  const clickFilter = React.useCallback(async () => {}, [])
-
-  const clickGroup = React.useCallback(async () => {}, [])
-  const clickSort = React.useCallback(async () => {}, [])
-
-  const renderMenuList = React.useCallback(
-    (menuListProps, defaultRender) => {
-      return (
-        <div>
-          <FilterBox />
-          {/* this renders any menuItems as buttons */}
-          {/* {defaultRender(menuListProps)} */}
-        </div>
-      )
-    },
-    []
-    // [onAbort, onChange],
-  )
-
   const [items, setItems] = React.useState(menuItems)
+
+  // const renderMenuList = React.useCallback(() => <FilterBox />, [])
 
   const menuProps = React.useMemo(
     () => ({
-      onRenderMenuList: renderMenuList,
       // title: 'Actions',
+      // onRenderMenuList: renderMenuList,
+      onRenderMenuList: FilterBox,
       shouldFocusOnMount: true,
       items,
     }),
-    [items, renderMenuList]
+    [items]
   )
 
   return (
@@ -346,20 +291,16 @@ function Table({ sources }) {
         <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
           Add
         </PrimaryButton>
-        <DefaultButton
-          onClick={clickFilter}
-          iconProps={{ iconName: 'Filter' }}
-          menuProps={menuProps}
-        >
+        <DefaultButton iconProps={{ iconName: 'Filter' }} menuProps={menuProps}>
           Filter
         </DefaultButton>
         <DefaultButton
-          onClick={clickGroup}
           iconProps={{ iconName: 'GroupList' }}
+          menuProps={menuProps}
         >
           Group
         </DefaultButton>
-        <DefaultButton onClick={clickSort} iconProps={{ iconName: 'Sort' }}>
+        <DefaultButton iconProps={{ iconName: 'Sort' }} menuProps={menuProps}>
           Sort
         </DefaultButton>
       </Stack>
