@@ -190,6 +190,25 @@ function FilterBox() {
 
 // -----------------------------------------------------
 
+function GroupBox() {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        <Stack.Item align="center">
+          <Text>Group By</Text>
+        </Stack.Item>
+        <Dropdown defaultSelectedKey="type" options={fieldOptions}></Dropdown>
+        {/* <Dropdown
+          defaultSelectedKey={sortOrders[0].key}
+          options={sortOrders}
+        ></Dropdown> */}
+      </Stack>
+    </div>
+  )
+}
+
+// -----------------------------------------------------
+
 function SortBox() {
   return (
     <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
@@ -284,14 +303,14 @@ function Table({ sources }) {
     []
   )
 
-  // const groupMenuProps = React.useMemo(
-  //   () => ({
-  //     onRenderMenuList: GroupBox,
-  //     shouldFocusOnMount: true,
-  //     items: menuItems,
-  //   }),
-  //   []
-  // )
+  const groupMenuProps = React.useMemo(
+    () => ({
+      onRenderMenuList: GroupBox,
+      shouldFocusOnMount: true,
+      items: menuItems,
+    }),
+    []
+  )
 
   const sortMenuProps = React.useMemo(
     () => ({
@@ -316,7 +335,7 @@ function Table({ sources }) {
         </DefaultButton>
         <DefaultButton
           iconProps={{ iconName: 'GroupList' }}
-          // menuProps={groupMenuProps}
+          menuProps={groupMenuProps}
         >
           Group
         </DefaultButton>
