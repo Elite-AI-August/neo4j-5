@@ -15,6 +15,7 @@ import {
 } from 'react-table'
 import './table.css'
 
+//. make views obj
 const view = {
   fields: [
     { name: 'id', readonly: true, field: 'id' },
@@ -28,7 +29,7 @@ const view = {
   sorts: [{ field: 'name', order: 'ascending' }],
 }
 
-const columns = view.fields.map(field => ({
+const fieldOptions = view.fields.map(field => ({
   key: field.name,
   text: field.name,
 }))
@@ -96,12 +97,12 @@ function TableUI({ columns, data, updateData }) {
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                {column.render('Header')}
+            {headerGroup.headers.map(header => (
+              <th {...header.getHeaderProps(header.getSortByToggleProps())}>
+                {header.render('Header')}
                 <span>
                   {' '}
-                  {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
+                  {header.isSorted ? (header.isSortedDesc ? ' ▼' : ' ▲') : ''}
                 </span>
               </th>
             ))}
@@ -166,7 +167,7 @@ function FilterBox() {
         <Stack.Item align="center">
           <Text>Where</Text>
         </Stack.Item>
-        <ComboBox defaultSelectedKey="name" options={columns}></ComboBox>
+        <ComboBox defaultSelectedKey="name" options={fieldOptions}></ComboBox>
         <Dropdown
           defaultSelectedKey={filterOperators[0].key}
           // @ts-ignore
@@ -196,7 +197,7 @@ function SortBox() {
         <Stack.Item align="center">
           <Text>Sort By</Text>
         </Stack.Item>
-        <Dropdown defaultSelectedKey="name" options={columns}></Dropdown>
+        <Dropdown defaultSelectedKey="name" options={fieldOptions}></Dropdown>
         <Dropdown
           defaultSelectedKey={sortOrders[0].key}
           options={sortOrders}
@@ -210,6 +211,8 @@ function SortBox() {
 
 // sources is the Neomem data aggregator
 function Table({ sources }) {
+  // get columns
+  //. this will be dynamic as view is changed eh?
   const columns = React.useMemo(() => {
     return view.fields.map(field => ({
       Header: field.name,
@@ -270,19 +273,13 @@ function Table({ sources }) {
     }
   }, [sources])
 
-  const [items, setItems] = React.useState(menuItems)
-
-  // const renderMenuList = React.useCallback(() => <FilterBox />, [])
-
   const menuProps = React.useMemo(
     () => ({
-      // title: 'Actions',
-      // onRenderMenuList: renderMenuList,
       onRenderMenuList: FilterBox,
       shouldFocusOnMount: true,
-      items,
+      items: menuItems,
     }),
-    [items]
+    []
   )
 
   return (
