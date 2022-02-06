@@ -11,6 +11,10 @@ import Header from './header/header'
 import { Sources } from './sources/sources'
 import './app.css'
 
+import { initializeIcons } from '@fluentui/react/lib/Icons'
+
+initializeIcons()
+
 const appTheme = {
   palette: {
     // themePrimary: 'red',

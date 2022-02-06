@@ -4,7 +4,13 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import { DefaultButton, PrimaryButton } from '@fluentui/react'
+import {
+  Stack,
+  PrimaryButton,
+  DefaultButton,
+  CommandButton,
+  Icon,
+} from '@fluentui/react'
 import {
   useTable,
   useSortBy,
@@ -13,6 +19,8 @@ import {
   useExpanded,
 } from 'react-table'
 import './table.css'
+
+const stackTokens = { childrenGap: 5 }
 
 // -----------------------------------------------------
 
@@ -211,11 +219,23 @@ function Table({ sources }) {
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
-      <PrimaryButton onClick={clickAdd}>Add</PrimaryButton>
-      <DefaultButton onClick={clickFilter}>Filter</DefaultButton>
-      <DefaultButton onClick={clickGroup}>Group</DefaultButton>
-      <DefaultButton onClick={clickSort}>Sort</DefaultButton>
-      <br />
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
+          Add
+        </PrimaryButton>
+        <DefaultButton onClick={clickFilter} iconProps={{ iconName: 'Filter' }}>
+          Filter
+        </DefaultButton>
+        <DefaultButton
+          onClick={clickGroup}
+          iconProps={{ iconName: 'GroupList' }}
+        >
+          Group
+        </DefaultButton>
+        <DefaultButton onClick={clickSort} iconProps={{ iconName: 'Sort' }}>
+          Sort
+        </DefaultButton>
+      </Stack>
       <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
     </div>
