@@ -15,19 +15,23 @@ import {
 } from 'react-table'
 import './table.css'
 
-//. make views obj
-const view = {
-  fields: [
-    { name: 'id', readonly: true, field: 'id' },
-    // { name: 'data', readonly: true, field: 'data' },
-    { name: 'type' },
-    { name: 'name' },
-    { name: 'notes' },
-  ],
-  filters: [{ field: 'name', operator: 'contains', value: 'g' }],
-  groups: [],
-  sorts: [{ field: 'name', order: 'ascending' }],
-}
+const views = [
+  {
+    name: 'default',
+    fields: [
+      { name: 'id', readonly: true, field: 'id' },
+      // { name: 'data', readonly: true, field: 'data' },
+      { name: 'type' },
+      { name: 'name' },
+      { name: 'notes' },
+    ],
+    filters: [{ field: 'name', operator: 'contains', value: 'g' }],
+    groups: [{ field: 'type' }],
+    sorts: [{ field: 'name', order: 'ascending' }],
+  },
+]
+let currentView = 'default'
+let view = views[0]
 
 const fieldOptions = view.fields.map(field => ({
   key: field.name,
