@@ -53,21 +53,25 @@ function TableUI({ columns, data, updateData }) {
 // -----------------------------------------------------
 
 function EditableCell({
-  value: initialValue,
-  row, // { index }
+  value: initialValue, // value can be undefined
+  row, // { index, values }
   column, // { id }
-  updateData, // this is a custom function that we supplied to useTable
+  updateData, // this is the custom function that we supplied to useTable
 }) {
-  // keep and update the state of the cell normally
-  const [value, setValue] = React.useState(initialValue)
+  // keep and update the state of the cell normally.
+  // need the || '' in case initval is undefined, which confuses the input component.
+  const [value, setValue] = React.useState(initialValue || '')
 
-  const onChange = e => {
+  function onChange(e) {
     setValue(e.target.value)
   }
 
   // only update the external data when the input is blurred
-  const onBlur = () => {
-    updateData(row, column, value) // eg 1, 'notes', 'pokpok'
+  // and value has changed
+  function onBlur() {
+    if (value !== initialValue) {
+      updateData(row, column, value)
+    }
   }
 
   // if the initialValue is changed externally, sync it up with our state
