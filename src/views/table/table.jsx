@@ -36,8 +36,7 @@ function TableUI({ columns, data, updateData }) {
                 {column.render('Header')}
                 <span>
                   {' '}
-                  {/* or &#9650; up and &#9660; down */}
-                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                  {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
                 </span>
               </th>
             ))}
@@ -104,10 +103,15 @@ function Table({ sources }) {
         accessor: 'id', // accessor is the "key" in the data
         // readonly
       },
+      // {
+      //   Header: 'data',
+      //   accessor: row => JSON.stringify(row.data),
+      //   // readonly
+      // },
       {
-        Header: 'data',
-        accessor: row => JSON.stringify(row.data),
-        // readonly
+        Header: 'type',
+        accessor: row => row.data.type, //.
+        Cell: EditableCell,
       },
       {
         Header: 'name',
