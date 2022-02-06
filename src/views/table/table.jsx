@@ -119,7 +119,7 @@ function Table({ sources }) {
       setData(data)
     }
     fetchData()
-  }, [])
+  }, [sources])
 
   // When our cell renderer calls updateData, we'll use
   // rowIndex, columnId and new value to update the original data.
