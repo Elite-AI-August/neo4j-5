@@ -5,7 +5,7 @@
 
 import React from 'react'
 import { Stack, PrimaryButton, DefaultButton } from '@fluentui/react'
-import { SearchBox } from '@fluentui/react'
+import { Label, Text, SearchBox } from '@fluentui/react'
 import {
   useTable,
   useSortBy,
@@ -169,13 +169,18 @@ function EditableCell({
 function FilterBox() {
   return (
     <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-      <SearchBox
-        ariaLabel="Filter text"
-        placeholder="Filter text"
-        // onAbort={onAbort}
-        // onChange={onChange}
-        // styles={searchBoxStyles}
-      />
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        <Stack.Item align="center">
+          <Text>Where</Text>
+        </Stack.Item>
+        <SearchBox
+          ariaLabel="Filter text"
+          placeholder="Filter text"
+          // onAbort={onAbort}
+          // onChange={onChange}
+          // styles={searchBoxStyles}
+        />
+      </Stack>
     </div>
   )
 }
