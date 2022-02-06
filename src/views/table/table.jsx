@@ -5,7 +5,7 @@
 
 import React from 'react'
 import { Stack, PrimaryButton, DefaultButton } from '@fluentui/react'
-import { Label, Text, SearchBox } from '@fluentui/react'
+import { Text, SearchBox, ComboBox, Dropdown } from '@fluentui/react'
 import {
   useTable,
   useSortBy,
@@ -16,6 +16,30 @@ import {
 import './table.css'
 
 const stackTokens = { childrenGap: 5 }
+
+// const columns = [
+//   { key: 'A', text: 'Option A' },
+//   { key: 'B', text: 'Option B' },
+//   { key: 'C', text: 'Option C' },
+//   { key: 'D', text: 'Option D' },
+// ];
+
+const cols = [
+  { name: 'id', readonly: true, field: 'id' },
+  // { name: 'data', readonly: true, field: 'data' },
+  { name: 'type' },
+  { name: 'name' },
+  { name: 'notes' },
+]
+
+const columnDropdown = cols.map(col => ({ key: col.name, text: col.name }))
+
+const operators = [
+  { key: 'contains', text: 'contains' },
+  { key: 'starts with', text: 'starts with' },
+  { key: 'is', text: 'is' },
+  { key: 'is not', text: 'is not' },
+]
 
 // need a dummy menu item for the dropdown to render on click
 const menuItems = [
@@ -85,9 +109,9 @@ function TableUI({ columns, data, updateData }) {
       {
         columns,
         data,
-        // note: this isn't part of the API, but anything we put into these
+        // note: this isn't part of the API, but anything added to these
         // options will automatically be available on the instance -
-        // so can call this function from our cell renderer.
+        // so can call this function from the cell renderer.
         // @ts-ignore
         updateData,
       },
@@ -173,6 +197,12 @@ function FilterBox() {
         <Stack.Item align="center">
           <Text>Where</Text>
         </Stack.Item>
+        <ComboBox defaultSelectedKey="name" options={columnDropdown}></ComboBox>
+        <Dropdown
+          defaultSelectedKey={operators[0].key}
+          // @ts-ignore
+          options={operators}
+        ></Dropdown>
         <SearchBox
           ariaLabel="Filter text"
           placeholder="Filter text"
@@ -189,36 +219,44 @@ function FilterBox() {
 
 // sources is the Neomem data aggregator
 function Table({ sources }) {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'id',
-        accessor: 'id', // accessor is the "key" in the data
-        // readonly
-      },
-      // {
-      //   Header: 'data',
-      //   accessor: row => JSON.stringify(row.data),
-      //   // readonly
-      // },
-      {
-        Header: 'type',
-        accessor: row => row.data.type, //.
-        Cell: EditableCell,
-      },
-      {
-        Header: 'name',
-        accessor: row => row.data.name, //.
-        Cell: EditableCell,
-      },
-      {
-        Header: 'notes',
-        accessor: row => row.data.notes, //.
-        Cell: EditableCell,
-      },
-    ],
-    []
-  )
+  const columns = React.useMemo(() => {
+    return cols.map(col => ({
+      Header: col.name,
+      accessor: col.field || (row => row.data[col.name]),
+      // Cell: col.readonly ? () => null : EditableCell,
+      Cell: EditableCell,
+    }))
+  }, [])
+  //   const columns = React.useMemo(
+  //   () => [
+  //     {
+  //       Header: 'id',
+  //       accessor: 'id', // accessor is the "key" in the data
+  //       // readonly
+  //     },
+  //     // {
+  //     //   Header: 'data',
+  //     //   accessor: row => JSON.stringify(row.data),
+  //     //   // readonly
+  //     // },
+  //     {
+  //       Header: 'type',
+  //       accessor: row => row.data.type, //.
+  //       Cell: EditableCell,
+  //     },
+  //     {
+  //       Header: 'name',
+  //       accessor: row => row.data.name, //.
+  //       Cell: EditableCell,
+  //     },
+  //     {
+  //       Header: 'notes',
+  //       accessor: row => row.data.notes, //.
+  //       Cell: EditableCell,
+  //     },
+  //   ],
+  //   []
+  // )
 
   const [data, setData] = React.useState([])
 
