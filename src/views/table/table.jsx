@@ -4,13 +4,39 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import { PrimaryButton } from '@fluentui/react'
-import { useTable, useSortBy } from 'react-table'
+import { DefaultButton, PrimaryButton } from '@fluentui/react'
+import {
+  useTable,
+  useSortBy,
+  useFilters,
+  useGroupBy,
+  useExpanded,
+} from 'react-table'
 import './table.css'
 
 // -----------------------------------------------------
 
 function TableUI({ columns, data, updateData }) {
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      // fuzzyText: fuzzyTextFilterFn,
+      // // Or, override the default text filter to use
+      // // "startWith"
+      // text: (rows, id, filterValue) => {
+      //   return rows.filter(row => {
+      //     const rowValue = row.values[id]
+      //     return rowValue !== undefined
+      //       ? String(rowValue)
+      //           .toLowerCase()
+      //           .startsWith(String(filterValue).toLowerCase())
+      //       : true
+      //   })
+      // },
+    }),
+    []
+  )
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
@@ -22,7 +48,10 @@ function TableUI({ columns, data, updateData }) {
         // @ts-ignore
         updateData,
       },
+      useFilters,
       useSortBy
+      // useGroupBy,
+      // useExpanded // useGroupBy would be pretty useless without useExpanded
     )
 
   // render the ui for the table
@@ -157,9 +186,8 @@ function Table({ sources }) {
   }
 
   const clickAdd = React.useCallback(async () => {
-    const name = 'kjkjdnfjhb'
     // add to database
-    // const rows = await sources.add({ prop: 'data', value: { name } }) //. add to db
+    const name = ''
     const item = { data: { name } }
     const rows = await sources.add([item]) //. add to db
     console.log('added', rows)
@@ -167,7 +195,6 @@ function Table({ sources }) {
       item.id = rows[0].id
       setData(oldRows => {
         // add to table also
-        // const item = { id: 'new', data: { name } }
         const newRows = [...oldRows, item]
         return newRows
       })
@@ -177,6 +204,9 @@ function Table({ sources }) {
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
       <PrimaryButton onClick={clickAdd}>Add</PrimaryButton>
+      <DefaultButton>Filter</DefaultButton>
+      <DefaultButton>Group</DefaultButton>
+      <DefaultButton>Sort</DefaultButton>
       <br />
       <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
