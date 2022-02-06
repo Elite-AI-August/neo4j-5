@@ -17,42 +17,44 @@ import './table.css'
 
 const stackTokens = { childrenGap: 5 }
 
+// need a dummy menu item for the dropdown to render on click
 const menuItems = [
-  { key: 'newItem', text: 'New', onClick: () => console.log('New clicked') },
-  {
-    key: 'rename',
-    text: 'Rename',
-    onClick: () => console.log('Rename clicked'),
-  },
-  { key: 'edit', text: 'Edit', onClick: () => console.log('Edit clicked') },
-  {
-    key: 'properties',
-    text: 'Properties',
-    onClick: () => console.log('Properties clicked'),
-  },
-  { key: 'linkNoTarget', text: 'Link same window', href: 'http://bing.com' },
-  {
-    key: 'linkWithTarget',
-    text: 'Link new window',
-    href: 'http://bing.com',
-    target: '_blank',
-  },
-  {
-    key: 'linkWithOnClick',
-    name: 'Link click',
-    href: 'http://bing.com',
-    // onClick: (ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-    //   alert('Link clicked');
-    //   ev.preventDefault();
-    // },
-    target: '_blank',
-  },
-  {
-    key: 'disabled',
-    text: 'Disabled item',
-    disabled: true,
-    onClick: () => console.error('Disabled item should not be clickable.'),
-  },
+  { key: 'blank', text: '' },
+  // { key: 'newItem', text: 'New', onClick: () => console.log('New clicked') },
+  // {
+  //   key: 'rename',
+  //   text: 'Rename',
+  //   onClick: () => console.log('Rename clicked'),
+  // },
+  // { key: 'edit', text: 'Edit', onClick: () => console.log('Edit clicked') },
+  // {
+  //   key: 'properties',
+  //   text: 'Properties',
+  //   onClick: () => console.log('Properties clicked'),
+  // },
+  // { key: 'linkNoTarget', text: 'Link same window', href: 'http://bing.com' },
+  // {
+  //   key: 'linkWithTarget',
+  //   text: 'Link new window',
+  //   href: 'http://bing.com',
+  //   target: '_blank',
+  // },
+  // {
+  //   key: 'linkWithOnClick',
+  //   name: 'Link click',
+  //   href: 'http://bing.com',
+  //   // onClick: (ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+  //   //   alert('Link clicked');
+  //   //   ev.preventDefault();
+  //   // },
+  //   target: '_blank',
+  // },
+  // {
+  //   key: 'disabled',
+  //   text: 'Disabled item',
+  //   disabled: true,
+  //   onClick: () => console.error('Disabled item should not be clickable.'),
+  // },
 ]
 
 // -----------------------------------------------------
@@ -164,6 +166,22 @@ function EditableCell({
 
 // -----------------------------------------------------
 
+function FilterBox() {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      <SearchBox
+        ariaLabel="Filter text"
+        placeholder="Filter text"
+        // onAbort={onAbort}
+        // onChange={onChange}
+        // styles={searchBoxStyles}
+      />
+    </div>
+  )
+}
+
+// -----------------------------------------------------
+
 // sources is the Neomem data aggregator
 function Table({ sources }) {
   const columns = React.useMemo(
@@ -230,6 +248,7 @@ function Table({ sources }) {
     [data, sources]
   )
 
+  // add button handler
   const clickAdd = React.useCallback(async () => {
     // add to database
     const name = ''
@@ -246,7 +265,9 @@ function Table({ sources }) {
     }
   }, [sources])
 
+  // filter button handler
   const clickFilter = React.useCallback(async () => {}, [])
+
   const clickGroup = React.useCallback(async () => {}, [])
   const clickSort = React.useCallback(async () => {}, [])
 
@@ -254,16 +275,9 @@ function Table({ sources }) {
     (menuListProps, defaultRender) => {
       return (
         <div>
-          <div style={{ borderBottom: '1px solid #ccc' }}>
-            <SearchBox
-              ariaLabel="Filter actions by text"
-              placeholder="Filter actions"
-              // onAbort={onAbort}
-              // onChange={onChange}
-              // styles={searchBoxStyles}
-            />
-          </div>
-          {defaultRender(menuListProps)}
+          <FilterBox />
+          {/* this renders any menuItems as buttons */}
+          {/* {defaultRender(menuListProps)} */}
         </div>
       )
     },
@@ -276,7 +290,7 @@ function Table({ sources }) {
   const menuProps = React.useMemo(
     () => ({
       onRenderMenuList: renderMenuList,
-      title: 'Actions',
+      // title: 'Actions',
       shouldFocusOnMount: true,
       items,
     }),
@@ -289,7 +303,11 @@ function Table({ sources }) {
         <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
           Add
         </PrimaryButton>
-        <DefaultButton onClick={clickFilter} iconProps={{ iconName: 'Filter' }}>
+        <DefaultButton
+          onClick={clickFilter}
+          iconProps={{ iconName: 'Filter' }}
+          menuProps={menuProps}
+        >
           Filter
         </DefaultButton>
         <DefaultButton
