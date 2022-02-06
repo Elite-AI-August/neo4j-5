@@ -25,10 +25,6 @@ function TableUI({ columns, data, updateData }) {
       useSortBy
     )
 
-  function clickColumn() {
-    // alert('hi')
-  }
-
   // render the ui for the table
   return (
     <table {...getTableProps()}>
@@ -36,13 +32,11 @@ function TableUI({ columns, data, updateData }) {
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                // onClick={clickColumn}
-              >
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
                 <span>
                   {' '}
+                  {/* or &#9650; up and &#9660; down */}
                   {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                 </span>
               </th>
