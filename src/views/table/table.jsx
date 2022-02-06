@@ -54,25 +54,25 @@ const stackTokens = { childrenGap: 5 }
 // -----------------------------------------------------
 
 function TableUI({ columns, data, updateData }) {
-  const filterTypes = React.useMemo(
-    () => ({
-      // Add a new fuzzyTextFilterFn filter type.
-      // fuzzyText: fuzzyTextFilterFn,
-      // // Or, override the default text filter to use
-      // // "startWith"
-      // text: (rows, id, filterValue) => {
-      //   return rows.filter(row => {
-      //     const rowValue = row.values[id]
-      //     return rowValue !== undefined
-      //       ? String(rowValue)
-      //           .toLowerCase()
-      //           .startsWith(String(filterValue).toLowerCase())
-      //       : true
-      //   })
-      // },
-    }),
-    []
-  )
+  // const filterTypes = React.useMemo(
+  //   () => ({
+  //     // Add a new fuzzyTextFilterFn filter type.
+  //     // fuzzyText: fuzzyTextFilterFn,
+  //     // // Or, override the default text filter to use
+  //     // // "startWith"
+  //     // text: (rows, id, filterValue) => {
+  //     //   return rows.filter(row => {
+  //     //     const rowValue = row.values[id]
+  //     //     return rowValue !== undefined
+  //     //       ? String(rowValue)
+  //     //           .toLowerCase()
+  //     //           .startsWith(String(filterValue).toLowerCase())
+  //     //       : true
+  //     //   })
+  //     // },
+  //   }),
+  //   []
+  // )
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -233,8 +233,8 @@ function Table({ sources }) {
     fetchData()
   }, [sources])
 
-  // when our cell renderer calls updateData, use rowIndex,
-  // columnId and the new value to update the original data.
+  // cell value was updated -
+  // called by cell renderer when value is updated.
   const updateData = React.useCallback(
     (row, column, value) => {
       console.log(data)
@@ -242,14 +242,15 @@ function Table({ sources }) {
       const rowIndex = row.index // eg 1
       const columnId = column.id // eg 'notes'
       setData(oldRows => {
+        // update table rows
         const newRows = oldRows.map((row, index) => {
           if (index === rowIndex) {
             return { ...oldRows[rowIndex], [columnId]: value }
           }
           return row
         })
-        //. update db also
-        sources.set({ id: row.values.id, prop: column.id, value })
+        // now update db
+        sources.set({ id: row.values.id, prop: column.id, value }) //. update db
         return newRows
       })
     },
@@ -273,9 +274,28 @@ function Table({ sources }) {
     }
   }, [sources])
 
-  const menuProps = React.useMemo(
+  //. these will be dynamic based on the current view
+  const filterMenuProps = React.useMemo(
     () => ({
       onRenderMenuList: FilterBox,
+      shouldFocusOnMount: true,
+      items: menuItems,
+    }),
+    []
+  )
+
+  // const groupMenuProps = React.useMemo(
+  //   () => ({
+  //     onRenderMenuList: GroupBox,
+  //     shouldFocusOnMount: true,
+  //     items: menuItems,
+  //   }),
+  //   []
+  // )
+
+  const sortMenuProps = React.useMemo(
+    () => ({
+      onRenderMenuList: SortBox,
       shouldFocusOnMount: true,
       items: menuItems,
     }),
@@ -288,16 +308,22 @@ function Table({ sources }) {
         <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
           Add
         </PrimaryButton>
-        <DefaultButton iconProps={{ iconName: 'Filter' }} menuProps={menuProps}>
+        <DefaultButton
+          iconProps={{ iconName: 'Filter' }}
+          menuProps={filterMenuProps}
+        >
           Filter
         </DefaultButton>
         <DefaultButton
           iconProps={{ iconName: 'GroupList' }}
-          menuProps={menuProps}
+          // menuProps={groupMenuProps}
         >
           Group
         </DefaultButton>
-        <DefaultButton iconProps={{ iconName: 'Sort' }} menuProps={menuProps}>
+        <DefaultButton
+          iconProps={{ iconName: 'Sort' }}
+          menuProps={sortMenuProps}
+        >
           Sort
         </DefaultButton>
       </Stack>
