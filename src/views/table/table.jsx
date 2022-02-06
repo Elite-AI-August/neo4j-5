@@ -4,13 +4,8 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import {
-  Stack,
-  PrimaryButton,
-  DefaultButton,
-  CommandButton,
-  Icon,
-} from '@fluentui/react'
+import { Stack, PrimaryButton, DefaultButton } from '@fluentui/react'
+import { SearchBox } from '@fluentui/react'
 import {
   useTable,
   useSortBy,
@@ -21,6 +16,44 @@ import {
 import './table.css'
 
 const stackTokens = { childrenGap: 5 }
+
+const menuItems = [
+  { key: 'newItem', text: 'New', onClick: () => console.log('New clicked') },
+  {
+    key: 'rename',
+    text: 'Rename',
+    onClick: () => console.log('Rename clicked'),
+  },
+  { key: 'edit', text: 'Edit', onClick: () => console.log('Edit clicked') },
+  {
+    key: 'properties',
+    text: 'Properties',
+    onClick: () => console.log('Properties clicked'),
+  },
+  { key: 'linkNoTarget', text: 'Link same window', href: 'http://bing.com' },
+  {
+    key: 'linkWithTarget',
+    text: 'Link new window',
+    href: 'http://bing.com',
+    target: '_blank',
+  },
+  {
+    key: 'linkWithOnClick',
+    name: 'Link click',
+    href: 'http://bing.com',
+    // onClick: (ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    //   alert('Link clicked');
+    //   ev.preventDefault();
+    // },
+    target: '_blank',
+  },
+  {
+    key: 'disabled',
+    text: 'Disabled item',
+    disabled: true,
+    onClick: () => console.error('Disabled item should not be clickable.'),
+  },
+]
 
 // -----------------------------------------------------
 
@@ -109,7 +142,7 @@ function EditableCell({
   const [value, setValue] = React.useState(initialValue || '')
 
   function onChange(e) {
-    setValue(e.target.value)
+    setValue(e.target.value || '')
   }
 
   // only update the external data when the input is blurred
@@ -122,7 +155,7 @@ function EditableCell({
 
   // if the initialValue is changed externally, sync it up with our state
   React.useEffect(() => {
-    setValue(initialValue)
+    setValue(initialValue || '')
   }, [initialValue])
 
   //. adjust to fill whole cell
@@ -216,6 +249,39 @@ function Table({ sources }) {
   const clickFilter = React.useCallback(async () => {}, [])
   const clickGroup = React.useCallback(async () => {}, [])
   const clickSort = React.useCallback(async () => {}, [])
+
+  const renderMenuList = React.useCallback(
+    (menuListProps, defaultRender) => {
+      return (
+        <div>
+          <div style={{ borderBottom: '1px solid #ccc' }}>
+            <SearchBox
+              ariaLabel="Filter actions by text"
+              placeholder="Filter actions"
+              // onAbort={onAbort}
+              // onChange={onChange}
+              // styles={searchBoxStyles}
+            />
+          </div>
+          {defaultRender(menuListProps)}
+        </div>
+      )
+    },
+    []
+    // [onAbort, onChange],
+  )
+
+  const [items, setItems] = React.useState(menuItems)
+
+  const menuProps = React.useMemo(
+    () => ({
+      onRenderMenuList: renderMenuList,
+      title: 'Actions',
+      shouldFocusOnMount: true,
+      items,
+    }),
+    [items, renderMenuList]
+  )
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
