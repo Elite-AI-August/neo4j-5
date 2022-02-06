@@ -5,22 +5,29 @@
 
 import React from 'react'
 import { PrimaryButton } from '@fluentui/react'
-import { useTable } from 'react-table'
+import { useTable, useSortBy } from 'react-table'
 import './table.css'
 
 // -----------------------------------------------------
 
 function TableUI({ columns, data, updateData }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns,
-      data,
-      // note: this isn't part of the API, but anything we put into these
-      // options will automatically be available on the instance -
-      // so can call this function from our cell renderer.
-      // @ts-ignore
-      updateData,
-    })
+    useTable(
+      {
+        columns,
+        data,
+        // note: this isn't part of the API, but anything we put into these
+        // options will automatically be available on the instance -
+        // so can call this function from our cell renderer.
+        // @ts-ignore
+        updateData,
+      },
+      useSortBy
+    )
+
+  function clickColumn() {
+    // alert('hi')
+  }
 
   // render the ui for the table
   return (
@@ -29,7 +36,16 @@ function TableUI({ columns, data, updateData }) {
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                // onClick={clickColumn}
+              >
+                {column.render('Header')}
+                <span>
+                  {' '}
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                </span>
+              </th>
             ))}
           </tr>
         ))}
@@ -92,10 +108,12 @@ function Table({ sources }) {
       {
         Header: 'id',
         accessor: 'id', // accessor is the "key" in the data
+        // readonly
       },
       {
         Header: 'data',
         accessor: row => JSON.stringify(row.data),
+        // readonly
       },
       {
         Header: 'name',

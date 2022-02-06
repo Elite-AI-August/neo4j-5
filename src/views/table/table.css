@@ -10,6 +10,10 @@ table td {
   border-right: 1px solid #ccc;
 }
 
+table th {
+  cursor: pointer;
+}
+
 table tr:last-child td {
   border-bottom: 0;
 }
