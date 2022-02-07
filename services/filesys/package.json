@@ -2,11 +2,9 @@
   "name": "filesys",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Brian Burns <bburns.km@gmail.com> (https://brianburns.org/)",
+  "main": "src/index.js",
+  "scripts": {},
+  "author": "Brian Burns <bburns.km@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "restify": "^8.6.0"
