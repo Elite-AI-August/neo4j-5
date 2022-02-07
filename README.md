@@ -8,9 +8,22 @@ See also neomem-console, which will be merged into here eventually.
 
 npm install
 
+## Setup
+
+add a stardog-license-key.bin to setups/test/volumes/stardog
+
+make .env.local with supabase url and key
+
 ## Running
 
-need .env.local with supabase url and key
+npm run start
 
-npm start
+## Building
 
+npm run build
+
+## Deploying
+
+to deploy to netlify,
+
+npm run deploy
