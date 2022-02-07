@@ -4,21 +4,21 @@
 version: '3.8'
 
 services:
-  filesys:
-    container_name: filesys
-    build: ./filesys # see Dockerfile in this folder
-    ports:
-      - '4441:4441'
-    profiles:
-      - all
-      - filesys
-    # volumes:
-    #   - ../$SETUP:/data/setup # has setup.yaml etc
-    #   - ../modules:/data/modules # has module yamls
-    #   - ../$SETUP/volumes/adapter:/data/adapter # has json cookies for backfilling
-    restart: always
-    networks:
-      - neomem
+  # filesys:
+  #   container_name: filesys
+  #   build: ../services/filesys # see Dockerfile in this folder
+  #   ports:
+  #     - '4441:4441'
+  #   profiles:
+  #     - all
+  #     - filesys
+  #   # volumes:
+  #   #   - ../$SETUP:/data/setup # has setup.yaml etc
+  #   #   - ../modules:/data/modules # has module yamls
+  #   #   - ../$SETUP/volumes/adapter:/data/adapter # has json cookies for backfilling
+  #   restart: always
+  #   networks:
+  #     - neomem
 
   stardog:
     container_name: stardog
@@ -30,6 +30,18 @@ services:
       - stardog
     volumes:
       - ../setups/test/volumes/stardog:/var/opt/stardog
+    restart: always
+    networks:
+      - neomem
+
+  stardog-studio:
+    container_name: stardog-studio
+    image: stardog/stardog-studio:current
+    ports:
+      - '8888:8080'
+    profiles:
+      - all
+      - stardog-studio
     restart: always
     networks:
       - neomem
