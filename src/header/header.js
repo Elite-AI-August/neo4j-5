@@ -1,5 +1,7 @@
 // import { CommandBar } from '@fluentui/react'
 
+// import logo from '../assets/neomem.png'
+
 // const menuItems = [
 //   {
 //     key: 'logo',
@@ -31,7 +33,12 @@
 
 function Header() {
   // return <CommandBar items={menuItems} farItems={farMenuItems} />
-  return <h1>Neomem</h1>
+  return (
+    <div>
+      {/* add logo */}
+      <h1>Neomem</h1>
+    </div>
+  )
 }
 
 export default Header
