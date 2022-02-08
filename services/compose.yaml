@@ -24,7 +24,7 @@ services:
     container_name: stardog
     image: stardog/stardog:latest
     ports:
-      - '5280:5280'
+      - '5820:5820'
     profiles:
       - all
       - stardog
