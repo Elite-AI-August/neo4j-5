@@ -164,6 +164,23 @@ function EditableCell({
 
 // -----------------------------------------------------
 
+function ViewBox() {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        <ComboBox defaultSelectedKey="table" options={viewOptions}></ComboBox>
+        {/* <Dropdown
+          defaultSelectedKey={filterOperators[0].key}
+          // @ts-ignore
+          options={filterOperators}
+        ></Dropdown> */}
+      </Stack>
+    </div>
+  )
+}
+
+// -----------------------------------------------------
+
 function FilterBox() {
   return (
     <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
@@ -297,6 +314,15 @@ function Table({ sources }) {
     }
   }, [sources])
 
+  const viewMenuProps = React.useMemo(
+    () => ({
+      onRenderMenuList: ViewBox,
+      shouldFocusOnMount: true,
+      items: menuItems,
+    }),
+    []
+  )
+
   //. these will be dynamic based on the current view
   const filterMenuProps = React.useMemo(
     () => ({
@@ -328,9 +354,12 @@ function Table({ sources }) {
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
       <Stack horizontal disableShrink tokens={stackTokens}>
-        <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
-          Add
-        </PrimaryButton>
+        <DefaultButton
+          iconProps={{ iconName: 'View' }}
+          menuProps={viewMenuProps}
+        >
+          View
+        </DefaultButton>
         <DefaultButton
           iconProps={{ iconName: 'Filter' }}
           menuProps={filterMenuProps}
@@ -352,6 +381,10 @@ function Table({ sources }) {
       </Stack>
       <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
+      <br />
+      <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
+        Add
+      </PrimaryButton>
     </div>
   )
 }
