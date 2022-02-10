@@ -6,7 +6,10 @@
     "build": "react-scripts build",
     "deploy": "netllfy deploy --prod",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "site-build": "pandoc -s site/content/index.md -f gfm --metadata title=\"Neomem\" -o site/build/index.html",
+    "site-show": "open site/build/index.html",
+    "site-deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
