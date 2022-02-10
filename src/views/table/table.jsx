@@ -33,6 +33,11 @@ const views = [
 let currentView = 'default'
 let view = views[0]
 
+const viewOptions = views.map(view => ({
+  key: view.name,
+  name: view.name,
+}))
+
 const fieldOptions = view.fields.map(field => ({
   key: field.name,
   text: field.name,
