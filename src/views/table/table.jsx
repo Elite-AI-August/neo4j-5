@@ -35,7 +35,7 @@ let view = views[0]
 
 const viewOptions = views.map(view => ({
   key: view.name,
-  name: view.name,
+  text: view.name,
 }))
 
 const fieldOptions = view.fields.map(field => ({

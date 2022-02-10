@@ -24,6 +24,8 @@ https://wiki.postgresql.org/wiki/Foreign_data_wrappers
 
 So, I'll be playing around with that for a bit.
 
+...or maybe a local pg instance could connect to a remote one? Because then could make a hybrid table/document editor in the cloud...
+
 ## Architecture and transcript
 
 2021-06-06
