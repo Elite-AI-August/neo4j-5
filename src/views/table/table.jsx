@@ -173,7 +173,10 @@ function ViewBox() {
   return (
     <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
       <Stack horizontal disableShrink tokens={stackTokens}>
-        <ComboBox defaultSelectedKey="table" options={viewOptions}></ComboBox>
+        <ComboBox
+          defaultSelectedKey={viewOptions[0].key}
+          options={viewOptions}
+        ></ComboBox>
         {/* <Dropdown
           defaultSelectedKey={filterOperators[0].key}
           // @ts-ignore

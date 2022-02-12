@@ -1,6 +1,5 @@
 # version must be a string
 # note: '3' here means '3.0'
-
 version: '3.8'
 
 services:
@@ -19,6 +18,21 @@ services:
   #   restart: always
   #   networks:
   #     - neomem
+
+  neo4j:
+    container_name: neo4j
+    image: neo4j:4.4.4-community
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    profiles:
+      - all
+      - neo4j
+    volumes:
+      - ../setups/test/volumes/neo4j:/data
+    restart: always
+    networks:
+      - neomem
 
   stardog:
     container_name: stardog

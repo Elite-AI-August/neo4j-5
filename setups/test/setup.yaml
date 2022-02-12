@@ -1,0 +1,5 @@
+sources:
+  neo4j:
+    pokpok: 1
+  stardog:
+    pokpok: 2
