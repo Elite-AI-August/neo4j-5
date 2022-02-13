@@ -157,7 +157,7 @@ function Table({ sources }) {
   const columns = React.useMemo(() => {
     return view.fields.map(field => ({
       Header: field.name,
-      accessor: field.field || (row => row.data[field.name]),
+      accessor: field.field || (row => row.data[field.name] || ''),
       // Cell: field.readonly ? () => null : EditableCell,
       Cell: EditableCell,
     }))

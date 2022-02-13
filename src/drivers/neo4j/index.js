@@ -137,10 +137,11 @@ export class Driver {
   }
 
   // get data differently depending on initial node and traversal method.
+  // can pass eg { parentPath: 'home:folder' } to get children of home folder.
   //. explain traversals
   //. and what does this return?
   //. handle recursion
-  async get(params = { path: 'home:folder', maxDepth: 1 }) {
+  async get(params = { maxDepth: 1 }) {
     if (params.uuid) {
       const queryTemplate = `
         MATCH (node) 
@@ -180,7 +181,6 @@ export class Driver {
       const { nodes } = await this.runQuery(queryTemplate, queryParams)
       return { nodes }
     } else if (params.path) {
-      // this is the fallback, with a default path of 'home:folder'
       const queryTemplate = `
         MATCH (node#optionalType# {name: $name}) 
         WITH node, labels(node) as type
@@ -194,6 +194,20 @@ export class Driver {
       console.log(nodes)
       return { nodes }
     }
+    // get all nodes
+    const queryTemplate = `
+        MATCH (node) 
+        WITH node, labels(node) as type
+        RETURN node { .*, type }
+      `
+    // const path = params.path
+    // const [name, type] = utils.getLastNameTypeFromPath(path)
+    // const optionalType = utils.getOptionalType(type)
+    // const queryParams = { name, optionalType }
+    const { nodes } = await this.runQuery(queryTemplate)
+    console.log(nodes)
+    const rows = nodes.map(node => ({ id: node.uuid, data: node }))
+    return { nodes: rows }
   }
 
   //. recursion stuff
