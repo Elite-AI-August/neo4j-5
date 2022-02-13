@@ -19,9 +19,13 @@ import './table.css'
 const views = [
   {
     name: 'default',
+    source: {
+      name: 'neo4j',
+      options: {},
+    },
     fields: [
       { name: 'id', readonly: true, field: 'id' },
-      // { name: 'data', readonly: true, field: 'data' },
+      // { name: 'data', readonly: true, field: 'data' }, // debug
       { name: 'type' },
       { name: 'name' },
       { name: 'notes' },
@@ -29,6 +33,10 @@ const views = [
     filters: [{ field: 'name', operator: 'contains', value: 'g' }],
     groups: [{ field: 'type' }],
     sorts: [{ field: 'name', order: 'ascending' }],
+    pane: {
+      name: 'table',
+      options: {},
+    },
   },
 ]
 let currentView = 'default'
