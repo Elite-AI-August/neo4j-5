@@ -142,6 +142,7 @@ function EditableCell({
 // -----------------------------------------------------
 
 // sources is the Neomem data aggregator
+//. call it db? could be a single source or aggregate?
 function Table({ sources }) {
   // get columns
   //. this will be dynamic as view is changed eh?
@@ -208,10 +209,12 @@ function Table({ sources }) {
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
+      {/* . move to app */}
       <Bar views={views} view={view} />
       <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
       <br />
+      {/* . move to app */}
       <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
         Add
       </PrimaryButton>
