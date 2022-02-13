@@ -4,6 +4,8 @@ import neo4j from 'neo4j-driver'
 
 // wait, we want to try the postgres fdw...
 
+// oh we already have a neo4j driver - let's merge the repos
+
 export class Neo4j {
   // constructor() {
   //   this.supabase = null
