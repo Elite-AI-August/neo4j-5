@@ -191,6 +191,7 @@ export class Driver {
       const optionalType = utils.getOptionalType(type)
       const queryParams = { name, optionalType }
       const { nodes } = await this.runQuery(queryTemplate, queryParams)
+      console.log(nodes)
       return { nodes }
     }
   }

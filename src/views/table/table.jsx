@@ -169,7 +169,9 @@ function Table({ sources }) {
   //. rename sources to neomem? nm? it's the core, like a graph db
   React.useEffect(() => {
     async function fetchData() {
-      const data = await sources.get() //. get ALL data for now
+      // const data = await sources.get() //. get ALL data for now
+      const { nodes } = await sources.get() //. get ALL data for now
+      const data = nodes
       setData(data)
     }
     fetchData()

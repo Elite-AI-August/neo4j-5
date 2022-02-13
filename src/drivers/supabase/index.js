@@ -24,7 +24,8 @@ export class Driver {
     }
     // const { data, error, status } = await getter
     const { data } = await getter
-    return data
+    // return data
+    return { nodes: data }
   }
 
   async add(items) {
