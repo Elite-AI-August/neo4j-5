@@ -4,8 +4,7 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import { Stack, PrimaryButton, DefaultButton } from '@fluentui/react'
-import { Text, SearchBox, ComboBox, Dropdown } from '@fluentui/react'
+import { PrimaryButton } from '@fluentui/react'
 import {
   useTable,
   useSortBy,
@@ -13,6 +12,7 @@ import {
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
+import { Bar } from '../../components/bar/bar'
 import './table.css'
 
 const views = [
@@ -32,35 +32,6 @@ const views = [
 ]
 let currentView = 'default'
 let view = views.find(view => view.name === currentView)
-
-const viewOptions = views.map(view => ({
-  key: view.name,
-  text: view.name,
-}))
-
-const fieldOptions = view.fields.map(field => ({
-  key: field.name,
-  text: field.name,
-}))
-
-const filterOperators = [
-  { key: 'contains', text: 'contains' },
-  { key: 'starts with', text: 'starts with' },
-  { key: 'is', text: 'is' },
-  { key: 'is not', text: 'is not' },
-]
-
-const sortOrders = [
-  { key: 'ascending', text: 'ascending' },
-  { key: 'descending', text: 'descending' },
-]
-
-// need a dummy menu item for search etc dropdowns to render on click
-const menuItems = [{ key: 'blank', text: '' }]
-
-const stackTokens = { childrenGap: 5 }
-
-// -----------------------------------------------------
 
 function TableUI({ columns, data, updateData }) {
   // const filterTypes = React.useMemo(
@@ -169,94 +140,6 @@ function EditableCell({
 
 // -----------------------------------------------------
 
-function ViewBox() {
-  return (
-    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-      <Stack horizontal disableShrink tokens={stackTokens}>
-        <ComboBox
-          defaultSelectedKey={viewOptions[0].key}
-          options={viewOptions}
-        ></ComboBox>
-        {/* <Dropdown
-          defaultSelectedKey={filterOperators[0].key}
-          // @ts-ignore
-          options={filterOperators}
-        ></Dropdown> */}
-      </Stack>
-    </div>
-  )
-}
-
-// -----------------------------------------------------
-
-function FilterBox() {
-  return (
-    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-      <Stack horizontal disableShrink tokens={stackTokens}>
-        <Stack.Item align="center">
-          <Text>Where</Text>
-        </Stack.Item>
-        <ComboBox defaultSelectedKey="name" options={fieldOptions}></ComboBox>
-        <Dropdown
-          defaultSelectedKey={filterOperators[0].key}
-          // @ts-ignore
-          options={filterOperators}
-        ></Dropdown>
-        <SearchBox
-          ariaLabel="Filter text"
-          placeholder="Filter text"
-          // onAbort={onAbort}
-          // onChange={onChange}
-          // styles={searchBoxStyles}
-          onSearch={newValue =>
-            console.log('SearchBox onSearch fired: ' + newValue)
-          }
-        />
-      </Stack>
-    </div>
-  )
-}
-
-// -----------------------------------------------------
-
-function GroupBox() {
-  return (
-    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-      <Stack horizontal disableShrink tokens={stackTokens}>
-        <Stack.Item align="center">
-          <Text>Group By</Text>
-        </Stack.Item>
-        <Dropdown defaultSelectedKey="type" options={fieldOptions}></Dropdown>
-        {/* <Dropdown
-          defaultSelectedKey={sortOrders[0].key}
-          options={sortOrders}
-        ></Dropdown> */}
-      </Stack>
-    </div>
-  )
-}
-
-// -----------------------------------------------------
-
-function SortBox() {
-  return (
-    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
-      <Stack horizontal disableShrink tokens={stackTokens}>
-        <Stack.Item align="center">
-          <Text>Sort By</Text>
-        </Stack.Item>
-        <Dropdown defaultSelectedKey="name" options={fieldOptions}></Dropdown>
-        <Dropdown
-          defaultSelectedKey={sortOrders[0].key}
-          options={sortOrders}
-        ></Dropdown>
-      </Stack>
-    </div>
-  )
-}
-
-// -----------------------------------------------------
-
 // sources is the Neomem data aggregator
 function Table({ sources }) {
   // get columns
@@ -322,71 +205,9 @@ function Table({ sources }) {
     }
   }, [sources])
 
-  const viewMenuProps = React.useMemo(
-    () => ({
-      onRenderMenuList: ViewBox,
-      shouldFocusOnMount: true,
-      items: menuItems,
-    }),
-    []
-  )
-
-  //. these will be dynamic based on the current view
-  const filterMenuProps = React.useMemo(
-    () => ({
-      onRenderMenuList: FilterBox,
-      shouldFocusOnMount: true,
-      items: menuItems,
-    }),
-    []
-  )
-
-  const groupMenuProps = React.useMemo(
-    () => ({
-      onRenderMenuList: GroupBox,
-      shouldFocusOnMount: true,
-      items: menuItems,
-    }),
-    []
-  )
-
-  const sortMenuProps = React.useMemo(
-    () => ({
-      onRenderMenuList: SortBox,
-      shouldFocusOnMount: true,
-      items: menuItems,
-    }),
-    []
-  )
-
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
-      <Stack horizontal disableShrink tokens={stackTokens}>
-        <DefaultButton
-          iconProps={{ iconName: 'View' }}
-          menuProps={viewMenuProps}
-        >
-          View
-        </DefaultButton>
-        <DefaultButton
-          iconProps={{ iconName: 'Filter' }}
-          menuProps={filterMenuProps}
-        >
-          Filter
-        </DefaultButton>
-        <DefaultButton
-          iconProps={{ iconName: 'GroupList' }}
-          menuProps={groupMenuProps}
-        >
-          Group
-        </DefaultButton>
-        <DefaultButton
-          iconProps={{ iconName: 'Sort' }}
-          menuProps={sortMenuProps}
-        >
-          Sort
-        </DefaultButton>
-      </Stack>
+      <Bar views={views} view={view} />
       <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
       <br />
