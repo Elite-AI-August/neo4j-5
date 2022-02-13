@@ -1,6 +1,5 @@
+// sources
 // this will aggregate diff data sources
-//. for now just wraps a supabase source
-//. or replace this with stardog, sooner rather than later
 
 // we're in react now, so harder to do dynamic driver loads.
 // so just load them all here.
@@ -20,13 +19,11 @@ const sources = [
 
 export class Sources {
   constructor() {
-    // this.supabase = new Supabase()
-    // root will be an array or dict or ? of instantiated sources
+    // root will be an array or dict or tree or graph of instantiated sources
     this.root = null
   }
 
   async start() {
-    // this.supabase.start({ url, key })
     this.root = []
     for (let source of sources) {
       const driver = new source.Driver()
@@ -36,18 +33,17 @@ export class Sources {
   }
 
   async get(query) {
-    // return this.supabase.get(query)
     //. pass query on to correct source
     return this.root[0].get(query)
   }
 
   async add(items) {
-    // return await this.supabase.add(items)
+    //. pass query on to correct source
     return await this.root[0].add(items)
   }
 
   async set({ id, prop, value }) {
-    // return await this.supabase.set({ id, prop, value })
+    //. pass query on to correct source
     return await this.root[0].set({ id, prop, value })
   }
 
