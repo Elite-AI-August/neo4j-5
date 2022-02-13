@@ -29,6 +29,25 @@ function ViewBox({ viewOptions }) {
 
 // -----------------------------------------------------
 
+function SourceBox() {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        {/* <ComboBox
+          defaultSelectedKey={viewOptions[0].key}
+          options={viewOptions}
+        ></ComboBox> */}
+        {/* <Dropdown
+          defaultSelectedKey={filterOperators[0].key}
+          // @ts-ignore
+          options={filterOperators}
+        ></Dropdown> */}
+      </Stack>
+    </div>
+  )
+}
+// -----------------------------------------------------
+
 function FilterBox({ fieldOptions, filterOperators }) {
   return (
     <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
@@ -154,6 +173,14 @@ export function Bar({ views, view }) {
         menuProps={viewMenuProps.bind(null, { viewOptions })}
       >
         View
+      </DefaultButton>
+
+      {/* source */}
+      <DefaultButton
+        iconProps={{ iconName: 'Database' }}
+        menuProps={viewMenuProps.bind(null, { viewOptions })}
+      >
+        Source
       </DefaultButton>
 
       {/* fields */}

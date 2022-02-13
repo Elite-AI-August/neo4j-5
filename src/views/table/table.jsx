@@ -12,9 +12,10 @@ import {
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
-import { Bar } from '../../components/bar/bar'
+import { Bar } from '../../components/bar/bar' //. move up to app
 import './table.css'
 
+//. move up to app
 const views = [
   {
     name: 'default',
