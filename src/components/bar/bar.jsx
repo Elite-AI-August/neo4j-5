@@ -148,12 +148,23 @@ export function Bar({ views, view }) {
 
   return (
     <Stack horizontal disableShrink tokens={stackTokens}>
+      {/* view */}
       <DefaultButton
         iconProps={{ iconName: 'View' }}
         menuProps={viewMenuProps.bind(null, { viewOptions })}
       >
         View
       </DefaultButton>
+
+      {/* fields */}
+      <DefaultButton
+        iconProps={{ iconName: 'TripleColumn' }}
+        menuProps={viewMenuProps.bind(null, { viewOptions })}
+      >
+        Fields
+      </DefaultButton>
+
+      {/* filter */}
       <DefaultButton
         iconProps={{ iconName: 'Filter' }}
         menuProps={filterMenuProps.bind(null, {
@@ -163,17 +174,29 @@ export function Bar({ views, view }) {
       >
         Filter
       </DefaultButton>
+
+      {/* group */}
       <DefaultButton
         iconProps={{ iconName: 'GroupList' }}
         menuProps={groupMenuProps.bind(null, { fieldOptions })}
       >
         Group
       </DefaultButton>
+
+      {/* sort */}
       <DefaultButton
         iconProps={{ iconName: 'Sort' }}
         menuProps={sortMenuProps.bind(null, { fieldOptions, sortOrders })}
       >
         Sort
+      </DefaultButton>
+
+      {/* pane */}
+      <DefaultButton
+        iconProps={{ iconName: 'ViewAll2' }}
+        menuProps={sortMenuProps.bind(null, { fieldOptions, sortOrders })}
+      >
+        Pane
       </DefaultButton>
     </Stack>
   )
