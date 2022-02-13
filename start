@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export SETUP=./setups/test
-# export envfile=.env
-# export args=--env-file $envfile
+SETUP=./setups/test
+# envfile=$SETUP/.env
+# args=--env-file $envfile
 
-docker-compose --rm --env-file .env \
+docker-compose --rm --env-file $SETUP/.env \
   --file services/compose.yaml up --detach $*

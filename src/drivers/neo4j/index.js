@@ -2,6 +2,7 @@
 
 import neo4j from 'neo4j-driver' // official neo4j js driver
 // import utils from '@neomem/utils'
+import utils from '../../utils.js'
 
 export class Driver {
   constructor() {
