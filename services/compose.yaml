@@ -34,6 +34,26 @@ services:
     networks:
       - neomem
 
+  postgres:
+    container_name: postgres
+    image: timescale/timescaledb:2.3.0-pg13
+    ports:
+      - $PGPORT:5432/tcp
+    profiles:
+      - all
+      - postgres
+    #. don't use PGPASSWORD - see https://stackoverflow.com/a/6405162/243392
+    # https://www.postgresql.org/docs/9.1/libpq-pgpass.html
+    environment:
+      POSTGRES_DB: $PGDATABASE
+      POSTGRES_USERNAME: $PGUSER
+      POSTGRES_PASSWORD: $PGPASSWORD
+    volumes:
+      - ../$SETUP/volumes/postgres/data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - neomem
+
   stardog:
     container_name: stardog
     image: stardog/stardog:latest
