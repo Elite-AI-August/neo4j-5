@@ -8,7 +8,7 @@ export class Driver {
     this.db = null
   }
 
-  async open({ uri, user, password }) {
+  async start({ uri, user, password }) {
     console.log('Initialize neo4j driver', uri)
     // note: neo4j stores 64-bit ints, js only goes up to 53-bits (9e16)
     // see https://github.com/neo4j/neo4j-javascript-driver#enabling-native-numbers

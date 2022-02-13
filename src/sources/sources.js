@@ -4,7 +4,7 @@
 // we're in react now, so harder to do dynamic driver loads.
 // so just load them all here.
 import { Driver as Supabase } from '../drivers/supabase'
-// import { Driver as Neo4j } from '../drivers/neo4j'
+import { Driver as Neo4j } from '../drivers/neo4j'
 
 const sources = [
   {
@@ -13,6 +13,15 @@ const sources = [
     connect: {
       url: process.env.REACT_APP_SUPABASE_URL,
       key: process.env.REACT_APP_SUPABASE_KEY,
+    },
+  },
+  {
+    name: 'neo4j',
+    Driver: Neo4j,
+    connect: {
+      uri: process.env.REACT_APP_NEO4J_URI, //. on localhost - no pw?
+      user: process.env.REACT_APP_NEO4J_USER,
+      password: process.env.REACT_APP_NEO4J_PASSWORD, //. yeah... will need a server to hide this stuff
     },
   },
 ]

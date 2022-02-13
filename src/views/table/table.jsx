@@ -165,7 +165,8 @@ function Table({ sources }) {
 
   const [data, setData] = React.useState([])
 
-  // fetch initial data for table
+  // **fetch initial data for table**
+  //. rename sources to neomem? nm? it's the core, like a graph db
   React.useEffect(() => {
     async function fetchData() {
       const data = await sources.get() //. get ALL data for now
