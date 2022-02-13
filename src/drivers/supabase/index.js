@@ -1,14 +1,14 @@
-// supabase driver
+// supabase driver (postgres in cloud service)
 
 import { createClient } from '@supabase/supabase-js'
 
-export class Supabase {
+export class Driver {
   constructor() {
-    this.supabase = null
+    this.db = null
   }
 
   start({ url, key }) {
-    this.supabase = createClient(url, key)
+    this.db = createClient(url, key)
   }
 
   async get(query = {}) {
@@ -16,7 +16,7 @@ export class Supabase {
     //. add query filters etc here
     // By default, Supabase projects will return a maximum of 1,000 rows. This setting can be changed in Project API Settings. It's recommended that you keep it low to limit the payload size of accidental or malicious requests. You can use range() queries to paginate through your data.
     // see https://supabase.com/docs/reference/javascript/using-filters#conditional-chaining
-    let getter = this.supabase.from('nodes').select('id, data')
+    let getter = this.db.from('nodes').select('id, data')
     if (query.id) {
       getter = getter.eq('id', query.id)
     }
@@ -26,9 +26,7 @@ export class Supabase {
 
   async add(items) {
     // const item = { data: { [prop]: value } }
-    const { data, error, status } = await this.supabase
-      .from('nodes')
-      .insert(items)
+    const { data, error, status } = await this.db.from('nodes').insert(items)
     return data
   }
 
@@ -39,7 +37,7 @@ export class Supabase {
     const item = items[0] || { data: {} }
     item.data[prop] = value
     console.log('item', item)
-    const { data, error, status } = await this.supabase
+    const { data, error, status } = await this.db
       .from('nodes')
       .update(item)
       .eq('id', id)
