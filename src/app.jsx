@@ -8,7 +8,7 @@ import { initializeIcons } from '@fluentui/react/lib/Icons'
 // import { Pivot as Tab, PivotItem as TabItem } from '@fluentui/react' // actually a Tab control
 // import Scheduler from './views/scheduler/scheduler'
 import Table from './views/table/table'
-import Header from './header/header'
+import Header from './components/header/header'
 import { Sources } from './sources/sources'
 import './app.css'
 

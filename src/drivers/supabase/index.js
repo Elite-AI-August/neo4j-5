@@ -20,13 +20,14 @@ export class Driver {
     if (query.id) {
       getter = getter.eq('id', query.id)
     }
-    const { data, error, status } = await getter
+    // const { data, error, status } = await getter
+    const { data } = await getter
     return data
   }
 
   async add(items) {
     // const item = { data: { [prop]: value } }
-    const { data, error, status } = await this.db.from('nodes').insert(items)
+    const { data } = await this.db.from('nodes').insert(items)
     return data
   }
 
@@ -37,10 +38,7 @@ export class Driver {
     const item = items[0] || { data: {} }
     item.data[prop] = value
     console.log('item', item)
-    const { data, error, status } = await this.db
-      .from('nodes')
-      .update(item)
-      .eq('id', id)
+    const { data } = await this.db.from('nodes').update(item).eq('id', id)
     return data
   }
 }

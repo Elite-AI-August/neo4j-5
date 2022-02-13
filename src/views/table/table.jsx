@@ -31,7 +31,7 @@ const views = [
   },
 ]
 let currentView = 'default'
-let view = views[0]
+let view = views.find(view => view.name === currentView)
 
 const viewOptions = views.map(view => ({
   key: view.name,
