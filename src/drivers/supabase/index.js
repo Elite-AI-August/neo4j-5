@@ -1,5 +1,7 @@
 // supabase driver (postgres in cloud service)
 
+//. this should sit behind a server, to avoid exposing url and key!
+
 import { createClient } from '@supabase/supabase-js'
 
 export class Driver {

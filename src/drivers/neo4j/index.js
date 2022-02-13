@@ -9,7 +9,7 @@ export class Driver {
   }
 
   async start({ uri, user, password }) {
-    console.log('Initialize neo4j driver', uri)
+    console.log('Neo4j initialize driver', uri)
     // note: neo4j stores 64-bit ints, js only goes up to 53-bits (9e16)
     // see https://github.com/neo4j/neo4j-javascript-driver#enabling-native-numbers
     this.db = neo4j.driver(uri, neo4j.auth.basic(user, password), {
@@ -18,7 +18,7 @@ export class Driver {
   }
 
   async close() {
-    console.log('Close neo4j driver')
+    console.log('Neo4j close driver')
     await this.db.close()
   }
 
@@ -136,10 +136,11 @@ export class Driver {
     }
   }
 
+  // get data differently depending on initial node and traversal method.
+  //. explain traversals
+  //. and what does this return?
   //. handle recursion
-  async get(params = { maxDepth: 1 }) {
-    // path: 'home:folder' //. put default here?
-
+  async get(params = { path: 'home:folder', maxDepth: 1 }) {
     if (params.uuid) {
       const queryTemplate = `
         MATCH (node) 
@@ -150,18 +151,6 @@ export class Driver {
       const queryParams = { uuid: params.uuid }
       const { nodes } = await this.runQuery(queryTemplate, queryParams)
       // const types = nodes.map(row => row.type.join('+')) //. ?
-      return { nodes }
-    } else if (params.path) {
-      const queryTemplate = `
-        MATCH (node#optionalType# {name: $name}) 
-        WITH node, labels(node) as type
-        RETURN node { .*, type }
-      `
-      const path = params.path
-      const [name, type] = utils.getLastNameTypeFromPath(path)
-      const optionalType = utils.getOptionalType(type)
-      const queryParams = { name, optionalType }
-      const { nodes } = await this.runQuery(queryTemplate, queryParams)
       return { nodes }
     } else if (params.parentPath) {
       const queryTemplate = `
@@ -188,6 +177,19 @@ export class Driver {
       `
       const parentUuid = params.parentUuid
       const queryParams = { uuid: parentUuid }
+      const { nodes } = await this.runQuery(queryTemplate, queryParams)
+      return { nodes }
+    } else if (params.path) {
+      // this is the fallback, with a default path of 'home:folder'
+      const queryTemplate = `
+        MATCH (node#optionalType# {name: $name}) 
+        WITH node, labels(node) as type
+        RETURN node { .*, type }
+      `
+      const path = params.path
+      const [name, type] = utils.getLastNameTypeFromPath(path)
+      const optionalType = utils.getOptionalType(type)
+      const queryParams = { name, optionalType }
       const { nodes } = await this.runQuery(queryTemplate, queryParams)
       return { nodes }
     }

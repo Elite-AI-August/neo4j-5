@@ -6,6 +6,10 @@
 import { Driver as Supabase } from '../drivers/supabase'
 import { Driver as Neo4j } from '../drivers/neo4j'
 
+//. how will client request diff sources?
+// const isource = 0
+const isource = 1
+
 const sources = [
   {
     name: 'supabase',
@@ -36,24 +40,32 @@ export class Sources {
     this.root = []
     for (let source of sources) {
       const driver = new source.Driver()
+      console.log(source)
+      // @ts-ignore - ts gets confused with the diff connect props
       await driver.start(source.connect)
       this.root.push(driver)
     }
+    // this.root = sources.map(async source => {
+    //   const driver = new source.Driver()
+    //   // @ts-ignore
+    //   await driver.start(source.connect)
+    //   return driver
+    // })
   }
 
   async get(query) {
     //. pass query on to correct source
-    return this.root[0].get(query)
+    return this.root[isource].get(query)
   }
 
   async add(items) {
     //. pass query on to correct source
-    return await this.root[0].add(items)
+    return await this.root[isource].add(items)
   }
 
   async set({ id, prop, value }) {
     //. pass query on to correct source
-    return await this.root[0].set({ id, prop, value })
+    return await this.root[isource].set({ id, prop, value })
   }
 
   //. delete
