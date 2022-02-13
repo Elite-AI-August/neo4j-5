@@ -4,4 +4,5 @@ export SETUP=./setups/test
 # export envfile=.env
 # export args=--env-file $envfile
 
-docker-compose --env-file .env --file services/compose.yaml up --detach $*
+docker-compose --rm --env-file .env \
+  --file services/compose.yaml up --detach $*

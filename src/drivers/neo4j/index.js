@@ -269,11 +269,3 @@ export class Driver {
     return { nodes }
   }
 }
-
-// factory
-// export default function makeSource() {
-//   return new NeomemSourceNeo4j()
-// }
-
-// singleton
-// export default new NeomemSourceNeo4j()

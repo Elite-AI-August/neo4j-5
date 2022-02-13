@@ -19,17 +19,26 @@ services:
   #   networks:
   #     - neomem
 
+
+  # note: incremented the published ports by one so they don't 
+  # conflict with the local neo4j server.
+  # Default connectors and their ports:
+  # dbms.connector.bolt Bolt 7687
+  # dbms.connector.http HTTP 7474
+  # dbms.connector.https HTTPS 7473
   neo4j:
     container_name: neo4j
     image: neo4j:4.4.4-community
+    environment:
+      - NEO4J_AUTH=none
     ports:
-      - '7474:7474'
-      - '7687:7687'
+      - '7475:7474'
+      - '7688:7687'
     profiles:
       - all
       - neo4j
     volumes:
-      - ../setups/test/volumes/neo4j:/data
+      - ../$SETUP/volumes/neo4j/data:/data
     restart: always
     networks:
       - neomem
