@@ -1,0 +1,35 @@
+{
+  "name": "neomem",
+  "description": "an open source information manager",
+  "version": "0.1.0",
+  "type": "module",
+  "module": "esnext",
+  "scripts": {
+    "start": "node src/console.js",
+    "//.": "move these into shell scripts?",
+    "console": "npm run --prefix packages/neomem-console ${COMMAND}",
+    "backend": "COMMAND=start CONFIG_FILE=../../setups/demo/config.yaml npm-run-all --parallel --print-label --race gateway driver-bookmarks driver-filesys",
+    "gateway": "npm run --prefix packages/neomem-gateway ${COMMAND}",
+    "driver-bookmarks": "npm run --prefix packages/neomem-driver-bookmarks ${COMMAND}",
+    "driver-filesys": "npm run --prefix packages/neomem-driver-filesys ${COMMAND}",
+    "driver-neo4j": "npm run --prefix packages/neomem-driver-neo4j ${COMMAND}",
+    "driver-json": "npm run --prefix packages/neomem-driver-json ${COMMAND}",
+    "util": "npm run --prefix packages/neomem-util ${COMMAND}",
+    "test-util": "COMMAND=test npm run util",
+    "//test": "(cd packages/neomem-driver-json && yarn test); (cd packages/neomem-console && yarn test)",
+    "test": "COMMAND=test npm-run-all --parallel --print-name --race console gateway driver-json"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "marked": "^4.0.12",
+    "node-fetch": "^3.2.0",
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5"
+  }
+}
