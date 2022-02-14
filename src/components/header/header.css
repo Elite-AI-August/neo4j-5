@@ -1,3 +1,7 @@
-.header {
+/* .header {
   font-size: 2em;
+} */
+
+.logo {
+  display: inline-block;
 }
