@@ -1,5 +1,9 @@
+// this file is associated with the '/' route
+// so this would be the landing page
+
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -20,6 +24,16 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
+
+        <Link href="/app">
+          <a className={styles.card}>
+            <h2>Get Started!</h2>
+          </a>
+        </Link>
+
+        <Link href="/blog">
+          <a>Blog</a>
+        </Link>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
