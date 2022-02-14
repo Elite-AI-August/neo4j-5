@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "name": "blog-meta",
+    "notes": "metadata for blog"
+  },
+  "nodes": [
+    { "_id": "blog", "name": "blog", "type": "type" },
+    { "_id": "post", "name": "post", "type": "type" },
+    { "_id": "type", "name": "type", "type": "type" }
+  ],
+  "edges": []
+}

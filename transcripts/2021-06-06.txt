@@ -1,0 +1,86 @@
+Welcome to Neomem
+-----------------------------------------------------
+[home]
+type: folder
+notes: neomem skeleton
+contents: blog, filesys, place1, place2, postgres
+
+> help
+[
+  [ 'back', 'go back to previous location' ],
+  [ 'edit', 'edit notes for a node' ],
+  [ 'go', 'go to another location, or in a direction' ],
+  [ 'help', 'get help' ],
+  [ 'info', 'get debugging info' ],
+  [ 'look', 'look at this or another location' ],
+  [ 'list', 'list contents of this or another location' ],
+  [ 'unknown', undefined ]
+]
+
+> go place1
+[forest]
+type: place
+notes: a shady forest of aspen trees
+contents: clearing, field
+exits: east, north
+
+> go field
+[field]
+type: place
+
+> back
+> back
+> go blog
+[blog]
+type: folder
+notes: (n/a)
+contents: 2021-02-07.md, 2021-02-08.md, 2021-05-15.md, 2021-05-22.md, 2021-05-23.md, 2021-05-30.md, blog-meta.json, index.md
+exits: up
+
+> list
+[blog]
+2021-02-07.md
+2021-02-08.md
+2021-05-15.md
+2021-05-22.md
+2021-05-23.md
+2021-05-30.md
+blog-meta.json
+index.md
+
+> go index.md
+[index.md]
+type: markdown
+notes: ---
+name: Neomem blog
+created: 2021-04-25
+type: blog
+public:
+
+> back
+> back
+> go README.md
+[README.md]
+type: markdown
+notes: # Neomem
+
+An open-source information manager - with plugins
+contents: # Neomem, ## About, ## Current Status, ## Goals, ## Use Cases, ## Inspiration, ## Implementation, ## Architecture, ## Features, ## Packages, ## Installation, ## Running, ## Links, ## License
+
+> list
+[README.md]
+# Neomem
+## About
+## Current Status
+## Goals
+## Use Cases
+## Inspiration
+## Implementation
+## Architecture
+## Features
+## Packages
+## Installation
+## Running
+## Links
+## License
+
