@@ -1,5 +1,5 @@
 {
-  "name": "neomem-nextjs",
+  "name": "neomem",
   "private": true,
   "scripts": {
     "dev": "next dev",
