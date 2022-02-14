@@ -1,0 +1,39 @@
+graph architecture {
+
+  // styles
+  // rankdir=LR; // left-to-right
+  node [ color=lightgray; fillcolor=lightblue; style=filled ]; // default
+  edge [ color=gray, fontcolor=gray ]; // default
+
+  // nodes
+  console [ fillcolor=lightyellow ];
+  viewCalendar [ label="calendar view", fillcolor=white ];
+  viewDocument [ label="document view", fillcolor=white ];
+  viewGraph [ label="graph view", fillcolor=white ];
+  viewProperties [ label="properties view", fillcolor=white ];
+  viewTable [ label="table view", fillcolor=white ];
+  neomem [ label="neomem"; fillcolor=greenyellow ];
+  driverChrome [ label="chrome driver"];
+  driverFilesys [ label="filesys driver"];
+  driverJson [ label="json driver"];
+  driverMarkdown [ label="markdown driver"];
+  driverOther [ label="other drivers..."];
+  sourceChrome [ label="bookmarks\njson file", fillcolor=lavender ];
+  sourceFilesys [ label="filesystem", fillcolor=lavender ];
+  sourceJson [ label="json file", fillcolor=lavender ];
+  sourceMarkdown [ label="markdown file", fillcolor=lavender ];
+  sourceOther [ label="email, gsheet,\npostgres, xml, ...", fillcolor=lavender ];
+
+  // edges
+  console -- { viewCalendar, viewDocument, viewGraph, viewProperties, viewTable } -- neomem;
+  neomem -- driverChrome;
+  neomem -- driverFilesys;
+  neomem -- driverJson;
+  neomem -- driverMarkdown;
+  neomem -- driverOther;
+  driverChrome -- sourceChrome;
+  driverFilesys -- sourceFilesys;
+  driverJson -- sourceJson;
+  driverMarkdown -- sourceMarkdown;
+  driverOther -- sourceOther;
+}
