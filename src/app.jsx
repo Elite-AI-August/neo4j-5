@@ -28,6 +28,7 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
+      {/* . add Bar */}
       {/* <Tab> */}
       {/* <TabItem headerText="Table"> */}
       {/* <br /> */}

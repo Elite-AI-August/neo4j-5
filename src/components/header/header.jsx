@@ -8,7 +8,6 @@ function Header() {
       horizontal
       styles={{
         root: {
-          marginBottom: '8px',
           padding: '4px',
           background: DefaultPalette.black,
         },
@@ -17,8 +16,11 @@ function Header() {
       <Stack horizontal grow>
         <Stack.Item align="center">
           <Stack horizontal>
-            <Stack.Item align="center">
-              <Image src={logo} alt="logo" height={44} />
+            <Stack.Item
+              align="center"
+              styles={{ root: { marginRight: '4px' } }}
+            >
+              <Image src={logo} alt="logo" height={40} />
             </Stack.Item>
             <Stack.Item align="center">
               <Text

@@ -219,7 +219,7 @@ function Table({ sources }) {
   }, [sources])
 
   return (
-    <div style={{ width: '100%', margin: 'auto' }}>
+    <div style={{ width: '100%', margin: 'auto', padding: '4px' }}>
       {/* . move to app */}
       <Bar views={views} view={view} />
       <br />
