@@ -3,19 +3,28 @@
 
 // we're in react now, so harder to do dynamic driver loads.
 // so just load them all here.
+import { Driver as Json } from '../drivers/json'
 import { Driver as Supabase } from '../drivers/supabase'
 import { Driver as Neo4j } from '../drivers/neo4j'
 
 //. how will client request diff sources?
-// const isource = 0
-const isource = 1
+const isource = 0
+// const isource = 1
+// const isource = 2
 
+//. put this into a setup yaml
+//. add a map from driver name to Driver class
 const sources = [
+  {
+    name: 'json',
+    Driver: Json,
+    connect: {},
+  },
   {
     name: 'supabase',
     Driver: Supabase,
     connect: {
-      url: process.env.REACT_APP_SUPABASE_URL,
+      url: process.env.REACT_APP_SUPABASE_URL, //. dont do this for production
       key: process.env.REACT_APP_SUPABASE_KEY,
     },
   },

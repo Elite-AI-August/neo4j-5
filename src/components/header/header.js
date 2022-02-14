@@ -1,6 +1,6 @@
 // import { CommandBar } from '@fluentui/react'
 
-// import logo from '../assets/neomem.png'
+import logo from '../../assets/neomem.png'
 
 // const menuItems = [
 //   {
@@ -36,6 +36,7 @@ function Header() {
   return (
     <div>
       {/* add logo */}
+      <img src={logo} />
       <h1>Neomem</h1>
     </div>
   )
