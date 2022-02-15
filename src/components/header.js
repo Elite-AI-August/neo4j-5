@@ -1,5 +1,7 @@
-import { Stack, Text, Image, Persona, DefaultPalette } from '@fluentui/react'
+// import { Stack, Text, Image, Persona, DefaultPalette } from '@fluentui/react'
+import { Stack, Text, Persona, DefaultPalette } from '@fluentui/react'
 // import logo from '../assets/neomem.png'
+import Image from 'next/image'
 // import './header.css'
 
 function Header() {
@@ -20,8 +22,7 @@ function Header() {
               align="center"
               styles={{ root: { marginRight: '4px' } }}
             >
-              {/* <Image src={logo} alt="logo" height={40} /> */}
-              img
+              <Image src="/neomem.png" alt="logo" width={40} height={40} />
             </Stack.Item>
             <Stack.Item align="center">
               <Text
