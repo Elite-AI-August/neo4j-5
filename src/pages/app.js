@@ -9,8 +9,8 @@ import { initializeIcons } from '@fluentui/react/lib/Icons'
 // import Scheduler from './views/scheduler/scheduler'
 import Table from '../panes/table'
 import Header from '../components/header'
-import { Sources } from './sources/sources'
-import './app.css'
+import { Sources } from '../sources'
+// import './app.css'
 
 // for available icons see https://uifabricicons.azurewebsites.net/
 initializeIcons()

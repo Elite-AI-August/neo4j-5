@@ -13,7 +13,8 @@ import {
   // useExpanded,
 } from 'react-table'
 import { Bar } from '../components/bar' //. move up to app
-import './table.css'
+// import './table.css'
+// import styles from '../styles/table.module.css'
 
 //. move up to app
 const views = [
