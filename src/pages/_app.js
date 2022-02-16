@@ -1,8 +1,17 @@
+import { Auth } from '@supabase/ui'
+import { supabase } from '../lib/initSupabase'
 import '../styles/globals.css'
 import '../styles/table.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function MyApp({ Component, pageProps }) {
+  // return <Component {...pageProps} />
+  return (
+    <main className={'dark'}>
+      <Auth.UserContextProvider supabaseClient={supabase}>
+        <Component {...pageProps} />
+      </Auth.UserContextProvider>
+    </main>
+  )
 }
 
-export default MyApp
+// export default MyApp
