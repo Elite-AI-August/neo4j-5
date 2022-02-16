@@ -1,7 +1,7 @@
 // neo4j graph db driver
 
 import neo4j from 'neo4j-driver' // official neo4j js driver
-import * as utils from '../../utils.js'
+import * as utils from '../../lib/utils.js'
 
 export class Driver {
   constructor() {
