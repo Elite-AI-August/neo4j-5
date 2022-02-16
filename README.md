@@ -17,7 +17,6 @@ Connect to all your data sources in one app. Will have plugins for different vie
 
 - [Neomem](#neomem)
   - [About](#about)
-  - [Packages](#packages)
   - [Goals](#goals)
   - [Use Cases](#use-cases)
   - [Inspiration](#inspiration)
@@ -37,15 +36,15 @@ Data can be filtered, grouped, and sorted as required.
 
 Other views are possible for the same underlying information - chart, map, calendar, kanban, graph. Multiple views could be visible at the same time. A console view could allow exploration and manipulation of items in a text console.
 
-All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development of them all as npm packages.
+All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development.
 
-## Packages
+<!-- ## Packages
 
 - @neomem/source - datasource manager
 - @neomem/source-neo4j - plugin for neo4j graph databases
 - @neomem/source-filesys - plugin for file system access
 - @neomem/view - web interface
-- @neomem/view-console - console interface
+- @neomem/view-console - console interface -->
 
 ## Goals
 
