@@ -13,6 +13,8 @@ import Header from '../components/header'
 import { Sources } from '../sources'
 // import './app.css'
 
+import { foo } from '../drivers/google-calendar'
+
 // for available icons see https://uifabricicons.azurewebsites.net/
 initializeIcons()
 
@@ -40,6 +42,7 @@ function App() {
       {/* <Scheduler /> */}
       {/* </TabItem> */}
       {/* </Tab> */}
+      <button onClick={foo}>calendar</button>
     </ThemeProvider>
   )
 }
