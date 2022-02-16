@@ -1,17 +1,96 @@
-## Getting Started
+# Neomem
 
-First, run the development server:
+Connect to all your data sources in one app. Will have plugins for different views and data sources. Open source, web-based, work in progress.
 
-    npm run dev
+[![Github Issues](https://img.shields.io/github/issues/bburns/Neomem.svg)](https://github.com/bburns/Neomem/issues)
+[![License](https://img.shields.io/github/license/bburns/Neomem.svg)]()
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![Github code size in bytes](https://img.shields.io/github/languages/code-size/bburns/Neomem.svg)]()
+[![Follow me on Twitter](https://img.shields.io/twitter/follow/bburnskm.svg?label=Twitter&style=flat&color=blue)](https://twitter.com/bburnskm)
 
-Open http://localhost:3000 with your browser to see the result.
+<!-- [![Standard JavaScript](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) -->
+<!-- <a href="https://codecov.io/gh/bburns/neomem"><img alt="Codecov Coverage Status" src="https://img.shields.io/Neomem/c/github/bburns/Neomem.svg?style=flat"></a> -->
+<!-- <a href="https://www.npmjs.com/package/neomem"><img alt="npm version" src="https://img.shields.io/npm/v/Neomem.svg?style=flat-square"></a> -->
+<!-- <a href="https://www.npmjs.com/package/neomem"><img alt="weekly downloads from npm" src="https://img.shields.io/npm/dw/Neomem.svg?style=flat-square"></a> -->
+<!-- <a href="https://gitter.im/bburns/Neomem"><img alt="Chat on Gitter" src="https://img.shields.io/gitter/room/bburns/prettier.svg"></a> -->
+<!-- [![Formatted with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) -->
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Neomem](#neomem)
+  - [About](#about)
+  - [Packages](#packages)
+  - [Goals](#goals)
+  - [Use Cases](#use-cases)
+  - [Inspiration](#inspiration)
+  - [Implementation](#implementation)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Running](#running)
+  - [Development](#development)
 
-## Deploy on Vercel
+## About
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Spreadsheets are good for tabular information, while documents are good for free-form notes and outlines. Neomem makes it easy to switch between the two, allowing different views of the same information.
 
-## License
+For example, tasks can have short properties like name, timeframe, order, estimate, which fit well in a table - while also having longer properties like notes. Switching between table and document views allows you to focus on one or the other as needed.
 
-Apache 2.0
+Data can be filtered, grouped, and sorted as required.
+
+Other views are possible for the same underlying information - chart, map, calendar, kanban, graph. Multiple views could be visible at the same time. A console view could allow exploration and manipulation of items in a text console.
+
+All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development of them all as npm packages.
+
+## Packages
+
+- @neomem/source - datasource manager
+- @neomem/source-neo4j - plugin for neo4j graph databases
+- @neomem/source-filesys - plugin for file system access
+- @neomem/view - web interface
+- @neomem/view-console - console interface
+
+## Goals
+
+- clutter-free ui that gets out of the way, leaves room for editing
+- different views of same information - document, table, outline, map, calendar, kanban, chart, graph, timeline, console
+- handle different data sources - neo4j graph database, xml, filesystem, email, github, calendar
+- handle different overlapping domains with simple and extensible datamodels - task management, collection management
+- all views, sources, and domains are npm packages
+- different ui's could be implemented - a pure console ui, a web ui, an electron (desktop) ui, etc
+- open source with paid hosting plans
+- online plugin ecosystem/marketplace for views, sources, domains, and ui's - free/paid
+
+## Use Cases
+
+Some use cases to test the app and database structure -
+
+- task manager - projects, tasks, goals, timeframe, estimate, actual, recurring tasks - switch between table, document, kanban, calendar, timeline views
+- comparison shopping - make quick tables for comparison between items, with free-form notes
+- art travel planner - location (continent/country/state/city/museum), artist, date, name, rating, source, size, images - switch between table, map views
+- screenplay/outline editor - acts, scenes, characters, locations
+- biographical timelines - subject, event, date, age, location - switch between table, document, map views
+- genealogy - add properties to relationships, e.g. marriage date and location
+
+## Inspiration
+
+- Lotus Symphony (1990) - spreadsheet, chart, and document views of same information
+- Apple II, Zork, Linux cli, IPython - for console interface
+- Airtable - advanced table editor
+
+## Implementation
+
+- react frontend ui with view plugins
+- native data stored to neo4j in google cloud - access data anywhere
+- graphql api with plugins for different data sources
+
+## Features
+
+- select text in notes, promote to item(s) with alt-m command
+- move text and items easily to other items with alt-m command
+- create new items quickly with alt-n command, put in an inbox
+- go to item quickly with alt-g command, start typing to filter list
+- clipboard monitor - paste contents when it changes
+
+## Installation
+
+## Running
+
+## Development
