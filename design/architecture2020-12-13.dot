@@ -1,0 +1,34 @@
+graph "neomem" {
+  // rankdir=LR;
+  
+  node [ color=lightblue; style=filled ];
+  
+  //user [ color=lightyellow; ]
+  browser [ color=greenyellow; ]
+  // neo4j [ color=lavender; ]
+  // filesys [ color=lavender; ]
+  memory [ color=lavender; label="json in memory (for now)"];
+  neomemView [label="neomem-view\n(react)"];
+  // neomemNeo4j [label="neomem-driver-neo4j"];
+  // neomemFilesys [label="neomem-driver-filesys"];
+  neomemData [label="neomem-data\n(node REST api)"];
+  //user -- 
+  browser -- neomemView;
+  neomemView -- { neomemData } [ color=gray, fontcolor=gray, label="  HTTP"];
+  // neomem -- { neomemNeo4j, neomemFilesys, other };
+  // neomem -- "neomem-source(s)" -- { neomemNeo4j, neomemFilesys, other };
+  // neomemNeo4j -- "neo4j-driver" -- neo4j;
+  // neomemFilesys -- "node-fs" -- filesys;
+
+  neomemData -- memory;
+
+  console [ color=greenyellow; ]
+  // neomemConsole [label="neomem-console"];
+  //user -- 
+  console -- neomemConsole;
+  neomemConsole [label="neomem-console\n(node)"];
+  neomemConsole -- neomemData [color=gray, fontcolor=gray, label="  HTTP"];
+  // neomemConsole -- parser;
+  // neomemConsole -- parser;
+  // parser -- neomem;
+}
