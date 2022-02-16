@@ -11,14 +11,19 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Neomem</title>
-        <meta name="description" content="Your new memory" />
+        <meta
+          name="description"
+          content="Connect to all your data sources in one app"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Neomem!</h1>
+        <h1 className={styles.title}>Neomem</h1>
 
-        <p className={styles.description}>Your new memory awaits...</p>
+        <p className={styles.description}>
+          Connect to all your data sources in one app
+        </p>
 
         <Link href="/app">
           <a className={styles.card}>
