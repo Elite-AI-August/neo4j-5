@@ -1,16 +1,22 @@
 // supabase driver (postgres in cloud service)
 
-//. this should sit behind a server, to avoid exposing url and key!
-
 import { createClient } from '@supabase/supabase-js'
+
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_KEY
+)
 
 export class Driver {
   constructor() {
     this.db = null
   }
 
-  start({ url, key }) {
-    this.db = createClient(url, key)
+  // start({ url, key }) {
+  //   this.db = createClient(url, key)
+  // }
+  start() {
+    this.db = supabase
   }
 
   async get(query = {}) {

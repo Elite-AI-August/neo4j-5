@@ -1,5 +1,5 @@
 import { Auth } from '@supabase/ui'
-import { supabase } from '../lib/initSupabase'
+import { supabase } from '../lib/supabase'
 import '../styles/globals.css'
 import '../styles/table.css'
 

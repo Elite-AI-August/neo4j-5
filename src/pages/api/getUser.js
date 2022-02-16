@@ -1,4 +1,4 @@
-import { supabase } from '../../lib/initSupabase'
+import { supabase } from '../../lib/supabase'
 
 // Example of how to verify and get user data server-side.
 const getUser = async (req, res) => {
