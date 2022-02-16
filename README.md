@@ -17,14 +17,17 @@ Connect to all your data sources in one app. Will have plugins for different vie
 
 - [Neomem](#neomem)
   - [About](#about)
+  - [Current Status](#current-status)
   - [Goals](#goals)
   - [Use Cases](#use-cases)
   - [Inspiration](#inspiration)
   - [Implementation](#implementation)
+  - [Architecture](#architecture)
   - [Features](#features)
   - [Installation](#installation)
   - [Running](#running)
-  - [Development](#development)
+  - [Links](#links)
+  - [License](#license)
 
 ## About
 
@@ -38,13 +41,9 @@ Other views are possible for the same underlying information - chart, map, calen
 
 All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development.
 
-<!-- ## Packages
+## Current Status
 
-- @neomem/source - datasource manager
-- @neomem/source-neo4j - plugin for neo4j graph databases
-- @neomem/source-filesys - plugin for file system access
-- @neomem/view - web interface
-- @neomem/view-console - console interface -->
+See the list of issues in the current milestone [here](https://github.com/bburns/Neomem/milestone/1).
 
 ## Goals
 
@@ -73,12 +72,17 @@ Some use cases to test the app and database structure -
 - Lotus Symphony (1990) - spreadsheet, chart, and document views of same information
 - Apple II, Zork, Linux cli, IPython - for console interface
 - Airtable - advanced table editor
+- [The Inform Designer's Manual](https://www.amazon.com/Inform-Designers-Manual-Graham-Nelson/dp/0971311900) by Graham Nelson - the language and parser of Zork
 
 ## Implementation
 
 - react frontend ui with view plugins
-- native data stored to neo4j in google cloud - access data anywhere
-- graphql api with plugins for different data sources
+- native data stored to Supabase in the cloud - access data anywhere
+- rest api with plugins for different data sources
+
+## Architecture
+
+![arch](design/architecture.dot.svg)
 
 ## Features
 
@@ -88,8 +92,40 @@ Some use cases to test the app and database structure -
 - go to item quickly with alt-g command, start typing to filter list
 - clipboard monitor - paste contents when it changes
 
+<!-- ## Packages
+
+- neomem-console - console interface
+- neomem-web - web interface
+- neomem-gateway - datasource manager
+- neomem-driver-pg - plugin for postgres databases
+- neomem-driver-neo4j - plugin for neo4j graph databases
+- neomem-driver-filesys - plugin for file system access
+- neomem-driver-bookmarks - plugin for chrome bookmark access -->
+
 ## Installation
+
+Note: Neomem is under heavy development.
+
+Install nodejs, then clone this repo and install the dependencies
+
+    git clone https://github.com/bburns/Neomem
+    cd Neomem
+    npm install
 
 ## Running
 
-## Development
+    npm run dev
+
+## Links
+
+Main site at https://neomem.io.
+
+Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
+
+<!-- ## Support
+
+You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you! -->
+
+## License
+
+Apache 2.0
