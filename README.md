@@ -17,12 +17,10 @@ Connect to all your data sources in one app. Will have plugins for different vie
 
 - [Neomem](#neomem)
   - [About](#about)
-  - [Current Status](#current-status)
   - [Goals](#goals)
   - [Use Cases](#use-cases)
   - [Inspiration](#inspiration)
   - [Implementation](#implementation)
-  - [Architecture](#architecture)
   - [Features](#features)
   - [Installation](#installation)
   - [Running](#running)
@@ -41,9 +39,9 @@ Other views are possible for the same underlying information - chart, map, calen
 
 All views will be developed as plugins. The backend can connect to multiple data sources, which will also be supported with plugins. Different overlapping domains can be modelled. A plugin ecosystem will allow sharing and development.
 
-## Current Status
+<!-- ## Current Status
 
-See the list of issues in the current milestone [here](https://github.com/bburns/Neomem/milestone/1).
+See the list of issues in the current milestone [here](https://github.com/bburns/Neomem/milestone/1). -->
 
 ## Goals
 
@@ -51,7 +49,7 @@ See the list of issues in the current milestone [here](https://github.com/bburns
 - different views of same information - document, table, outline, map, calendar, kanban, chart, graph, timeline, console
 - handle different data sources - neo4j graph database, xml, filesystem, email, github, calendar
 - handle different overlapping domains with simple and extensible datamodels - task management, collection management
-- all views, sources, and domains are npm packages
+<!-- - all views, sources, and domains are npm packages -->
 - different ui's could be implemented - a pure console ui, a web ui, an electron (desktop) ui, etc
 - open source with paid hosting plans
 - online plugin ecosystem/marketplace for views, sources, domains, and ui's - free/paid
@@ -62,14 +60,13 @@ Some use cases to test the app and database structure -
 
 - task manager - projects, tasks, goals, timeframe, estimate, actual, recurring tasks - switch between table, document, kanban, calendar, timeline views
 - comparison shopping - make quick tables for comparison between items, with free-form notes
-- art travel planner - location (continent/country/state/city/museum), artist, date, name, rating, source, size, images - switch between table, map views
-- screenplay/outline editor - acts, scenes, characters, locations
+- artwork database - location (continent/country/state/city/museum), artist, date, name, rating, source, size, images - switch between table, map views
+<!-- - screenplay/outline editor - acts, scenes, characters, locations -->
 - biographical timelines - subject, event, date, age, location - switch between table, document, map views
-- genealogy - add properties to relationships, e.g. marriage date and location
 
 ## Inspiration
 
-- Lotus Symphony (1990) - spreadsheet, chart, and document views of same information
+- [Lotus Symphony (1990)](<https://en.wikipedia.org/wiki/Lotus_Symphony_(MS-DOS)>) - spreadsheet, chart, form, and document views of same information
 - Apple II, Zork, Linux cli, IPython - for console interface
 - Airtable - advanced table editor
 - [The Inform Designer's Manual](https://www.amazon.com/Inform-Designers-Manual-Graham-Nelson/dp/0971311900) by Graham Nelson - the language and parser of Zork
@@ -78,11 +75,11 @@ Some use cases to test the app and database structure -
 
 - react frontend ui with view plugins
 - native data stored to Supabase in the cloud - access data anywhere
-- rest api with plugins for different data sources
+<!-- - rest api with plugins for different data sources -->
 
-## Architecture
+<!-- ## Architecture
 
-![arch](design/architecture.dot.svg)
+![arch](design/architecture.dot.svg) -->
 
 ## Features
 
@@ -118,13 +115,9 @@ Install nodejs, then clone this repo and install the dependencies
 
 ## Links
 
-Main site at https://neomem.io.
+Main site - https://neomem.io.
 
 Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
-
-<!-- ## Support
-
-You can support Neomem development through ko-fi here - https://ko-fi.com/bburns. Thank you! -->
 
 ## License
 
