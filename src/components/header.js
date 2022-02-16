@@ -1,8 +1,10 @@
-// import { Stack, Text, Image, Persona, DefaultPalette } from '@fluentui/react'
-import { Stack, Text, Persona, DefaultPalette } from '@fluentui/react'
-// import logo from '../assets/neomem.png'
+import {
+  Stack,
+  Text,
+  Persona,
+  DefaultPalette,
+} from '@fluentui/react/lib-commonjs'
 import Image from 'next/image'
-// import './header.css'
 
 function Header() {
   return (

@@ -1,6 +1,11 @@
 import React from 'react'
-import { Stack, DefaultButton } from '@fluentui/react'
-import { Text, SearchBox, ComboBox, Dropdown } from '@fluentui/react'
+import { Stack, DefaultButton } from '@fluentui/react/lib-commonjs'
+import {
+  Text,
+  SearchBox,
+  ComboBox,
+  Dropdown,
+} from '@fluentui/react/lib-commonjs'
 
 // need a dummy menu item for search etc dropdowns to render on click
 const menuItems = [{ key: 'blank', text: '' }]

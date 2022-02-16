@@ -4,7 +4,7 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import { PrimaryButton } from '@fluentui/react'
+import { PrimaryButton } from '@fluentui/react/lib-commonjs'
 import {
   useTable,
   useSortBy,

@@ -3,8 +3,9 @@
 // uses fluentui from microsoft
 // https://developer.microsoft.com/en-us/fluentui#/controls/web
 
-import { ThemeProvider } from '@fluentui/react'
-import { initializeIcons } from '@fluentui/react/lib/Icons'
+// note: need to use lib-commonjs because otherwise nextjs complains
+import { ThemeProvider } from '@fluentui/react/lib-commonjs'
+import { initializeIcons } from '@fluentui/react/lib-commonjs/Icons'
 // import { Pivot as Tab, PivotItem as TabItem } from '@fluentui/react' // actually a Tab control
 // import Scheduler from './views/scheduler/scheduler'
 import Table from '../panes/table'
