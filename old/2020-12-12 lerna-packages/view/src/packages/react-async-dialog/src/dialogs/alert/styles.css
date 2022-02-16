@@ -1,0 +1,13 @@
+
+.alert {
+  background: white;
+  padding: 1em;
+  min-width: 10em;
+}
+.alert-message {
+  margin-bottom: 1em;
+}
+.alert button {
+  float: right;
+}
+

@@ -1,5 +1,10 @@
 {
   "name": "neomem",
+  "version": "0.1.0",
+  "description": "connect to all your data in one app",
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/bburns/neomem",
   "private": true,
   "scripts": {
     "dev": "next dev",

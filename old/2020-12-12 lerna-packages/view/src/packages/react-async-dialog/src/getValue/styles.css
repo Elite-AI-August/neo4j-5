@@ -1,0 +1,169 @@
+.getValue {
+  background: white;
+  width: 90%;
+  height: 88%;
+  padding: 0.5em;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.getValue-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.getValue-description {
+  margin-bottom: 4px;
+}
+.getValue-readonly {
+  margin-bottom: 1em;
+}
+
+.getValue button {
+  margin-left: 4px;
+  background: white;
+  box-shadow: 0 0 3px #ddd;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.getValue button:disabled {
+  color: #ddd;
+  border: 1px solid #ddd;
+}
+
+
+/* getstring */
+.getValue input[type="text"] {
+  background: black;
+  color: #eee;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 0.5em;
+  border: none;
+}
+.getValue input[type="text"]::selected {
+  background-color: #42f769;
+}
+.getValue-string {
+  text-align: center;
+}
+.getValue-string input[type="text"] {
+  width: 12em;
+  text-align: left;
+}
+.getValue-string button {
+  padding: 2px 12px;
+}
+
+/* getnumber */
+.getValue-number {
+  text-align: center;
+}
+.getValue-number input[type="text"] {
+  width: 6em;
+  text-align: center;
+}
+.getValue-range {
+  margin-bottom: 1em;
+  font-size: 0.8em;
+  color: #888;
+}
+/* +/- buttons */
+.getValue-number button {
+  margin-left: 4px;
+  width: 2em;
+  padding: 0 0 2px;
+}
+.getValue-slider {
+  display: flex;
+  justify-content: center;
+}
+.getValue-slider span {
+  color: gray;
+  margin: 0 0.5em;
+}
+
+
+/* getchoice */
+.getValue-choice {
+  font-size: 1em;
+  line-height: 1em;
+  background: black;
+  color: #eee;
+  padding: 2px 8px;
+  width: 10em;
+  text-align: center;
+  border-radius: 3px;
+  margin-bottom: 0.5em;
+  border: none;
+}
+
+
+/* getlist */
+.getValue-list {
+  height: 60%;
+  overflow-y: scroll;
+  margin-top: 1em;
+  text-align: left;
+  width: 50%;
+}
+.getValue-list-item {
+  margin-top: 4px;
+}
+.getValue-list-item:before {
+  /* content: "\25CB"; */
+  /* from https://material.io/resources/icons/?search=radio&icon=radio_button_unchecked&style=baseline */
+  /* encoded at https://www.base64encode.org/ */
+  content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMCAxOGMtNC40MiAwLTgtMy41OC04LThzMy41OC04IDgtOCA4IDMuNTggOCA4LTMuNTggOC04IDh6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==");
+  width: 1.5em;
+  display: inline-block;
+  text-align: center;
+}
+.getValue-list-item.selected:before {
+  /* content: "\29BF"; */
+  /* from https://material.io/resources/icons/?search=radio&icon=radio_button_checked&style=baseline */
+  /* encoded at https://www.base64encode.org/ */
+  content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgN2MtMi43NiAwLTUgMi4yNC01IDVzMi4yNCA1IDUgNSA1LTIuMjQgNS01LTIuMjQtNS01LTV6bTAtNUM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMCAxOGMtNC40MiAwLTgtMy41OC04LThzMy41OC04IDgtOCA4IDMuNTggOCA4LTMuNTggOC04IDh6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==");
+  width: 1.5em;
+  display: inline-block;
+  text-align: center;
+}
+
+
+/* getfile */
+.getValue-file {
+  margin-top: 1em;
+}
+
+
+.getValue-okcancel button {
+  padding: 5px 1em;
+}
+.getValue-okcancel {
+  margin-top: 1em;
+}
+.getValue-okcancel button+button {
+  margin-left: 0.5em;
+}
+
+
+/* virtual keyboard */
+.getValue .keyboard {
+  width: 22em;
+}
+.getValue .keyboard.numpad {
+  width: 10em;
+}
+.hg-layout-numpad {
+  width: 10em;
+}
+.hg-layout-numpad .hg-button {
+  width: 33.33%;
+  height: 1.5em !important;
+}
+.getValue .simple-keyboard.hg-theme-default .hg-button {
+  height: 52px;
+}

@@ -1,0 +1,19 @@
+
+.getString {
+  background: white;
+  width: 20em;
+  padding: 1em;
+}
+.getString h3 {
+  margin: 0;
+}
+.getString-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+.getString-buttons button+button {
+  margin-left: 0.5em;
+}
+
+

@@ -1,0 +1,38 @@
+{
+  "name": "@neomem/view-console",
+  "version": "0.1.0",
+  "description": "shell for neomem",
+  "author": "Brian Burns <bburns.km@gmail.com>",
+  "homepage": "https://github.com/bburns/Neomem",
+  "license": "MIT",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=development node src/run.js",
+    "test": "ava --watch --verbose"
+  },
+  "dependencies": {
+    "@neomem/data": "^0.1.0",
+    "chalk": "^4.1.0",
+    "custom-env": "^2.0.1",
+    "easy-table": "^1.1.1",
+    "nearley": "^2.19.6"
+  },
+  "devDependencies": {
+    "ava": "^3.13.0"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bburns/Neomem.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bburns/Neomem/issues"
+  }
+}
