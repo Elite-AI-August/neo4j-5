@@ -1,6 +1,8 @@
 # Neomem
 
-Connect to all your data sources in one app. Will have plugins for different views and data sources. Open source, web-based, work in progress.
+Connect to all your data sources in one app.
+
+Will have plugins for different views and data sources. Open source, web-based, work in progress.
 
 [![Github Issues](https://img.shields.io/github/issues/bburns/Neomem.svg)](https://github.com/bburns/Neomem/issues)
 [![License](https://img.shields.io/github/license/bburns/Neomem.svg)]()
