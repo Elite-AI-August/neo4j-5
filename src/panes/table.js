@@ -21,7 +21,7 @@ const views = [
   {
     name: 'default',
     source: {
-      name: 'neo4j',
+      name: 'supabase', //. not used yet
       options: {},
     },
     fields: [
