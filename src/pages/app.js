@@ -23,7 +23,9 @@ function App() {
     <ThemeProvider theme={appTheme}>
       <Header />
       {/* . put Bar here */}
-      <Table sources={sources} />
+      <div className="pok">
+        <Table sources={sources} />
+      </div>
     </ThemeProvider>
   )
 }
