@@ -19,4 +19,15 @@ a {
   .pok {
     display: none;
   }
+  .oij {
+    display: block;
+  }
+}
+@media (min-width: 600px) {
+  .pok {
+    display: block;
+  }
+  .oij {
+    display: none;
+  }
 }

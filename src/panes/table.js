@@ -82,6 +82,7 @@ function TableUI({ columns, data, updateData }) {
     )
 
   // render the ui for the table
+  //. add key for tr, th, tr, td
   return (
     <table {...getTableProps()}>
       <thead>

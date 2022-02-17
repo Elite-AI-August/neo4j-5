@@ -6,6 +6,7 @@
 // note: need to use lib-commonjs because otherwise nextjs complains
 import { ThemeProvider } from '@fluentui/react/lib-commonjs'
 import Table from '../panes/table'
+import Mobile from '../panes/mobile'
 import Header from '../components/header'
 import { Sources } from '../sources'
 
@@ -25,6 +26,9 @@ function App() {
       {/* . put Bar here */}
       <div className="pok">
         <Table sources={sources} />
+      </div>
+      <div className="oij">
+        <Mobile />
       </div>
     </ThemeProvider>
   )
