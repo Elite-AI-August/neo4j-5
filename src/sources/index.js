@@ -60,7 +60,7 @@ export class Sources {
   }
 
   async get(query) {
-    //. pass query on to correct source
+    //. pass query on to correct source - how do?
     return this.root[isource].get(query)
   }
 
