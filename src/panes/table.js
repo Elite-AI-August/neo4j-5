@@ -182,25 +182,27 @@ function Table({ sources }) {
   // cell value was updated -
   // called by cell renderer when value is updated.
   const updateData = React.useCallback(
-    (row, column, value) => {
-      console.log(data)
+    async (row, column, value) => {
       console.log(row, column, value)
+      //. check for db error/timeout etc
+      const id = row.values.id
+      const prop = column.id
+      console.log({ id, prop, value })
+      await sources.set({ id, prop, value }) // update db - //. check for error etc
+      // update table rows
       const rowIndex = row.index // eg 1
       const columnId = column.id // eg 'notes'
       setData(oldRows => {
-        // update table rows
         const newRows = oldRows.map((row, index) => {
           if (index === rowIndex) {
             return { ...oldRows[rowIndex], [columnId]: value }
           }
           return row
         })
-        // now update db
-        sources.set({ id: row.values.id, prop: column.id, value }) //. update db
         return newRows
       })
     },
-    [data, sources]
+    [sources]
   )
 
   // add button handler

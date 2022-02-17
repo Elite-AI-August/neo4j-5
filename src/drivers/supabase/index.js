@@ -63,7 +63,7 @@ export class Driver {
     let items = await this.get({ id })
     console.log('items', items)
     // const item = { data: { [prop]: value } }
-    const item = items[0] || { data: {} }
+    const item = items.nodes[0] || { data: {} }
     console.log('item', item)
     item.data[prop] = value
     console.log('item', item)
