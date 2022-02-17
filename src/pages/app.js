@@ -28,7 +28,7 @@ function App() {
         <Table sources={sources} />
       </div>
       <div className="oij">
-        <Mobile />
+        <Mobile sources={sources} />
       </div>
     </ThemeProvider>
   )

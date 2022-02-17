@@ -1,3 +1,22 @@
-export default function Mobile() {
-  return <div>pokkkkkk</div>
+import React from 'react'
+
+export default function Mobile({ sources }) {
+  const clickAdd = React.useCallback(
+    async event => {
+      // console.log(event.target.value)
+      const name = document.querySelector('#mobile-text').value
+      console.log(name)
+      // add to database
+      const item = { data: { name } }
+      const rows = await sources.add([item]) //. add to db
+    },
+    [sources]
+  )
+
+  return (
+    <div>
+      <textarea id="mobile-text" defaultValue="ijiji" />
+      <button onClick={clickAdd}>Add</button>
+    </div>
+  )
 }
