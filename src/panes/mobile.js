@@ -1,26 +1,19 @@
 import React from 'react'
+import Add from '../panes/add'
+import List from '../panes/list'
+import { Pivot as Tabs, PivotItem as Tab } from '@fluentui/react' // actually a Tab control
 
 export default function Mobile({ sources }) {
-  const clickAdd = React.useCallback(
-    async event => {
-      // console.log(event.target.value)
-      const name = document.querySelector('#mobile-text').value
-      console.log(name)
-      // add to database
-      const item = { data: { name } }
-      const rows = await sources.add([item]) //. add to db
-    },
-    [sources]
-  )
-
   return (
-    <div>
-      <textarea
-        id="mobile-text"
-        defaultValue=""
-        placeholder="Enter item text"
-      />
-      <button onClick={clickAdd}>Add</button>
+    <div className="mobile-pane">
+      <Tabs>
+        <Tab headerText="Add">
+          <Add sources={sources} />
+        </Tab>
+        <Tab headerText="Recent">
+          <List sources={sources} />
+        </Tab>
+      </Tabs>
     </div>
   )
 }

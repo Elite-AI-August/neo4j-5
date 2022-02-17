@@ -16,18 +16,18 @@ a {
 }
 
 @media (max-width: 600px) {
-  .pok {
+  .table-pane {
     display: none;
   }
-  .oij {
+  .mobile-pane {
     display: block;
   }
 }
 @media (min-width: 600px) {
-  .pok {
+  .table-pane {
     display: block;
   }
-  .oij {
+  .mobile-pane {
     display: none;
   }
 }

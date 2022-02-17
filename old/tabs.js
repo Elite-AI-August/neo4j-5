@@ -1,4 +1,4 @@
-import { Pivot as Tab, PivotItem as TabItem } from '@fluentui/react' // actually a Tab control
+import { Pivot as Tabs, PivotItem as Tab } from '@fluentui/react' // actually a Tab control
 ;<Tab>
   <TabItem headerText="Table">
     <br />

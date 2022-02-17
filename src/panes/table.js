@@ -221,7 +221,10 @@ function Table({ sources }) {
   }, [sources])
 
   return (
-    <div style={{ width: '100%', margin: 'auto', padding: '4px' }}>
+    <div
+      className="table-pane"
+      style={{ width: '100%', margin: 'auto', padding: '4px' }}
+    >
       {/* . move to app */}
       <Bar views={views} view={view} />
       <br />
