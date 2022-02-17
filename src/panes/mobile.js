@@ -15,7 +15,11 @@ export default function Mobile({ sources }) {
 
   return (
     <div>
-      <textarea id="mobile-text" defaultValue="ijiji" />
+      <textarea
+        id="mobile-text"
+        defaultValue=""
+        placeholder="Enter item text"
+      />
       <button onClick={clickAdd}>Add</button>
     </div>
   )
