@@ -16,10 +16,10 @@ Will have plugins for different views and data sources. Open source, web-based, 
   - [Goals](#goals)
   - [Use Cases](#use-cases)
   - [Inspiration](#inspiration)
-  - [Implementation](#implementation)
   - [Features](#features)
-  - [Installation](#installation)
+  - [Setup](#setup)
   - [Running](#running)
+  - [Deploy](#deploy)
   - [Links](#links)
   - [License](#license)
 
@@ -65,16 +65,6 @@ Some use cases to test the app and database structure -
 - Airtable - advanced table editor
 - [The Inform Designer's Manual](https://www.amazon.com/Inform-Designers-Manual-Graham-Nelson/dp/0971311900) by Graham Nelson - the language and parser of Zork
 
-## Implementation
-
-- react frontend ui with view plugins
-- native data stored to Supabase in the cloud - access data anywhere
-<!-- - rest api with plugins for different data sources -->
-
-<!-- ## Architecture
-
-![arch](design/architecture.dot.svg) -->
-
 ## Features
 
 - select text in notes, promote to item(s) with alt-m command
@@ -83,17 +73,7 @@ Some use cases to test the app and database structure -
 - go to item quickly with alt-g command, start typing to filter list
 - clipboard monitor - paste contents when it changes
 
-<!-- ## Packages
-
-- neomem-console - console interface
-- neomem-web - web interface
-- neomem-gateway - datasource manager
-- neomem-driver-pg - plugin for postgres databases
-- neomem-driver-neo4j - plugin for neo4j graph databases
-- neomem-driver-filesys - plugin for file system access
-- neomem-driver-bookmarks - plugin for chrome bookmark access -->
-
-## Installation
+## Setup
 
 Note: Neomem is under heavy development.
 
@@ -106,6 +86,21 @@ Install nodejs, then clone this repo and install the dependencies
 ## Running
 
     npm run dev
+
+Open http://localhost:3000 with your browser to see the result.
+
+## Deploy
+
+Neomem uses Vercel for hosting - push changes to 'main' branch to deploy. Starting from 'develop' branch -
+
+    git push
+    git checkout main
+    git merge develop
+    git push
+    git checkout develop
+    git merge main
+
+(better way?)
 
 ## Links
 
