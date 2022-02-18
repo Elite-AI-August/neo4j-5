@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Add({ sources }) {
+export default function Add({ neomem }) {
   const clickAdd = React.useCallback(
     async event => {
       const textarea = document.querySelector('#mobile-text')
@@ -8,14 +8,14 @@ export default function Add({ sources }) {
       const name = textarea.value
       // add to database
       const item = { data: { name } }
-      const { error } = await sources.add([item]) //. add to db
+      const { error } = await neomem.add([item]) //. add to db
       if (!error) {
         alert(`Added item!`)
         // @ts-ignore - says value not avail but it is
         textarea.value = ''
       }
     },
-    [sources]
+    [neomem]
   )
 
   return (

@@ -1,5 +1,5 @@
-// sources
-// this will aggregate diff data sources
+// neomem
+// this aggregates different data sources
 
 // we're in react now, so harder to do dynamic driver loads.
 // so just load them all here.
@@ -7,9 +7,11 @@ import { Driver as Json } from '../drivers/json'
 import { Driver as Supabase } from '../drivers/supabase'
 // import { Driver as Neo4j } from '../drivers/neo4j'
 
-//. put this into a setup yaml
-//. add a map from driver name to Driver class
-const sources = [
+//. put this into a setup yaml? or store in a local sqlite db?
+// so start with a blank canvas?
+//. make/use a map from driver name to Driver class
+//. should this be a flat list or tree or graph?
+const sourceDefs = [
   {
     name: 'json',
     Driver: Json,
@@ -20,6 +22,11 @@ const sources = [
     Driver: Supabase,
     connect: {},
   },
+  // {
+  //   name: 'sqlite',
+  //   Driver: Sqlite,
+  //   connect: {},
+  // },
   // {
   //   name: 'neo4j',
   //   Driver: Neo4j,
@@ -36,22 +43,23 @@ const sources = [
 const isource = 1
 // const isource = 2
 
-export class Sources {
+export class Neomem {
   constructor() {
-    // root will be an array or dict or tree or graph of instantiated sources
-    this.root = null
+    //. sources will be an array or dict or tree or graph of instantiated sources
+    this.sources = null
   }
 
+  // initialize data sources
   async start() {
-    this.root = []
-    for (let source of sources) {
-      const driver = new source.Driver()
-      console.log(source)
+    this.sources = []
+    for (let sourceDef of sourceDefs) {
+      const driver = new sourceDef.Driver()
+      console.log(sourceDef)
       // @ts-ignore - ts gets confused with the diff connect props
-      await driver.start(source.connect)
-      this.root.push(driver)
+      await driver.start(sourceDef.connect)
+      this.sources.push(driver)
     }
-    // this.root = sources.map(async source => {
+    // this.sources = sourceDefs.map(async source => {
     //   const driver = new source.Driver()
     //   // @ts-ignore
     //   await driver.start(source.connect)
@@ -61,22 +69,18 @@ export class Sources {
 
   async get(query) {
     //. pass query on to correct source - how do?
-    return this.root[isource].get(query)
+    return this.sources[isource].get(query)
   }
 
   async add(items) {
-    //. pass query on to correct source
-    return await this.root[isource].add(items)
+    return await this.sources[isource].add(items)
   }
 
   async set({ id, prop, value }) {
-    //. pass query on to correct source
-    return await this.root[isource].set({ id, prop, value })
+    return await this.sources[isource].set({ id, prop, value })
   }
 
   async delete({ id }) {
-    //. pass query on to correct source
-    return await this.root[isource].delete({ id })
+    return await this.sources[isource].delete({ id })
   }
-  //. upsert?
 }

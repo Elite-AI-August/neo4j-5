@@ -244,9 +244,8 @@ function EditableCell({
 
 // -----------------------------------------------------
 
-// sources is the Neomem data aggregator
-//. call it db? could be a single source or aggregate? call it nm? yah
-function Table({ sources }) {
+// neomem is the Neomem data aggregator
+function Table({ neomem }) {
   // get columns
   //. this will be dynamic as view is changed
   const columns = React.useMemo(() => {
@@ -265,14 +264,14 @@ function Table({ sources }) {
   const [selections, setSelections] = React.useState({})
 
   // **fetch initial data for table**
-  //. rename sources to neomem? nm? it's the core, like a graph db. yes
+  //. rename neomem to neomem? nm? it's the core, like a graph db. yes
   React.useEffect(() => {
     async function fetchData() {
-      const { items, error } = await sources.get() //. get ALL data, for now
+      const { items, error } = await neomem.get() //. get ALL data, for now
       setData(items)
     }
     fetchData()
-  }, [sources])
+  }, [neomem])
 
   // cell value was updated -
   // called by cell renderer when value is updated.
@@ -283,7 +282,7 @@ function Table({ sources }) {
       const id = row.values && row.values.id
       const prop = column.id
       console.log({ id, prop, value })
-      const { items, error } = await sources.set({ id, prop, value }) // update db
+      const { items, error } = await neomem.set({ id, prop, value }) // update db
       // update table rows also
       if (!error) {
         const rowIndex = row.index // eg 1
@@ -299,7 +298,7 @@ function Table({ sources }) {
         })
       }
     },
-    [sources]
+    [neomem]
   )
 
   // handler for Add button
@@ -307,7 +306,7 @@ function Table({ sources }) {
     // add to database
     const name = ''
     const item = { data: { name } }
-    const { items, error } = await sources.add([item]) // add new item to db
+    const { items, error } = await neomem.add([item]) // add new item to db
     if (!error) {
       console.log('added', items)
       // if worked okay add to table rows also
@@ -319,7 +318,7 @@ function Table({ sources }) {
         })
       }
     }
-  }, [sources])
+  }, [neomem])
 
   // handler for Delete button
   const clickDelete = React.useCallback(async () => {
@@ -327,11 +326,11 @@ function Table({ sources }) {
     const ids = Object.keys(selections).map(rownum => data[rownum].id)
     console.log(`delete ids`, ids)
     for (let id of ids) {
-      await sources.delete({ id })
+      await neomem.delete({ id })
       //. if worked, delete from table rows also
       setData(oldRows => oldRows.filter(row => row.id !== id))
     }
-  }, [sources, selections, data])
+  }, [neomem, selections, data])
 
   return (
     <div
