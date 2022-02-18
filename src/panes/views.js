@@ -10,7 +10,7 @@ export default function Views({ neomem }) {
           <Add neomem={neomem} />
         </Tab>
         <Tab headerText="Recent"> */}
-      <List neomem={neomem} />
+      <List neomem={neomem} query={{}} />
       {/* </Tab> */}
       {/* </Tabs> */}
     </div>

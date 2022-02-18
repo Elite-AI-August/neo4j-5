@@ -27,10 +27,10 @@ function App() {
       <Header />
       {/* . put Bar and Subbar here */}
       <div className="desktop-pane">
-        <SplitPane split="vertical" defaultSize={140}>
-          <Views neomem={neomem} />
-          <Table neomem={neomem} />
-        </SplitPane>
+        {/* <SplitPane split="vertical" defaultSize={140}> */}
+        <Views neomem={neomem} />
+        <Table neomem={neomem} />
+        {/* </SplitPane> */}
       </div>
       <Mobile neomem={neomem} />
     </ThemeProvider>

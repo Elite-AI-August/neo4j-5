@@ -8,14 +8,14 @@ import React from 'react'
 //. make this generic so could store an outline also
 // in which case it would be a subset of the table editor
 
-export default function List({ neomem }) {
+export default function List({ neomem, query }) {
   React.useEffect(() => {
     async function fetchData() {
-      const { items } = await neomem.get()
+      const { items } = await neomem.get(query)
       setItems(items)
     }
     fetchData()
-  }, [neomem])
+  }, [neomem, query])
 
   const [items, setItems] = React.useState([])
 

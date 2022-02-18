@@ -46,6 +46,10 @@ textarea {
 .list-pane {
   padding: 8px;
 }
-/* .views-pane {
-  width: 25%;
-} */
+.views-pane {
+  /* width: 20em; */
+  flex-basis: 20em;
+}
+.desktop-pane {
+  display: flex;
+}
