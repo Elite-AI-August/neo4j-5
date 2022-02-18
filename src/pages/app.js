@@ -4,7 +4,7 @@
 // https://developer.microsoft.com/en-us/fluentui#/controls/web
 
 // note: need to use lib-commonjs because otherwise nextjs complains
-import { ThemeProvider } from '@fluentui/react/lib-commonjs'
+import { ThemeProvider, Stack } from '@fluentui/react/lib-commonjs'
 import Table from '../panes/table'
 import Views from '../panes/views'
 import Mobile from '../panes/mobile'
@@ -25,13 +25,13 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
-      <div className="desktop-pane">
+      <Stack horizontal>
         {/* <SplitPane split="vertical" defaultSize={140}> */}
         <Views neomem={neomem} />
         {/* . put Bar and Subbar here */}
         <Table neomem={neomem} />
         {/* </SplitPane> */}
-      </div>
+      </Stack>
       <Mobile neomem={neomem} />
     </ThemeProvider>
   )

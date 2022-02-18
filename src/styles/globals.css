@@ -47,9 +47,8 @@ textarea {
   padding: 8px;
 }
 .views-pane {
-  /* width: 20em; */
-  flex-basis: 20em;
+  flex-basis: 18em;
 }
-.desktop-pane {
+/* .desktop-pane {
   display: flex;
-}
+} */

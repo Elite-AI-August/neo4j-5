@@ -1,6 +1,12 @@
 import React from 'react'
 import List from '../panes/list'
-import { Pivot as Tabs, PivotItem as Tab } from '@fluentui/react' // actually a Tab control
+// import { Pivot as Tabs, PivotItem as Tab } from '@fluentui/react' // actually a Tab control
+
+const query = {
+  source: 'meta',
+  fields: ['name'],
+  filters: [{}],
+}
 
 export default function Views({ neomem }) {
   return (
@@ -10,7 +16,7 @@ export default function Views({ neomem }) {
           <Add neomem={neomem} />
         </Tab>
         <Tab headerText="Recent"> */}
-      <List neomem={neomem} query={{}} />
+      <List neomem={neomem} query={query} />
       {/* </Tab> */}
       {/* </Tabs> */}
     </div>
