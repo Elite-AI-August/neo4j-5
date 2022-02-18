@@ -6,9 +6,11 @@
 // note: need to use lib-commonjs because otherwise nextjs complains
 import { ThemeProvider } from '@fluentui/react/lib-commonjs'
 import Table from '../panes/table'
+import Views from '../panes/views'
 import Mobile from '../panes/mobile'
 import Header from '../components/header'
 import { Neomem } from '../neomem'
+import SplitPane from 'react-split-pane'
 
 const appTheme = {
   palette: {
@@ -24,7 +26,12 @@ function App() {
     <ThemeProvider theme={appTheme}>
       <Header />
       {/* . put Bar and Subbar here */}
-      <Table neomem={neomem} />
+      <div className="desktop-pane">
+        <SplitPane split="vertical" defaultSize={140}>
+          <Views neomem={neomem} />
+          <Table neomem={neomem} />
+        </SplitPane>
+      </div>
       <Mobile neomem={neomem} />
     </ThemeProvider>
   )

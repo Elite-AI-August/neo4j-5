@@ -3,6 +3,10 @@
 import React from 'react'
 
 //. how subscribe to data changes?
+// neomem obj should have some standard way to handle polling/subscribing
+
+//. make this generic so could store an outline also
+// in which case it would be a subset of the table editor
 
 export default function List({ neomem }) {
   React.useEffect(() => {
