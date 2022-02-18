@@ -10,7 +10,7 @@ import {
   useTable,
   useSortBy,
   useFilters,
-  // useRowSelect,
+  useRowSelect,
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
@@ -45,21 +45,21 @@ const views = [
 let currentView = 'default'
 let view = views.find(view => view.name === currentView)
 
-// // eslint-disable-next-line react/display-name
-// const IndeterminateCheckbox = React.forwardRef(
-//   ({ indeterminate, ...rest }, ref) => {
-//     const defaultRef = React.useRef()
-//     const resolvedRef = ref || defaultRef
-//     React.useEffect(() => {
-//       resolvedRef.current.indeterminate = indeterminate
-//     }, [resolvedRef, indeterminate])
-//     return (
-//       <>
-//         <input type="checkbox" ref={resolvedRef} {...rest} />
-//       </>
-//     )
-//   }
-// )
+// eslint-disable-next-line react/display-name
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+    return (
+      <>
+        <input type="checkbox" ref={resolvedRef} {...rest} />
+      </>
+    )
+  }
+)
 
 function TableUI({ columns, data, updateData }) {
   // const filterTypes = React.useMemo(
@@ -101,34 +101,34 @@ function TableUI({ columns, data, updateData }) {
       updateData,
     },
     useFilters,
-    useSortBy
+    useSortBy,
     // useGroupBy,
     // useExpanded, // useGroupBy would be pretty useless without useExpanded
     //
-    // useRowSelect
-    // hooks => {
-    //   hooks.visibleColumns.push(columns => [
-    //     // make a column for selection
-    //     {
-    //       id: 'selection',
-    //       // The header can use the table's getToggleAllRowsSelectedProps method
-    //       // to render a checkbox
-    //       Header: ({ getToggleAllRowsSelectedProps }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ])
-    // }
+    useRowSelect,
+    hooks => {
+      hooks.visibleColumns.push(columns => [
+        // make a column for selection
+        {
+          id: 'selection',
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ])
+    }
   )
 
   // render the ui for the table
