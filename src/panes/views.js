@@ -3,9 +3,12 @@ import List from '../panes/list'
 // import { Pivot as Tabs, PivotItem as Tab } from '@fluentui/react' // actually a Tab control
 
 const query = {
-  source: 'meta',
-  fields: ['name'],
+  source: { name: 'meta', driver: 'json', book: '', chapter: '' },
+  fields: [{ name: 'name' }],
   filters: [{}],
+  groups: [],
+  sorts: [],
+  panes: [],
 }
 
 export default function Views({ neomem }) {
