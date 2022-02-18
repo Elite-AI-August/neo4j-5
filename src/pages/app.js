@@ -25,12 +25,9 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
-      <Stack horizontal>
-        {/* <SplitPane split="vertical" defaultSize={140}> */}
+      <Stack horizontal className="desktop-pane">
         <Views neomem={neomem} />
-        {/* . put Bar and Subbar here */}
         <Table neomem={neomem} />
-        {/* </SplitPane> */}
       </Stack>
       <Mobile neomem={neomem} />
     </ThemeProvider>
