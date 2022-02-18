@@ -323,16 +323,13 @@ function Table({ sources }) {
   // handler for Delete button
   const clickDelete = React.useCallback(async () => {
     // delete selected rows from database
-    const ids = Object.keys(selections)
+    const ids = Object.keys(selections).map(rownum => data[rownum].id)
     for (let id of ids) {
-      alert(id)
-      // await sources.delete({ id })
+      await sources.delete({ id })
+      // if worked, delete from table rows also
+      setData(oldRows => oldRows.filter(row => row.id !== id))
     }
-    // delete from table rows also
-    setData(oldRows => {
-      return oldRows.filter(row => !selections[row.id])
-    })
-  }, [sources, selections])
+  }, [sources, selections, data])
 
   // const setSelections = React.useCallback(async x => {
   //   console.log('us', x)
