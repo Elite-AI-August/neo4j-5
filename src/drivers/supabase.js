@@ -61,12 +61,8 @@ export class Driver {
   async set({ id, prop, value }) {
     console.log('set', id, prop, value)
     let items = await this.get({ id })
-    console.log('items', items)
-    // const item = { data: { [prop]: value } }
     const item = items.nodes[0] || { data: {} }
-    console.log('item', item)
     item.data[prop] = value
-    console.log('item', item)
     const { data } = await this.db.from('nodes').update(item).eq('id', id)
     return data
     //. return { items: data }
