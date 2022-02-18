@@ -15,6 +15,7 @@ import {
   // useExpanded,
 } from 'react-table'
 import { Bar } from '../components/bar' //. move up to app
+import { Subbar } from '../components/subbar' //. move up to app
 // import './table.css'
 // import styles from '../styles/table.module.css'
 
@@ -299,6 +300,21 @@ function Table({ sources }) {
     }
   }, [sources])
 
+  // handler for Delete button
+  const clickDelete = React.useCallback(async () => {
+    // // delete from database
+    // const rows = await sources.delete()
+    // // if worked okay remove from table rows also
+    // if (rows && rows[0]) {
+    //   // item.id = rows[0].id
+    //   setData(oldRows => {
+    //     const newRows = [...oldRows, item]
+    //     return newRows
+    //   })
+    // }
+    alert('delete')
+  }, [sources])
+
   return (
     <div
       className="table-pane"
@@ -306,13 +322,10 @@ function Table({ sources }) {
     >
       {/* . move to app */}
       <Bar views={views} view={view} />
-      <br />
       <TableUI columns={columns} data={data} updateData={updateData} />
-      <br />
       {/* . move to app */}
-      <PrimaryButton onClick={clickAdd} iconProps={{ iconName: 'Add' }}>
-        Add
-      </PrimaryButton>
+      <Subbar clickAdd={clickAdd} clickDelete={clickDelete} />
+      <br />
     </div>
   )
 }
