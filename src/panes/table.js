@@ -10,7 +10,7 @@ import {
   useTable,
   useSortBy,
   useFilters,
-  useRowSelect,
+  // useRowSelect,
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
@@ -27,7 +27,7 @@ const views = [
       options: {},
     },
     fields: [
-      { name: 'id', readonly: true, field: 'id' },
+      // { name: 'id', readonly: true, field: 'id' },
       // { name: 'data', readonly: true, field: 'data' }, // debug
       { name: 'type' },
       { name: 'name' },
@@ -45,24 +45,21 @@ const views = [
 let currentView = 'default'
 let view = views.find(view => view.name === currentView)
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
-    return (
-      <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    )
-  }
-)
-
-// const IndeterminateCheckbox = React.forwardRef((foo, ref) => {
-//   return <>zz</>
-// })
+// // eslint-disable-next-line react/display-name
+// const IndeterminateCheckbox = React.forwardRef(
+//   ({ indeterminate, ...rest }, ref) => {
+//     const defaultRef = React.useRef()
+//     const resolvedRef = ref || defaultRef
+//     React.useEffect(() => {
+//       resolvedRef.current.indeterminate = indeterminate
+//     }, [resolvedRef, indeterminate])
+//     return (
+//       <>
+//         <input type="checkbox" ref={resolvedRef} {...rest} />
+//       </>
+//     )
+//   }
+// )
 
 function TableUI({ columns, data, updateData }) {
   // const filterTypes = React.useMemo(
@@ -91,46 +88,47 @@ function TableUI({ columns, data, updateData }) {
     headerGroups,
     rows,
     prepareRow,
-    selectedFlatRows,
-    state: { selectedRowIds },
+    // selectedFlatRows,
+    // state: { selectedRowIds },
   } = useTable(
     {
       columns,
       data,
+      // note: this isn't part of the API, but anything added to these
+      // options will automatically be available on the instance -
+      // so can call this function from the cell renderer.
+      // @ts-ignore
+      updateData,
     },
     useFilters,
-    useSortBy,
+    useSortBy
     // useGroupBy,
     // useExpanded, // useGroupBy would be pretty useless without useExpanded
-    // note: this isn't part of the API, but anything added to these
-    // options will automatically be available on the instance -
-    // so can call this function from the cell renderer.
-    // @ts-ignore
-    updateData,
-    useRowSelect,
-    hooks => {
-      hooks.visibleColumns.push(columns => [
-        // make a column for selection
-        {
-          id: 'selection',
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ])
-    }
+    //
+    // useRowSelect
+    // hooks => {
+    //   hooks.visibleColumns.push(columns => [
+    //     // make a column for selection
+    //     {
+    //       id: 'selection',
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+    //         </div>
+    //       ),
+    //     },
+    //     ...columns,
+    //   ])
+    // }
   )
 
   // render the ui for the table
@@ -174,7 +172,7 @@ function TableUI({ columns, data, updateData }) {
           })}
         </tbody>
       </table>
-      <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
+      {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
       <pre>
         <code>
           {JSON.stringify(
@@ -188,7 +186,7 @@ function TableUI({ columns, data, updateData }) {
             2
           )}
         </code>
-      </pre>
+      </pre> */}
     </>
   )
 }
@@ -229,7 +227,7 @@ function EditableCell({
 // -----------------------------------------------------
 
 // sources is the Neomem data aggregator
-//. call it db? could be a single source or aggregate?
+//. call it db? could be a single source or aggregate? call it nm? yah
 function Table({ sources }) {
   // get columns
   //. this will be dynamic as view is changed eh?
@@ -242,6 +240,7 @@ function Table({ sources }) {
     }))
   }, [])
 
+  // this is data for the table - eg [{ id, data: { name: 'pokpok' }}, ...] ?
   const [data, setData] = React.useState([])
 
   // **fetch initial data for table**
@@ -249,6 +248,7 @@ function Table({ sources }) {
   React.useEffect(() => {
     async function fetchData() {
       // const data = await sources.get() //. get ALL data for now
+      //. rename nodes to items?
       const { nodes } = await sources.get() //. get ALL data for now
       const data = nodes
       setData(data)
@@ -262,7 +262,7 @@ function Table({ sources }) {
     async (row, column, value) => {
       console.log(row, column, value)
       //. check for db error/timeout etc
-      const id = row.values.id
+      const id = row.values && row.values.id
       const prop = column.id
       console.log({ id, prop, value })
       await sources.set({ id, prop, value }) // update db - //. check for error etc
@@ -282,12 +282,12 @@ function Table({ sources }) {
     [sources]
   )
 
-  // add button handler
+  // handler for Add button
   const clickAdd = React.useCallback(async () => {
     // add to database
     const name = ''
     const item = { data: { name } }
-    const rows = await sources.add([item]) //. add to db
+    const rows = await sources.add([item]) // add new item to db
     console.log('added', rows)
     // if worked okay add to table rows also
     if (rows && rows[0]) {
