@@ -12,11 +12,11 @@ export default function Home() {
         <h1 className={styles.title}>Neomem</h1>
 
         <p className={styles.description}>
-          Connect to all your data sources in one app
+          Connect all your data sources in one app!
         </p>
 
         <Link href="/app">
-          <a className={styles.card}>Get Started!</a>
+          <a className={styles.card}>Get Started</a>
         </Link>
 
         <Link href="/blog">
