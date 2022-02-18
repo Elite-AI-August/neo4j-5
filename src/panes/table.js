@@ -337,7 +337,7 @@ function Table({ neomem }) {
       className="table-pane"
       style={{ width: '100%', margin: 'auto', padding: '4px' }}
     >
-      {/* . move to app */}
+      {/* . move bar and subbar to app */}
       <Bar views={views} view={view} />
       <Subbar clickAdd={clickAdd} clickDelete={clickDelete} />
       <TableUI
@@ -346,7 +346,7 @@ function Table({ neomem }) {
         updateData={updateData}
         setSelections={setSelections}
       />
-      <br />
+      {/* <br /> */}
     </div>
   )
 }

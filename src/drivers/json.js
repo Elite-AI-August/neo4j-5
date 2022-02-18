@@ -2,12 +2,7 @@
 // use for testing and development
 
 // const rows = [{ id: 'pokpok', data: { name: 'plecy' } }]
-const rows = [
-  { id: 'all', data: { name: 'All' } },
-  { id: 'inbox', data: { name: 'Inbox' } },
-  { id: 'recent', data: { name: 'Recent' } },
-  { id: 'trash', data: { name: 'Trash' } },
-]
+const rows = []
 
 export class Driver {
   async start() {
