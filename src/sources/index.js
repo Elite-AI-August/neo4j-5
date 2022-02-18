@@ -74,6 +74,9 @@ export class Sources {
     return await this.root[isource].set({ id, prop, value })
   }
 
-  //. delete
+  async delete({ id }) {
+    //. pass query on to correct source
+    return await this.root[isource].delete({ id })
+  }
   //. upsert?
 }

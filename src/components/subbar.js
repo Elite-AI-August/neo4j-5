@@ -14,8 +14,14 @@ export function Subbar({ clickAdd, clickDelete }) {
       text: 'Delete',
       iconProps: { iconName: 'Delete' },
       onClick: clickDelete,
+      // disabled: true,
     },
   ]
-  // return <div onClick={clickAdd}>Add</div>
-  return <CommandBar items={items}></CommandBar>
+
+  return (
+    <CommandBar
+      items={items}
+      styles={{ root: { paddingLeft: '0' } }}
+    ></CommandBar>
+  )
 }

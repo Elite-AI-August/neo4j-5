@@ -28,7 +28,7 @@ const views = [
       options: {},
     },
     fields: [
-      // { name: 'id', readonly: true, field: 'id' },
+      { name: 'id', readonly: true, field: 'id' },
       // { name: 'data', readonly: true, field: 'data' }, // debug
       { name: 'type' },
       { name: 'name' },
@@ -48,10 +48,12 @@ let view = views.find(view => view.name === currentView)
 
 // eslint-disable-next-line react/display-name
 const IndeterminateCheckbox = React.forwardRef(
+  // @ts-ignore
   ({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef()
     const resolvedRef = ref || defaultRef
     React.useEffect(() => {
+      // @ts-ignore
       resolvedRef.current.indeterminate = indeterminate
     }, [resolvedRef, indeterminate])
     return (
@@ -62,7 +64,7 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
-function TableUI({ columns, data, updateData }) {
+function TableUI({ columns, data, updateData, setSelections }) {
   // const filterTypes = React.useMemo(
   //   () => ({
   //     // Add a new fuzzyTextFilterFn filter type.
@@ -90,7 +92,8 @@ function TableUI({ columns, data, updateData }) {
     rows,
     prepareRow,
     // selectedFlatRows,
-    // state: { selectedRowIds },
+    // @ts-ignore
+    state: { selectedRowIds },
   } = useTable(
     {
       columns,
@@ -100,6 +103,7 @@ function TableUI({ columns, data, updateData }) {
       // so can call this function from the cell renderer.
       // @ts-ignore
       updateData,
+      setSelections,
     },
     useFilters,
     useSortBy,
@@ -114,6 +118,7 @@ function TableUI({ columns, data, updateData }) {
           id: 'selection',
           // The header can use the table's getToggleAllRowsSelectedProps method
           // to render a checkbox
+          // @ts-ignore
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <div>
               <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
@@ -123,7 +128,11 @@ function TableUI({ columns, data, updateData }) {
           // to the render a checkbox
           Cell: ({ row }) => (
             <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              <IndeterminateCheckbox
+                {...row
+                  // @ts-ignore
+                  .getToggleRowSelectedProps()}
+              />
             </div>
           ),
         },
@@ -131,6 +140,14 @@ function TableUI({ columns, data, updateData }) {
       ])
     }
   )
+
+  React.useEffect(() => {
+    console.log(selectedRowIds)
+    // const selected = selectedRowIds.map((row: Row) => row.original)
+    // setSelectedRows(selected)
+    // Object.keys()
+    setSelections(selectedRowIds)
+  }, [setSelections, selectedRowIds])
 
   // render the ui for the table
   // note: getHeaderProps etc fns include the key, which eslint complains about not finding
@@ -231,18 +248,21 @@ function EditableCell({
 //. call it db? could be a single source or aggregate? call it nm? yah
 function Table({ sources }) {
   // get columns
-  //. this will be dynamic as view is changed eh?
+  //. this will be dynamic as view is changed
   const columns = React.useMemo(() => {
     return view.fields.map(field => ({
       Header: field.name,
       accessor: field.field || (row => row.data[field.name] || ''),
-      // Cell: field.readonly ? () => null : EditableCell,
+      // Cell: field.readonly ? () => null : EditableCell, //.
       Cell: EditableCell,
     }))
   }, [])
 
   // this is data for the table - eg [{ id, data: { name: 'pokpok' }}, ...] ?
   const [data, setData] = React.useState([])
+
+  // this stores the set of selected rows
+  const [selections, setSelections] = React.useState({})
 
   // **fetch initial data for table**
   //. rename sources to neomem? nm? it's the core, like a graph db
@@ -302,18 +322,22 @@ function Table({ sources }) {
 
   // handler for Delete button
   const clickDelete = React.useCallback(async () => {
-    // // delete from database
-    // const rows = await sources.delete()
-    // // if worked okay remove from table rows also
-    // if (rows && rows[0]) {
-    //   // item.id = rows[0].id
-    //   setData(oldRows => {
-    //     const newRows = [...oldRows, item]
-    //     return newRows
-    //   })
-    // }
-    alert('delete')
-  }, [sources])
+    // delete selected rows from database
+    const ids = Object.keys(selections)
+    for (let id of ids) {
+      alert(id)
+      // await sources.delete({ id })
+    }
+    // delete from table rows also
+    setData(oldRows => {
+      return oldRows.filter(row => !selections[row.id])
+    })
+  }, [sources, selections])
+
+  // const setSelections = React.useCallback(async x => {
+  //   console.log('us', x)
+  //   setSelections(selections)
+  // }, [])
 
   return (
     <div
@@ -322,9 +346,13 @@ function Table({ sources }) {
     >
       {/* . move to app */}
       <Bar views={views} view={view} />
-      <TableUI columns={columns} data={data} updateData={updateData} />
-      {/* . move to app */}
       <Subbar clickAdd={clickAdd} clickDelete={clickDelete} />
+      <TableUI
+        columns={columns}
+        data={data}
+        updateData={updateData}
+        setSelections={setSelections}
+      />
       <br />
     </div>
   )

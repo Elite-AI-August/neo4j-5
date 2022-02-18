@@ -67,4 +67,8 @@ export class Driver {
     return data
     //. return { items: data }
   }
+
+  async delete({ id }) {
+    const { data, error } = await this.db.from('nodes').delete().eq('id', id)
+  }
 }
