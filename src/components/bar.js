@@ -51,6 +51,27 @@ function SourceBox() {
     </div>
   )
 }
+
+// -----------------------------------------------------
+
+function FieldBox() {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        {/* <ComboBox
+          defaultSelectedKey={viewOptions[0].key}
+          options={viewOptions}
+        ></ComboBox> */}
+        {/* <Dropdown
+          defaultSelectedKey={filterOperators[0].key}
+          // @ts-ignore
+          options={filterOperators}
+        ></Dropdown> */}
+      </Stack>
+    </div>
+  )
+}
+
 // -----------------------------------------------------
 
 function FilterBox({ fieldOptions, filterOperators }) {
@@ -121,8 +142,39 @@ function SortBox({ fieldOptions, sortOrders }) {
 
 // -----------------------------------------------------
 
+function PaneBox({ fieldOptions, sortOrders }) {
+  return (
+    <div style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+      {/* <Stack horizontal disableShrink tokens={stackTokens}>
+        <Stack.Item align="center">
+          <Text>Sort By</Text>
+        </Stack.Item>
+        <Dropdown defaultSelectedKey="name" options={fieldOptions}></Dropdown>
+        <Dropdown
+          defaultSelectedKey={sortOrders[0].key}
+          options={sortOrders}
+        ></Dropdown>
+      </Stack> */}
+    </div>
+  )
+}
+
+// -----------------------------------------------------
+
 const viewMenuProps = () => ({
   onRenderMenuList: ViewBox,
+  shouldFocusOnMount: true,
+  items: menuItems,
+})
+
+const sourceMenuProps = () => ({
+  onRenderMenuList: SourceBox,
+  shouldFocusOnMount: true,
+  items: menuItems,
+})
+
+const fieldMenuProps = () => ({
+  onRenderMenuList: FieldBox,
   shouldFocusOnMount: true,
   items: menuItems,
 })
@@ -141,6 +193,12 @@ const groupMenuProps = () => ({
 
 const sortMenuProps = () => ({
   onRenderMenuList: SortBox,
+  shouldFocusOnMount: true,
+  items: menuItems,
+})
+
+const paneMenuProps = () => ({
+  onRenderMenuList: PaneBox,
   shouldFocusOnMount: true,
   items: menuItems,
 })
@@ -183,7 +241,7 @@ export function Bar({ views, view }) {
       {/* source */}
       <DefaultButton
         iconProps={{ iconName: 'Database' }}
-        menuProps={viewMenuProps.bind(null, { viewOptions })}
+        menuProps={sourceMenuProps.bind(null, { viewOptions })}
       >
         Source
       </DefaultButton>
@@ -191,7 +249,7 @@ export function Bar({ views, view }) {
       {/* fields */}
       <DefaultButton
         iconProps={{ iconName: 'TripleColumn' }}
-        menuProps={viewMenuProps.bind(null, { viewOptions })}
+        menuProps={fieldMenuProps.bind(null, { viewOptions })}
       >
         Fields
       </DefaultButton>
@@ -226,7 +284,7 @@ export function Bar({ views, view }) {
       {/* pane */}
       <DefaultButton
         iconProps={{ iconName: 'ViewAll2' }}
-        menuProps={sortMenuProps.bind(null, { fieldOptions, sortOrders })}
+        menuProps={paneMenuProps.bind(null, {})}
       >
         Pane
       </DefaultButton>
