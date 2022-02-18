@@ -1,23 +1,13 @@
 // this file is associated with the '/' route
 // so this would be the landing page
 
-import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Neomem</title>
-        <meta
-          name="description"
-          content="Connect to all your data sources in one app"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className={styles.main}>
         <h1 className={styles.title}>Neomem</h1>
 

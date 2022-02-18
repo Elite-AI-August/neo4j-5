@@ -28,11 +28,11 @@ const views = [
       options: {},
     },
     fields: [
-      { name: 'id', readonly: true, field: 'id' },
-      // { name: 'data', readonly: true, field: 'data' }, // debug
       { name: 'type' },
       { name: 'name' },
       { name: 'notes' },
+      { name: 'id', readonly: true, field: 'id' }, // debug
+      // { name: 'data', readonly: true, field: 'data' }, // debug
     ],
     filters: [{ field: 'name', operator: 'contains', value: 'g' }],
     groups: [{ field: 'type' }],
