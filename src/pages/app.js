@@ -10,7 +10,7 @@ import Views from '../panes/views'
 import Mobile from '../panes/mobile'
 import Header from '../components/header'
 import { Neomem } from '../neomem'
-import SplitPane from 'react-split-pane'
+// import SplitPane from 'react-split-pane' // nowork? https://github.com/tomkp/react-split-pane/issues/713
 
 const appTheme = {
   palette: {
@@ -25,10 +25,10 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
-      {/* . put Bar and Subbar here */}
       <div className="desktop-pane">
         {/* <SplitPane split="vertical" defaultSize={140}> */}
         <Views neomem={neomem} />
+        {/* . put Bar and Subbar here */}
         <Table neomem={neomem} />
         {/* </SplitPane> */}
       </div>
