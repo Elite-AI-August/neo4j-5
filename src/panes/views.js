@@ -10,6 +10,10 @@ import List from '../panes/list'
 //   panes: [],
 // }
 
+//. these could be defined in a yaml file?
+// read them with the yaml file driver?
+// or in a sqlite db for all the meta stuff?
+// or in supabase for use across computers and mobile? yah
 const views = [
   { id: 'all', data: { name: 'All' } },
   { id: 'inbox', data: { name: 'Inbox' } },
