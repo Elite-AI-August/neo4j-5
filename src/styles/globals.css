@@ -38,3 +38,10 @@ textarea {
   width: 100%;
   height: 50vh;
 }
+
+.add-pane {
+  padding: 8px;
+}
+.list-pane {
+  padding: 8px;
+}
