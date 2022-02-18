@@ -265,14 +265,11 @@ function Table({ sources }) {
   const [selections, setSelections] = React.useState({})
 
   // **fetch initial data for table**
-  //. rename sources to neomem? nm? it's the core, like a graph db
+  //. rename sources to neomem? nm? it's the core, like a graph db. yes
   React.useEffect(() => {
     async function fetchData() {
-      // const data = await sources.get() //. get ALL data for now
-      //. rename nodes to items?
-      const { nodes } = await sources.get() //. get ALL data for now
-      const data = nodes
-      setData(data)
+      const { items, error } = await sources.get() //. get ALL data, for now
+      setData(items)
     }
     fetchData()
   }, [sources])
@@ -286,19 +283,21 @@ function Table({ sources }) {
       const id = row.values && row.values.id
       const prop = column.id
       console.log({ id, prop, value })
-      await sources.set({ id, prop, value }) // update db - //. check for error etc
-      // update table rows
-      const rowIndex = row.index // eg 1
-      const columnId = column.id // eg 'notes'
-      setData(oldRows => {
-        const newRows = oldRows.map((row, index) => {
-          if (index === rowIndex) {
-            return { ...oldRows[rowIndex], [columnId]: value }
-          }
-          return row
+      const { items, error } = await sources.set({ id, prop, value }) // update db
+      // update table rows also
+      if (!error) {
+        const rowIndex = row.index // eg 1
+        const columnId = column.id // eg 'notes'
+        setData(oldRows => {
+          const newRows = oldRows.map((row, index) => {
+            if (index === rowIndex) {
+              return { ...oldRows[rowIndex], [columnId]: value }
+            }
+            return row
+          })
+          return newRows
         })
-        return newRows
-      })
+      }
     },
     [sources]
   )
@@ -308,15 +307,17 @@ function Table({ sources }) {
     // add to database
     const name = ''
     const item = { data: { name } }
-    const rows = await sources.add([item]) // add new item to db
-    console.log('added', rows)
-    // if worked okay add to table rows also
-    if (rows && rows[0]) {
-      item.id = rows[0].id
-      setData(oldRows => {
-        const newRows = [...oldRows, item]
-        return newRows
-      })
+    const { items, error } = await sources.add([item]) // add new item to db
+    if (!error) {
+      console.log('added', items)
+      // if worked okay add to table rows also
+      if (items && items[0]) {
+        item.id = items[0].id // guid eh?
+        setData(oldRows => {
+          const newRows = [...oldRows, item]
+          return newRows
+        })
+      }
     }
   }, [sources])
 
@@ -324,17 +325,13 @@ function Table({ sources }) {
   const clickDelete = React.useCallback(async () => {
     // delete selected rows from database
     const ids = Object.keys(selections).map(rownum => data[rownum].id)
+    console.log(`delete ids`, ids)
     for (let id of ids) {
       await sources.delete({ id })
-      // if worked, delete from table rows also
+      //. if worked, delete from table rows also
       setData(oldRows => oldRows.filter(row => row.id !== id))
     }
   }, [sources, selections, data])
-
-  // const setSelections = React.useCallback(async x => {
-  //   console.log('us', x)
-  //   setSelections(selections)
-  // }, [])
 
   return (
     <div
