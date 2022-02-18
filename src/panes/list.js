@@ -1,7 +1,10 @@
+// list of items
+
 import React from 'react'
 
+//. how subscribe to data changes?
+
 export default function List({ neomem }) {
-  //. how subscribe to data changes?
   React.useEffect(() => {
     async function fetchData() {
       const { items } = await neomem.get()
@@ -9,7 +12,9 @@ export default function List({ neomem }) {
     }
     fetchData()
   }, [neomem])
+
   const [items, setItems] = React.useState([])
+
   return (
     <div className="list-pane">
       {items.map(item => (

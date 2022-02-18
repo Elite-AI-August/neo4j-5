@@ -10,7 +10,7 @@ export default function Add({ neomem }) {
       const item = { data: { name } }
       const { error } = await neomem.add([item]) //. add to db
       if (!error) {
-        alert(`Added item!`)
+        alert(`Added item "${name}".`)
         // @ts-ignore - says value not avail but it is
         textarea.value = ''
       }
