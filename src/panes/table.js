@@ -5,11 +5,12 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import { PrimaryButton } from '@fluentui/react/lib-commonjs'
+import { PrimaryButton, Checkbox } from '@fluentui/react/lib-commonjs'
 import {
   useTable,
   useSortBy,
   useFilters,
+  useRowSelect,
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
@@ -44,6 +45,25 @@ const views = [
 let currentView = 'default'
 let view = views.find(view => view.name === currentView)
 
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+    return (
+      <>
+        <input type="checkbox" ref={resolvedRef} {...rest} />
+      </>
+    )
+  }
+)
+
+// const IndeterminateCheckbox = React.forwardRef((foo, ref) => {
+//   return <>zz</>
+// })
+
 function TableUI({ columns, data, updateData }) {
   // const filterTypes = React.useMemo(
   //   () => ({
@@ -65,55 +85,111 @@ function TableUI({ columns, data, updateData }) {
   //   []
   // )
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-        // note: this isn't part of the API, but anything added to these
-        // options will automatically be available on the instance -
-        // so can call this function from the cell renderer.
-        // @ts-ignore
-        updateData,
-      },
-      useFilters,
-      useSortBy
-      // useGroupBy,
-      // useExpanded // useGroupBy would be pretty useless without useExpanded
-    )
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    selectedFlatRows,
+    state: { selectedRowIds },
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useFilters,
+    useSortBy,
+    // useGroupBy,
+    // useExpanded, // useGroupBy would be pretty useless without useExpanded
+    // note: this isn't part of the API, but anything added to these
+    // options will automatically be available on the instance -
+    // so can call this function from the cell renderer.
+    // @ts-ignore
+    updateData,
+    useRowSelect,
+    hooks => {
+      hooks.visibleColumns.push(columns => [
+        // make a column for selection
+        {
+          id: 'selection',
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ])
+    }
+  )
 
   // render the ui for the table
-  //. add key for tr, th, tr, td
+  // note: getHeaderProps etc fns include the key, which eslint complains about not finding
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(header => (
-              <th {...header.getHeaderProps(header.getSortByToggleProps())}>
-                {header.render('Header')}
-                <span>
-                  {' '}
-                  {header.isSorted ? (header.isSortedDesc ? ' ▼' : ' ▲') : ''}
-                </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-              })}
+    <>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            // eslint-disable-next-line react/jsx-key
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {/* <th>foo</th> */}
+              {headerGroup.headers.map(header => (
+                // eslint-disable-next-line react/jsx-key
+                <th {...header.getHeaderProps(header.getSortByToggleProps())}>
+                  {header.render('Header')}
+                  <span>
+                    {' '}
+                    {header.isSorted ? (header.isSortedDesc ? ' ▼' : ' ▲') : ''}
+                  </span>
+                </th>
+              ))}
             </tr>
-          )
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, i) => {
+            prepareRow(row)
+            return (
+              // eslint-disable-next-line react/jsx-key
+              <tr {...row.getRowProps()}>
+                {/* <td>
+                <Checkbox checked={selected[row.id]} />
+              </td> */}
+                {row.cells.map(cell => {
+                  // eslint-disable-next-line react/jsx-key
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
+      <pre>
+        <code>
+          {JSON.stringify(
+            {
+              selectedRowIds: selectedRowIds,
+              'selectedFlatRows[].original': selectedFlatRows.map(
+                d => d.original
+              ),
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
+    </>
   )
 }
 
