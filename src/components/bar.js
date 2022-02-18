@@ -231,20 +231,20 @@ export function Bar({ views, view }) {
   return (
     <Stack horizontal disableShrink tokens={stackTokens}>
       {/* view */}
-      <DefaultButton
+      {/* <DefaultButton
         iconProps={{ iconName: 'View' }}
         menuProps={viewMenuProps.bind(null, { viewOptions })}
       >
         View
-      </DefaultButton>
+      </DefaultButton> */}
 
       {/* source */}
-      <DefaultButton
+      {/* <DefaultButton
         iconProps={{ iconName: 'Database' }}
         menuProps={sourceMenuProps.bind(null, { viewOptions })}
       >
         Source
-      </DefaultButton>
+      </DefaultButton> */}
 
       {/* fields */}
       <DefaultButton
@@ -282,12 +282,12 @@ export function Bar({ views, view }) {
       </DefaultButton>
 
       {/* pane */}
-      <DefaultButton
+      {/* <DefaultButton
         iconProps={{ iconName: 'ViewAll2' }}
         menuProps={paneMenuProps.bind(null, {})}
       >
         Pane
-      </DefaultButton>
+      </DefaultButton> */}
     </Stack>
   )
 }
