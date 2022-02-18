@@ -1,5 +1,6 @@
-// table view using react-table
+// table view
 
+// uses react-table
 // see https://react-table.tanstack.com/
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 

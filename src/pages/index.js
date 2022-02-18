@@ -26,9 +26,7 @@ export default function Home() {
         </p>
 
         <Link href="/app">
-          <a className={styles.card}>
-            <h2>Get Started!</h2>
-          </a>
+          <a className={styles.card}>Get Started!</a>
         </Link>
 
         <Link href="/blog">
