@@ -4,7 +4,7 @@
 //   .from('posts')
 //   .select()
 
-//. not used? see drivers/supabase.js
+//. ditch this - use drivers/supabase etc
 
 import { createClient } from '@supabase/supabase-js'
 

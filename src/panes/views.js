@@ -1,5 +1,5 @@
 import React from 'react'
-import List from '../panes/list'
+// import List from '../panes/list'
 
 // const query = {
 //   source: { name: 'meta', driver: 'json', book: '', chapter: '' },
@@ -26,19 +26,24 @@ const views = [
   { id: 'trash', data: { name: 'Trash' } },
 ]
 
-function clickView(event) {
-  const id = event.target.id
-  const view = views.find(view => view.id === id)
-  console.log(view)
-}
-
 export default function Views({ neomem }) {
+  const [viewId, setViewId] = React.useState('all')
+  function clickView(event) {
+    const id = event.target.id
+    const view = views.find(view => view.id === id)
+    console.log(view)
+    setViewId(id)
+  }
   return (
     <div className="views-pane">
-      {/* <List neomem={neomem} query={query} /> */}
       {views.map(view => {
         return (
-          <div className="view" key={view.id} id={view.id} onClick={clickView}>
+          <div
+            className={'view' + (view.id === viewId ? ' selected' : '')}
+            key={view.id}
+            id={view.id}
+            onClick={clickView}
+          >
             {view.data.name}
           </div>
         )
