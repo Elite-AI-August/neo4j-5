@@ -1,15 +1,16 @@
 import React from 'react'
 // import List from '../panes/list'
 
-export default function Views({ views }) {
-  const [viewId, setViewId] = React.useState('all')
-
-  const clickView = React.useCallback(event => {
-    const id = event.target.id
-    const view = views.find(view => view.id === id)
-    console.log(view)
-    setViewId(id)
-  }, [])
+export default function Views({ views, viewId, setViewId }) {
+  const clickView = React.useCallback(
+    event => {
+      const id = event.target.id
+      const view = views.find(view => view.id === id)
+      console.log(view)
+      setViewId(id)
+    },
+    [views, setViewId]
+  )
 
   return (
     <div className="views-pane">

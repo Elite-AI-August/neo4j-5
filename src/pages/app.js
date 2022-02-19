@@ -3,6 +3,7 @@
 // uses fluentui from microsoft
 // https://developer.microsoft.com/en-us/fluentui#/controls/web
 
+import React from 'react'
 // note: need to use lib-commonjs because otherwise nextjs complains
 import { ThemeProvider, Stack } from '@fluentui/react/lib-commonjs'
 import Table from '../panes/table'
@@ -47,11 +48,12 @@ const views = [
 // }
 
 function App() {
+  const [viewId, setViewId] = React.useState('all')
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
       <Stack horizontal className="desktop-pane">
-        <Views views={views} />
+        <Views views={views} viewId={viewId} setViewId={setViewId} />
         <Table neomem={neomem} />
       </Stack>
       <Mobile neomem={neomem} />
