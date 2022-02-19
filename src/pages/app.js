@@ -31,32 +31,35 @@ neomem.start()
 // and also, these should be fixed at the top. no intermixing with user's views.
 // maybe could use localstorage to keep their data until they signup? yah.
 //. a view has source, fields, groups, sorts, filters, panes
-const views = [
-  {
-    id: 'default',
-    source: {
-      name: 'supabase', //. not used yet
-      options: {},
-    },
-    fields: [
-      { name: 'type' },
-      { name: 'name' },
-      { name: 'notes' },
-      { name: 'id', readonly: true, field: 'id' }, // debug
-      // { name: 'data', readonly: true, field: 'data' }, // debug
-    ],
-    filters: [{ field: 'name', operator: 'contains', value: 'g' }],
-    groups: [{ field: 'type' }],
-    sorts: [{ field: 'name', order: 'ascending' }],
-    pane: {
-      name: 'table',
-      options: {},
-    },
+
+const defaultView = {
+  id: 'default',
+  source: {
+    name: 'supabase', //. not used yet
+    options: {},
   },
-  { id: 'all', name: 'All' },
-  { id: 'inbox', name: 'Inbox' },
-  { id: 'recent', name: 'Recent' },
-  { id: 'trash', name: 'Trash' },
+  fields: [
+    { name: 'type' },
+    { name: 'name' },
+    { name: 'notes' },
+    { name: 'id', readonly: true, field: 'id' }, // debug
+    // { name: 'data', readonly: true, field: 'data' }, // debug
+  ],
+  filters: [{ field: 'name', operator: 'contains', value: 'g' }],
+  groups: [{ field: 'type' }],
+  sorts: [{ field: 'name', order: 'ascending' }],
+  pane: {
+    name: 'table',
+    options: {},
+  },
+}
+
+const views = [
+  defaultView,
+  { id: 'all', name: 'All', fields: defaultView.fields },
+  { id: 'inbox', name: 'Inbox', fields: defaultView.fields },
+  { id: 'recent', name: 'Recent', fields: defaultView.fields },
+  { id: 'trash', name: 'Trash', fields: defaultView.fields },
 ]
 
 // let currentView = 'default'

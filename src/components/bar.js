@@ -211,7 +211,7 @@ export function Bar({ views, view }) {
     text: view.name,
   }))
 
-  const fieldOptions = (view.fields || []).map(field => ({
+  const fieldOptions = view.fields.map(field => ({
     key: field.name,
     text: field.name,
   }))
