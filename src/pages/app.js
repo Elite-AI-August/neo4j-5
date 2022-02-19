@@ -41,8 +41,8 @@ const defaultView = {
   fields: [
     { name: 'type' },
     { name: 'name' },
-    { name: 'notes' },
-    { name: 'id', readonly: true, field: 'id' }, // debug
+    // { name: 'notes' }, //. this could be huge so don't include in default views?
+    // { name: 'id', readonly: true, field: 'id' }, // debug
     // { name: 'data', readonly: true, field: 'data' }, // debug
   ],
   filters: [{ field: 'name', operator: 'contains', value: 'g' }],
