@@ -56,3 +56,6 @@ textarea {
 .views-pane .view {
   cursor: pointer;
 }
+.views-pane .view:hover {
+  background: #eee;
+}

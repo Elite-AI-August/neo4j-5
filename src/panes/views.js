@@ -27,7 +27,9 @@ const views = [
 ]
 
 function clickView(event) {
-  alert(event.target.id)
+  const id = event.target.id
+  const view = views.find(view => view.id === id)
+  console.log(view)
 }
 
 export default function Views({ neomem }) {

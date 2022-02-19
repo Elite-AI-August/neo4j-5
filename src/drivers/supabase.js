@@ -7,7 +7,8 @@ import { createClient } from '@supabase/supabase-js'
 // a trip plan, etc. so maybe a shared db would be needed?
 
 // when running locally, these come from .env.local in root folder.
-// when running on vercel, these need to be set in neomem settings.
+// when running on vercel, these need to be set in vercel settings -
+//   https://vercel.com/bburns/neomem/settings/environment-variables
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_KEY
@@ -34,16 +35,18 @@ export class Driver {
     //. what if looking at a table view and it includes notes field, which has 1mb text?
     //. handle pagination
     // By default, Supabase projects will return a maximum of 1,000 rows.
-    // This setting can be changed in Project API Settings. It's recommended
-    // that you keep it low to limit the payload size of accidental or malicious
-    // requests. You can use range() queries to paginate through your data.
+    // You can use range() queries to paginate through your data.
     // see https://supabase.com/docs/reference/javascript/using-filters#conditional-chaining
     let getter = this.db.from('nodes').select('id, data')
     if (query.id) {
       getter = getter.eq('id', query.id)
     }
+    if (query.tags) {
+      //. will this work?
+      getter = getter.like(`data->>'tags'`, `%${query.tags}%`)
+    }
     const { data, error, status } = await getter
-    console.log(status)
+    console.log(status) // eg 200
     return { items: data, error }
   }
 
