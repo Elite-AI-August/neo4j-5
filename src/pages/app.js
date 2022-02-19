@@ -55,12 +55,40 @@ const defaultView = {
   },
 }
 
+//. make this a tree eventually - views.js should recurse down it
 const views = [
   defaultView,
+  //. better way than specifying fields manually here?
+  // {
+  //   id: 'system',
+  //   name: 'System',
+  //   views: [
   { id: 'all', name: 'All', fields: defaultView.fields },
   { id: 'inbox', name: 'Inbox', fields: defaultView.fields },
   { id: 'recent', name: 'Recent', fields: defaultView.fields },
   { id: 'trash', name: 'Trash', fields: defaultView.fields },
+  //   ],
+  // },
+  // {
+  //   id: 'personal',
+  //   name: 'User',
+  //   views: [
+  { id: 'separator', name: '---------', fields: [] },
+  {
+    id: 'tasks',
+    name: 'Tasks',
+    fields: [
+      // { name: 'type' },
+      // { name: 'project' },
+      { name: 'tags' },
+      { name: 'name' },
+      { name: 'when' },
+      { name: 'order' },
+      { name: 'status' },
+    ],
+  },
+  //   ],
+  // },
 ]
 
 // let currentView = 'default'
