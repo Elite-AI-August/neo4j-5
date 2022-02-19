@@ -21,33 +21,6 @@ import { Subbar } from '../components/subbar' //. move up to app
 
 const showCheckboxes = false
 
-//. move up to app
-const views = [
-  {
-    name: 'default',
-    source: {
-      name: 'supabase', //. not used yet
-      options: {},
-    },
-    fields: [
-      { name: 'type' },
-      { name: 'name' },
-      { name: 'notes' },
-      { name: 'id', readonly: true, field: 'id' }, // debug
-      // { name: 'data', readonly: true, field: 'data' }, // debug
-    ],
-    filters: [{ field: 'name', operator: 'contains', value: 'g' }],
-    groups: [{ field: 'type' }],
-    sorts: [{ field: 'name', order: 'ascending' }],
-    pane: {
-      name: 'table',
-      options: {},
-    },
-  },
-]
-let currentView = 'default'
-let view = views.find(view => view.name === currentView)
-
 // eslint-disable-next-line react/display-name
 const IndeterminateCheckbox = React.forwardRef(
   // @ts-ignore
@@ -244,20 +217,25 @@ function EditableCell({
   return <input value={value} onChange={onChange} onBlur={onBlur} />
 }
 
-// -----------------------------------------------------
+// -----------------------------------------------------------------------
 
 // neomem is the Neomem data aggregator
-function Table({ neomem }) {
+function Table({ neomem, views, viewId }) {
+  const view = React.useMemo(() => {
+    return views.find(view => view.id === viewId) //. linear wasteful
+  }, [viewId, views])
+
   // get columns
   //. this will be dynamic as view is changed
   const columns = React.useMemo(() => {
-    return view.fields.map(field => ({
+    const fields = view.fields || []
+    return fields.map(field => ({
       Header: field.name,
       accessor: field.field || (row => row.data[field.name] || ''),
       // Cell: field.readonly ? () => null : EditableCell, //.
       Cell: EditableCell,
     }))
-  }, [])
+  }, [view])
 
   // this is data for the table - eg [{ id, data: { name: 'pokpok' }}, ...] ?
   const [data, setData] = React.useState([])

@@ -32,29 +32,44 @@ neomem.start()
 // maybe could use localstorage to keep their data until they signup? yah.
 //. a view has source, fields, groups, sorts, filters, panes
 const views = [
-  { id: 'all', data: { name: 'All', query: {} } },
-  { id: 'inbox', data: { name: 'Inbox' } },
-  { id: 'recent', data: { name: 'Recent' } },
-  { id: 'trash', data: { name: 'Trash' } },
+  {
+    id: 'default',
+    source: {
+      name: 'supabase', //. not used yet
+      options: {},
+    },
+    fields: [
+      { name: 'type' },
+      { name: 'name' },
+      { name: 'notes' },
+      { name: 'id', readonly: true, field: 'id' }, // debug
+      // { name: 'data', readonly: true, field: 'data' }, // debug
+    ],
+    filters: [{ field: 'name', operator: 'contains', value: 'g' }],
+    groups: [{ field: 'type' }],
+    sorts: [{ field: 'name', order: 'ascending' }],
+    pane: {
+      name: 'table',
+      options: {},
+    },
+  },
+  { id: 'all', name: 'All' },
+  { id: 'inbox', name: 'Inbox' },
+  { id: 'recent', name: 'Recent' },
+  { id: 'trash', name: 'Trash' },
 ]
 
-// const query = {
-//   source: { name: 'meta', driver: 'json', book: '', chapter: '' },
-//   fields: [{ name: 'name' }],
-//   filters: [{}],
-//   groups: [],
-//   sorts: [],
-//   panes: [],
-// }
+// let currentView = 'default'
+// let view = views.find(view => view.name === currentView)
 
 function App() {
-  const [viewId, setViewId] = React.useState('all')
+  const [viewId, setViewId] = React.useState('default')
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
       <Stack horizontal className="desktop-pane">
         <Views views={views} viewId={viewId} setViewId={setViewId} />
-        <Table neomem={neomem} />
+        <Table neomem={neomem} views={views} viewId={viewId} />
       </Stack>
       <Mobile neomem={neomem} />
     </ThemeProvider>

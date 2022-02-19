@@ -1,5 +1,7 @@
+// views pane
+// show tree of available views - fixed and user-defined
+
 import React from 'react'
-// import List from '../panes/list'
 
 export default function Views({ views, viewId, setViewId }) {
   const clickView = React.useCallback(
@@ -22,7 +24,7 @@ export default function Views({ views, viewId, setViewId }) {
             id={view.id}
             onClick={clickView}
           >
-            {view.data.name}
+            {view.name || view.id}
           </div>
         )
       })}
