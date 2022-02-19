@@ -41,12 +41,8 @@ export class Driver {
     if (query.id) {
       getter = getter.eq('id', query.id)
     }
-    // query.type = 'fish' //....
-    if (query.tags) {
-      console.log('like', query.tags.like)
-      getter = getter.like(`data->>type`, `%${query.tags.like}%`)
-      // getter = getter.eq('data->>type', 'fish')
-      // getter = getter.like('data->>type', '%task%')
+    if (query.type) {
+      getter = getter.like(`data->>type`, `%${query.type.like}%`)
     }
     const { data, error, status } = await getter
     console.log(status) // eg 200

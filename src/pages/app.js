@@ -87,7 +87,7 @@ const views = [
     ],
     filters: [
       {
-        tags: { like: 'task' },
+        type: { like: 'task' },
       },
     ],
   },
@@ -96,7 +96,7 @@ const views = [
     fields: defaultView.fields,
     filters: [
       {
-        tags: { like: 'fish' },
+        type: { like: 'fish' },
       },
     ],
   },
@@ -113,8 +113,12 @@ function App() {
     <ThemeProvider theme={appTheme}>
       <Header />
       <Stack horizontal className="desktop-pane">
-        <Views views={views} viewId={viewId} setViewId={setViewId} />
-        <Table neomem={neomem} views={views} viewId={viewId} />
+        <Stack.Item styles={{ root: { flexBasis: '10em' } }}>
+          <Views views={views} viewId={viewId} setViewId={setViewId} />
+        </Stack.Item>
+        <Stack.Item>
+          <Table neomem={neomem} views={views} viewId={viewId} />
+        </Stack.Item>
       </Stack>
       <Mobile neomem={neomem} />
     </ThemeProvider>
