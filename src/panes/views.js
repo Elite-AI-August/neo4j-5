@@ -28,12 +28,14 @@ const views = [
 
 export default function Views({ neomem }) {
   const [viewId, setViewId] = React.useState('all')
-  function clickView(event) {
+
+  const clickView = React.useCallback(event => {
     const id = event.target.id
     const view = views.find(view => view.id === id)
     console.log(view)
     setViewId(id)
-  }
+  }, [])
+
   return (
     <div className="views-pane">
       {views.map(view => {
