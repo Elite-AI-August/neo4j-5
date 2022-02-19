@@ -13,7 +13,10 @@ import List from '../panes/list'
 //. these could be defined in a yaml file?
 // read them with the yaml file driver?
 // or in a sqlite db for all the meta stuff?
-// or in supabase for use across computers and mobile? yah
+// or in supabase for use across computers and mobile? yah?
+// but... when user first tries it out, want to have some defaults,
+// without creating a user in the db, or a whole db for them.
+// maybe could use localstorage to keep their data until they signup? yah.
 const views = [
   { id: 'all', data: { name: 'All' } },
   { id: 'inbox', data: { name: 'Inbox' } },
