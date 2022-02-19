@@ -64,7 +64,15 @@ const views = [
   //   name: 'System',
   //   views: [
   { id: 'all', fields: defaultView.fields },
-  { id: 'inbox', fields: defaultView.fields },
+  {
+    id: 'inbox',
+    fields: defaultView.fields,
+    filters: [
+      {
+        type: { like: 'inbox' },
+      },
+    ],
+  },
   { id: 'recent', fields: defaultView.fields },
   { id: 'trash', fields: defaultView.fields },
   //   ],
