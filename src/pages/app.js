@@ -78,7 +78,7 @@ const views = [
     id: 'tasks',
     name: 'Tasks',
     fields: [
-      // { name: 'type' },
+      { name: 'type' },
       // { name: 'project' },
       { name: 'tags' },
       { name: 'name' },

@@ -20,6 +20,9 @@ export default function Views({ views, viewId, setViewId }) {
       {views
         .filter(view => !view.hidden)
         .map(view => {
+          if (view.id === 'separator') {
+            return <hr />
+          }
           return (
             <div
               className={'view' + (view.id === viewId ? ' selected' : '')}
