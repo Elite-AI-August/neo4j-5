@@ -19,6 +19,8 @@ import { Subbar } from '../components/subbar' //. move up to app
 // import './table.css'
 // import styles from '../styles/table.module.css'
 
+const showCheckboxes = false
+
 //. move up to app
 const views = [
   {
@@ -106,39 +108,39 @@ function TableUI({ columns, data, updateData, setSelections }) {
       setSelections,
     },
     useFilters,
-    useSortBy,
+    useSortBy
     // useGroupBy,
     // useExpanded, // useGroupBy would be pretty useless without useExpanded
     //
-    useRowSelect,
-    hooks => {
-      hooks.visibleColumns.push(columns => [
-        // make a column for selection
-        {
-          id: 'selection',
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          // @ts-ignore
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox
-                {...row
-                  // @ts-ignore
-                  .getToggleRowSelectedProps()}
-              />
-            </div>
-          ),
-        },
-        ...columns,
-      ])
-    }
+    // useRowSelect,
+    // hooks => {
+    //   hooks.visibleColumns.push(columns => [
+    //     // make a column for selection
+    //     {
+    //       id: 'selection',
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox
+    //       // @ts-ignore
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox
+    //             {...row
+    //               // @ts-ignore
+    //               .getToggleRowSelectedProps()}
+    //           />
+    //         </div>
+    //       ),
+    //     },
+    //     ...columns,
+    //   ])
+    // }
   )
 
   React.useEffect(() => {
@@ -339,7 +341,7 @@ function Table({ neomem }) {
     >
       {/* . move bar and subbar to app */}
       <Bar views={views} view={view} />
-      <Subbar clickAdd={clickAdd} clickDelete={clickDelete} />
+      {/* <Subbar clickAdd={clickAdd} clickDelete={clickDelete} /> */}
       <TableUI
         columns={columns}
         data={data}

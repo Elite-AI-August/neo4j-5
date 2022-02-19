@@ -229,65 +229,67 @@ export function Bar({ views, view }) {
   ]
 
   return (
-    <Stack horizontal disableShrink tokens={stackTokens}>
-      {/* view */}
-      {/* <DefaultButton
+    <div className="bar">
+      <Stack horizontal disableShrink tokens={stackTokens}>
+        {/* view */}
+        {/* <DefaultButton
         iconProps={{ iconName: 'View' }}
         menuProps={viewMenuProps.bind(null, { viewOptions })}
       >
         View
       </DefaultButton> */}
 
-      {/* source */}
-      {/* <DefaultButton
+        {/* source */}
+        {/* <DefaultButton
         iconProps={{ iconName: 'Database' }}
         menuProps={sourceMenuProps.bind(null, { viewOptions })}
       >
         Source
       </DefaultButton> */}
 
-      {/* fields */}
-      <DefaultButton
-        iconProps={{ iconName: 'TripleColumn' }}
-        menuProps={fieldMenuProps.bind(null, { viewOptions })}
-      >
-        Fields
-      </DefaultButton>
+        {/* fields */}
+        <DefaultButton
+          iconProps={{ iconName: 'TripleColumn' }}
+          menuProps={fieldMenuProps.bind(null, { viewOptions })}
+        >
+          Fields
+        </DefaultButton>
 
-      {/* filter */}
-      <DefaultButton
-        iconProps={{ iconName: 'Filter' }}
-        menuProps={filterMenuProps.bind(null, {
-          fieldOptions,
-          filterOperators,
-        })}
-      >
-        Filter
-      </DefaultButton>
+        {/* filter */}
+        <DefaultButton
+          iconProps={{ iconName: 'Filter' }}
+          menuProps={filterMenuProps.bind(null, {
+            fieldOptions,
+            filterOperators,
+          })}
+        >
+          Filter
+        </DefaultButton>
 
-      {/* group */}
-      <DefaultButton
-        iconProps={{ iconName: 'GroupList' }}
-        menuProps={groupMenuProps.bind(null, { fieldOptions })}
-      >
-        Group
-      </DefaultButton>
+        {/* group */}
+        <DefaultButton
+          iconProps={{ iconName: 'GroupList' }}
+          menuProps={groupMenuProps.bind(null, { fieldOptions })}
+        >
+          Group
+        </DefaultButton>
 
-      {/* sort */}
-      <DefaultButton
-        iconProps={{ iconName: 'Sort' }}
-        menuProps={sortMenuProps.bind(null, { fieldOptions, sortOrders })}
-      >
-        Sort
-      </DefaultButton>
+        {/* sort */}
+        <DefaultButton
+          iconProps={{ iconName: 'Sort' }}
+          menuProps={sortMenuProps.bind(null, { fieldOptions, sortOrders })}
+        >
+          Sort
+        </DefaultButton>
 
-      {/* pane */}
-      {/* <DefaultButton
+        {/* pane */}
+        {/* <DefaultButton
         iconProps={{ iconName: 'ViewAll2' }}
         menuProps={paneMenuProps.bind(null, {})}
       >
         Pane
       </DefaultButton> */}
-    </Stack>
+      </Stack>
+    </div>
   )
 }
