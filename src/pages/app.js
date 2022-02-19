@@ -63,20 +63,19 @@ const views = [
   //   id: 'system',
   //   name: 'System',
   //   views: [
-  { id: 'all', name: 'All', fields: defaultView.fields },
-  { id: 'inbox', name: 'Inbox', fields: defaultView.fields },
-  { id: 'recent', name: 'Recent', fields: defaultView.fields },
-  { id: 'trash', name: 'Trash', fields: defaultView.fields },
+  { id: 'all', fields: defaultView.fields },
+  { id: 'inbox', fields: defaultView.fields },
+  { id: 'recent', fields: defaultView.fields },
+  { id: 'trash', fields: defaultView.fields },
   //   ],
   // },
   // {
   //   id: 'personal',
   //   name: 'User',
   //   views: [
-  { id: 'separator', name: '---------', fields: [] },
+  { id: 'separator', fields: [] },
   {
     id: 'tasks',
-    name: 'Tasks',
     fields: [
       { name: 'type' },
       // { name: 'project' },
@@ -85,6 +84,20 @@ const views = [
       { name: 'when' },
       { name: 'order' },
       { name: 'status' },
+    ],
+    filters: [
+      {
+        tags: { like: 'task' },
+      },
+    ],
+  },
+  {
+    id: 'fish',
+    fields: defaultView.fields,
+    filters: [
+      {
+        tags: { like: 'fish' },
+      },
     ],
   },
   //   ],

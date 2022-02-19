@@ -29,7 +29,6 @@ export class Driver {
   // get an array of items
   // nodes is like [{ id: '12385843', data: { name: 'plecy' } }, ...]
   async get(query = {}) {
-    query.type = 'task' //...
     console.log(`get`, query)
     //. add query filters etc here
     //. filter to fields wanted? minimize data and time
@@ -38,17 +37,16 @@ export class Driver {
     // By default, Supabase projects will return a maximum of 1,000 rows.
     // You can use range() queries to paginate through your data.
     // see https://supabase.com/docs/reference/javascript/using-filters#conditional-chaining
-    // let getter = this.db.from('nodes').select('id, data')
-    let getter = this.db.from('nodes').select('id, type:data->type')
+    let getter = this.db.from('nodes').select('id, data')
     if (query.id) {
       getter = getter.eq('id', query.id)
     }
-    if (query.type) {
-      //. will this work?
-      // getter = getter.like(`data->>type`, `%${query.type}%`)
-      // getter = getter.like(`type`, `%${query.type}%`)
-      // getter = getter.like(`type:data->>type`, `%${query.type}%`)
-      getter = getter.like(`type`, `%task%`)
+    // query.type = 'fish' //....
+    if (query.tags) {
+      console.log('like', query.tags.like)
+      getter = getter.like(`data->>type`, `%${query.tags.like}%`)
+      // getter = getter.eq('data->>type', 'fish')
+      // getter = getter.like('data->>type', '%task%')
     }
     const { data, error, status } = await getter
     console.log(status) // eg 200

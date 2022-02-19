@@ -221,9 +221,8 @@ function EditableCell({
 
 // neomem is the Neomem data aggregator
 function Table({ neomem, views, viewId }) {
-  const view = React.useMemo(() => {
-    return views.find(view => view.id === viewId) //. linear wasteful
-  }, [viewId, views])
+  const view = views.find(view => view.id === viewId) //. linear wasteful
+  const query = view.filters && view.filters[0]
 
   // get columns
   //. this will be dynamic as view is changed
@@ -247,11 +246,11 @@ function Table({ neomem, views, viewId }) {
   //. rename neomem to neomem? nm? it's the core, like a graph db. yes
   React.useEffect(() => {
     async function fetchData() {
-      const { items, error } = await neomem.get() //. get ALL data, for now
+      const { items, error } = await neomem.get(query) //. get ALL data, for now
       setData(items)
     }
     fetchData()
-  }, [neomem])
+  }, [neomem, query])
 
   // cell value was updated -
   // called by cell renderer when value is updated.
