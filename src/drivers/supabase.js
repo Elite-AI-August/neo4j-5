@@ -64,6 +64,7 @@ export class Driver {
     const { items } = await this.get({ id })
     const item = items[0] || { data: {} }
     item.data[prop] = value
+    console.log('item', item)
     const { data, error, status } = await this.db
       .from('nodes')
       .update(item)

@@ -43,7 +43,7 @@ const defaultView = {
     { name: 'type' },
     { name: 'name' },
     // { name: 'notes' }, //. this could be huge so don't include in default views?
-    // { name: 'id', readonly: true, field: 'id' }, // debug
+    { name: 'id', readonly: true, field: 'id' }, // debug
     // { name: 'data', readonly: true, field: 'data' }, // debug
   ],
   filters: [{ field: 'name', operator: 'contains', value: 'g' }],
@@ -84,6 +84,7 @@ const views = [
       { name: 'when' },
       { name: 'order' },
       { name: 'status' },
+      { name: 'id', readonly: true, field: 'id' }, // debug
     ],
     filters: [
       {
@@ -113,7 +114,7 @@ function App() {
     <ThemeProvider theme={appTheme}>
       <Header />
       <Stack horizontal className="desktop-pane">
-        <Stack.Item styles={{ root: { flexBasis: '10em' } }}>
+        <Stack.Item styles={{ root: { flexBasis: '10em', flexShrink: 0 } }}>
           <Views views={views} viewId={viewId} setViewId={setViewId} />
         </Stack.Item>
         <Stack.Item>
