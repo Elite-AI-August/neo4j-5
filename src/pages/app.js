@@ -34,6 +34,7 @@ neomem.start()
 
 const defaultView = {
   id: 'default',
+  hidden: true,
   source: {
     name: 'supabase', //. not used yet
     options: {},

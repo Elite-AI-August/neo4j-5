@@ -1,5 +1,6 @@
 // views pane
 // show tree of available views - fixed and user-defined
+// views are currently defined in app.js
 
 import React from 'react'
 
@@ -16,18 +17,20 @@ export default function Views({ views, viewId, setViewId }) {
 
   return (
     <div className="views-pane">
-      {views.map(view => {
-        return (
-          <div
-            className={'view' + (view.id === viewId ? ' selected' : '')}
-            key={view.id}
-            id={view.id}
-            onClick={clickView}
-          >
-            {view.name || view.id}
-          </div>
-        )
-      })}
+      {views
+        .filter(view => !view.hidden)
+        .map(view => {
+          return (
+            <div
+              className={'view' + (view.id === viewId ? ' selected' : '')}
+              key={view.id}
+              id={view.id}
+              onClick={clickView}
+            >
+              {view.name || view.id}
+            </div>
+          )
+        })}
     </div>
   )
 }
