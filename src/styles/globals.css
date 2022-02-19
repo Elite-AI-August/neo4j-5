@@ -53,3 +53,6 @@ textarea {
 /* .desktop-pane {
   display: flex;
 } */
+.views-pane .view {
+  cursor: pointer;
+}
