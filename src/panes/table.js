@@ -135,7 +135,12 @@ function TableUI({ columns, data, updateData, setSelections }) {
               {/* <th>foo</th> */}
               {headerGroup.headers.map(header => (
                 // eslint-disable-next-line react/jsx-key
-                <th {...header.getHeaderProps(header.getSortByToggleProps())}>
+                <th
+                  {...header.getHeaderProps({
+                    ...header.getSortByToggleProps(),
+                    style: { width: 150 },
+                  })}
+                >
                   {header.render('Header')}
                   <span>
                     {' '}
@@ -224,12 +229,13 @@ function Table({ neomem, view }) {
   // const query = view.filters && view.filters[0]
 
   // get columns
-  //. this will be dynamic as view is changed
+  // this is dynamic as view is changed
   const columns = React.useMemo(() => {
     const fields = (view && view.fields) || []
     return fields.map(field => ({
       Header: field.name,
       accessor: field.field || (row => row.data[field.name] || ''),
+      width: field.width || 150,
       // Cell: field.readonly ? () => null : EditableCell, //.
       Cell: EditableCell,
     }))

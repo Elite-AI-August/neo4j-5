@@ -43,7 +43,7 @@ const defaultView = {
   },
   fields: [
     // { name: 'type' },
-    { name: 'tags' },
+    { name: 'tags', width: 100 },
     { name: 'name' },
     { name: 'when' },
     { name: 'notes' }, //. this could be huge so don't include in default views?
