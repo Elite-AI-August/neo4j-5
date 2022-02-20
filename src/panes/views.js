@@ -3,6 +3,11 @@
 // views are currently defined in app.js
 
 import React from 'react'
+import { SearchBox } from '@fluentui/react/lib-commonjs'
+
+function doSearch(s) {
+  alert(s)
+}
 
 export default function Views({ views, viewId, setViewId }) {
   const clickView = React.useCallback(
@@ -22,6 +27,14 @@ export default function Views({ views, viewId, setViewId }) {
         .map(view => {
           if (view.id === 'separator') {
             return <hr />
+          } else if (view.id === 'search') {
+            return (
+              <SearchBox
+                placeholder="Search"
+                onSearch={doSearch}
+                showIcon
+              ></SearchBox>
+            )
           }
           return (
             <div

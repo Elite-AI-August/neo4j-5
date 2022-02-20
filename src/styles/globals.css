@@ -15,6 +15,15 @@ a {
   box-sizing: border-box;
 }
 
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 4px 0;
+  padding: 0;
+}
+
 textarea {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -55,7 +64,7 @@ textarea {
 } */
 
 .views-pane .view {
-  padding: 1px 2px 1px 20px;
+  /* padding: 1px 2px 1px 20px; */
   /* font-weight: bold; */
   font-size: 1.1em;
   cursor: pointer;

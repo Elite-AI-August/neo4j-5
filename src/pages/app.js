@@ -60,6 +60,7 @@ const defaultView = {
 //. make this a tree eventually - views.js should recurse down it
 const views = [
   defaultView,
+  { id: 'search', fields: [] },
   //. better way than specifying fields manually here?
   // {
   //   id: 'system',
