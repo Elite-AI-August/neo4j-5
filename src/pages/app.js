@@ -101,7 +101,7 @@ const views = [
       { name: 'when' },
       { name: 'order' },
       { name: 'status' },
-      { name: 'id', readonly: true, field: 'id' }, // debug
+      { name: 'id', readonly: true, field: 'id', hidden: true }, // need this in results
     ],
     filters: [
       {

@@ -21,6 +21,8 @@ import { Subbar } from '../components/subbar' //. move up to app
 
 const showCheckboxes = false
 
+const initialState = { hiddenColumns: ['id'] } //. better way?
+
 // eslint-disable-next-line react/display-name
 const IndeterminateCheckbox = React.forwardRef(
   // @ts-ignore
@@ -73,6 +75,7 @@ function TableUI({ columns, data, updateData, setSelections }) {
     {
       columns,
       data,
+      initialState, // for hidden columns
       // note: this isn't part of the API, but anything added to these
       // options will automatically be available on the instance -
       // so can call this function from the cell renderer.
