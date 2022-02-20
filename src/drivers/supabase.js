@@ -42,10 +42,22 @@ export class Driver {
       getter = getter.eq('id', query.id)
     }
     if (query.type) {
-      getter = getter.like(`data->>type`, `%${query.type.like}%`)
+      if (query.type.like) {
+        getter = getter.like(`data->>type`, `%${query.type.like}%`)
+      }
+      if (query.type.none) {
+        getter = getter.is(`data->>type`, null)
+      }
+      if (query.type.eq !== undefined) {
+        getter = getter.eq(`data->>type`, query.type.eq)
+      }
+      if (query.type.neq !== undefined) {
+        getter = getter.neq(`data->>type`, query.type.neq)
+      }
     }
     const { data, error, status } = await getter
     console.log(status) // eg 200
+    console.log(data)
     return { items: data || [], error }
   }
 

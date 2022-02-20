@@ -42,6 +42,7 @@ const defaultView = {
   fields: [
     { name: 'type' },
     { name: 'name' },
+    { name: 'when' },
     { name: 'notes' }, //. this could be huge so don't include in default views?
     { name: 'id', readonly: true, field: 'id' }, // debug
     // { name: 'data', readonly: true, field: 'data' }, // debug
@@ -69,7 +70,7 @@ const views = [
     fields: defaultView.fields,
     filters: [
       {
-        type: { like: 'inbox' },
+        type: { none: true },
       },
     ],
   },
@@ -112,9 +113,6 @@ const views = [
   //   ],
   // },
 ]
-
-// let currentView = 'default'
-// let view = views.find(view => view.name === currentView)
 
 function App() {
   const [viewId, setViewId] = React.useState('default')
