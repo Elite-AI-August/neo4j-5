@@ -138,7 +138,7 @@ function TableUI({ columns, data, updateData, setSelections }) {
                 <th
                   {...header.getHeaderProps({
                     ...header.getSortByToggleProps(),
-                    style: { width: 150 },
+                    style: { width: 150 }, //. this is just a default for empty cols?
                   })}
                 >
                   {header.render('Header')}
