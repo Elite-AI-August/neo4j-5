@@ -41,18 +41,18 @@ export class Driver {
     if (query.id) {
       getter = getter.eq('id', query.id)
     }
-    if (query.type) {
-      if (query.type.like) {
-        getter = getter.like(`data->>type`, `%${query.type.like}%`)
+    if (query.tags) {
+      if (query.tags.like) {
+        getter = getter.like(`data->>tags`, `%${query.tags.like}%`)
       }
-      if (query.type.none) {
-        getter = getter.is(`data->>type`, null)
+      if (query.tags.none) {
+        getter = getter.is(`data->>tags`, null)
       }
-      if (query.type.eq !== undefined) {
-        getter = getter.eq(`data->>type`, query.type.eq)
+      if (query.tags.eq !== undefined) {
+        getter = getter.eq(`data->>tags`, query.tags.eq)
       }
-      if (query.type.neq !== undefined) {
-        getter = getter.neq(`data->>type`, query.type.neq)
+      if (query.tags.neq !== undefined) {
+        getter = getter.neq(`data->>tags`, query.tags.neq)
       }
     }
     const { data, error, status } = await getter

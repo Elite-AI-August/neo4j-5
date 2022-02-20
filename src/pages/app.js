@@ -40,7 +40,8 @@ const defaultView = {
     options: {},
   },
   fields: [
-    { name: 'type' },
+    // { name: 'type' },
+    { name: 'tags' },
     { name: 'name' },
     { name: 'when' },
     { name: 'notes' }, //. this could be huge so don't include in default views?
@@ -48,7 +49,7 @@ const defaultView = {
     // { name: 'data', readonly: true, field: 'data' }, // debug
   ],
   filters: [{ field: 'name', operator: 'contains', value: 'g' }],
-  groups: [{ field: 'type' }],
+  groups: [{ field: 'when' }],
   sorts: [{ field: 'name', order: 'ascending' }],
   pane: {
     name: 'table',
@@ -70,7 +71,7 @@ const views = [
     fields: defaultView.fields,
     filters: [
       {
-        type: { none: true },
+        tags: { none: true },
       },
     ],
   },
@@ -80,7 +81,7 @@ const views = [
     fields: defaultView.fields,
     filters: [
       {
-        type: { like: 'trash' },
+        tags: { like: 'trash' },
       },
     ],
   },
@@ -94,7 +95,7 @@ const views = [
   {
     id: 'tasks',
     fields: [
-      { name: 'type' },
+      // { name: 'type' },
       // { name: 'project' },
       { name: 'tags' },
       { name: 'name' },
@@ -105,7 +106,7 @@ const views = [
     ],
     filters: [
       {
-        type: { like: 'task' },
+        tags: { like: 'task' },
       },
     ],
   },
@@ -114,7 +115,7 @@ const views = [
     fields: defaultView.fields,
     filters: [
       {
-        type: { like: 'fish' },
+        tags: { like: 'fish' },
       },
     ],
   },
