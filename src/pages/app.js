@@ -11,7 +11,8 @@ import Views from '../panes/views'
 import Mobile from '../panes/mobile'
 import Header from '../components/header'
 import { Neomem } from '../neomem'
-import { Bar } from '../components/bar' //. move up to app
+import { Bar } from '../components/bar'
+// import { Subbar } from '../components/subbar' //. move up to app
 // import SplitPane from 'react-split-pane' // nowork? https://github.com/tomkp/react-split-pane/issues/713
 
 const appTheme = {
@@ -145,6 +146,7 @@ function App() {
         </Stack.Item>
         <Stack.Item>
           <Bar views={views} view={view} />
+          {/* <Subbar clickAdd={clickAdd} clickDelete={clickDelete} /> */}
           <Table neomem={neomem} view={view} />
         </Stack.Item>
       </Stack>

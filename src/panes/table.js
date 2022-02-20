@@ -14,12 +14,8 @@ import {
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
-import { Bar } from '../components/bar' //. move up to app
-import { Subbar } from '../components/subbar' //. move up to app
-// import './table.css'
-// import styles from '../styles/table.module.css'
 
-const showCheckboxes = false
+// const showCheckboxes = false
 
 const initialState = { hiddenColumns: ['id'] } //. better way?
 
@@ -321,16 +317,12 @@ function Table({ neomem, view }) {
       className="table-pane"
       style={{ width: '100%', margin: 'auto', padding: '4px' }}
     >
-      {/* . move bar and subbar to app */}
-      {/* <Bar views={views} view={view} /> */}
-      {/* <Subbar clickAdd={clickAdd} clickDelete={clickDelete} /> */}
       <TableUI
         columns={columns}
         data={data}
         updateData={updateData}
         setSelections={setSelections}
       />
-      {/* <br /> */}
     </div>
   )
 }
