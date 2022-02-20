@@ -11,6 +11,7 @@ import Views from '../panes/views'
 import Mobile from '../panes/mobile'
 import Header from '../components/header'
 import { Neomem } from '../neomem'
+import { Bar } from '../components/bar' //. move up to app
 // import SplitPane from 'react-split-pane' // nowork? https://github.com/tomkp/react-split-pane/issues/713
 
 const appTheme = {
@@ -134,6 +135,7 @@ const views = [
 
 function App() {
   const [viewId, setViewId] = React.useState('default')
+  const view = views.find(view => view.id === viewId) //. linear wasteful
   return (
     <ThemeProvider theme={appTheme}>
       <Header />
@@ -142,7 +144,8 @@ function App() {
           <Views views={views} viewId={viewId} setViewId={setViewId} />
         </Stack.Item>
         <Stack.Item>
-          <Table neomem={neomem} views={views} viewId={viewId} />
+          <Bar views={views} view={view} />
+          <Table neomem={neomem} view={view} />
         </Stack.Item>
       </Stack>
       <Mobile neomem={neomem} />

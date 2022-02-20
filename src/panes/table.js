@@ -223,14 +223,14 @@ function EditableCell({
 // -----------------------------------------------------------------------
 
 // neomem is the Neomem data aggregator
-function Table({ neomem, views, viewId }) {
-  const view = views.find(view => view.id === viewId) //. linear wasteful
+function Table({ neomem, view }) {
+  // const view = views.find(view => view.id === viewId) //. linear wasteful
   // const query = view.filters && view.filters[0]
 
   // get columns
   //. this will be dynamic as view is changed
   const columns = React.useMemo(() => {
-    const fields = view.fields || []
+    const fields = (view && view.fields) || []
     return fields.map(field => ({
       Header: field.name,
       accessor: field.field || (row => row.data[field.name] || ''),
@@ -322,7 +322,7 @@ function Table({ neomem, views, viewId }) {
       style={{ width: '100%', margin: 'auto', padding: '4px' }}
     >
       {/* . move bar and subbar to app */}
-      <Bar views={views} view={view} />
+      {/* <Bar views={views} view={view} /> */}
       {/* <Subbar clickAdd={clickAdd} clickDelete={clickDelete} /> */}
       <TableUI
         columns={columns}

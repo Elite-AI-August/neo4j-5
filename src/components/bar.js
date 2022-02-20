@@ -233,7 +233,7 @@ export function Bar({ views, view }) {
       horizontal
       disableShrink
       tokens={stackTokens}
-      styles={{ root: { marginBottom: '8px' } }}
+      styles={{ root: { margin: '4px' } }}
     >
       {/* view */}
       {/* <DefaultButton
