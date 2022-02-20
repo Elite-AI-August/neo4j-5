@@ -96,6 +96,8 @@ const views = [
   //   views: [
   { id: 'separator', fields: [] },
   {
+    ...defaultView,
+    hidden: false,
     id: 'tasks',
     fields: [
       // { name: 'type' },
@@ -112,9 +114,11 @@ const views = [
         tags: { like: 'task' },
       },
     ],
-    sorts: [{ field: 'name', order: 'ascending' }],
+    sorts: [{ field: 'data->>name', order: 'ascending' }],
   },
   {
+    ...defaultView,
+    hidden: false,
     id: 'fish',
     fields: defaultView.fields,
     filters: [
@@ -122,7 +126,7 @@ const views = [
         tags: { like: 'fish' },
       },
     ],
-    sorts: [{ field: 'name', order: 'ascending' }],
+    sorts: [{ field: 'data->>name', order: 'ascending' }],
   },
   //   ],
   // },
