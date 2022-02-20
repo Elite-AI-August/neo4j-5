@@ -74,8 +74,16 @@ const views = [
       },
     ],
   },
-  { id: 'recent', fields: defaultView.fields },
-  { id: 'trash', fields: defaultView.fields },
+  // { id: 'recent', fields: defaultView.fields },
+  {
+    id: 'trash',
+    fields: defaultView.fields,
+    filters: [
+      {
+        type: { like: 'trash' },
+      },
+    ],
+  },
   //   ],
   // },
   // {
