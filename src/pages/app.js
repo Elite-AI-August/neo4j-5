@@ -74,6 +74,16 @@ const views = [
   { ...defaultView, id: 'all', hidden: false },
   {
     ...defaultView,
+    id: 'starred',
+    hidden: false,
+    filters: [
+      {
+        tags: { like: 'star' },
+      },
+    ],
+  },
+  {
+    ...defaultView,
     id: 'inbox',
     hidden: false,
     filters: [
@@ -137,7 +147,7 @@ const views = [
 ]
 
 function App() {
-  const [viewId, setViewId] = React.useState('default')
+  const [viewId, setViewId] = React.useState('all')
   const view = views.find(view => view.id === viewId) //. linear wasteful
   return (
     <ThemeProvider theme={appTheme}>
