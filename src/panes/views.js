@@ -5,11 +5,13 @@
 import React from 'react'
 import { SearchBox } from '@fluentui/react/lib-commonjs'
 
+//.
 function doSearch(s) {
   alert(s)
 }
 
 export default function Views({ views, viewId, setViewId }) {
+  //.
   const clickView = React.useCallback(
     event => {
       const id = event.target.id

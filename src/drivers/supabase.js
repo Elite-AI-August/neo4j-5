@@ -28,8 +28,8 @@ export class Driver {
 
   // get an array of items
   // nodes is like [{ id: '12385843', data: { name: 'plecy' } }, ...]
-  async get(query = {}) {
-    console.log(`get`, query)
+  async get(view = {}) {
+    console.log(`get`, view)
     //. add query filters etc here
     //. filter to fields wanted? minimize data and time
     //. what if looking at a table view and it includes notes field, which has 1mb text?
@@ -38,22 +38,31 @@ export class Driver {
     // You can use range() queries to paginate through your data.
     // see https://supabase.com/docs/reference/javascript/using-filters#conditional-chaining
     let getter = this.db.from('nodes').select('id, data')
-    if (query.id) {
-      getter = getter.eq('id', query.id)
+    for (let filter of view.filters || []) {
+      console.log('filter', filter)
+      // const query = view.filters[0] //. use ALL filters though - make tree of operations
+      if (filter.id) {
+        getter = getter.eq('id', filter.id)
+      }
+      if (filter.tags) {
+        if (filter.tags.like) {
+          getter = getter.like(`data->>tags`, `%${filter.tags.like}%`)
+        }
+        if (filter.tags.none) {
+          getter = getter.is(`data->>tags`, null)
+        }
+        if (filter.tags.eq !== undefined) {
+          getter = getter.eq(`data->>tags`, filter.tags.eq)
+        }
+        if (filter.tags.neq !== undefined) {
+          getter = getter.neq(`data->>tags`, filter.tags.neq)
+        }
+      }
     }
-    if (query.tags) {
-      if (query.tags.like) {
-        getter = getter.like(`data->>tags`, `%${query.tags.like}%`)
-      }
-      if (query.tags.none) {
-        getter = getter.is(`data->>tags`, null)
-      }
-      if (query.tags.eq !== undefined) {
-        getter = getter.eq(`data->>tags`, query.tags.eq)
-      }
-      if (query.tags.neq !== undefined) {
-        getter = getter.neq(`data->>tags`, query.tags.neq)
-      }
+    // getter.order('modified_at', { ascending: false })
+    for (let sort of view.sorts || []) {
+      console.log('sort', sort)
+      getter.order(sort.field, { ascending: sort.order === 'ascending' })
     }
     const { data, error, status } = await getter
     console.log(status) // eg 200

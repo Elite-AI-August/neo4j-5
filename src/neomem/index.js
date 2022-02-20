@@ -67,9 +67,9 @@ export class Neomem {
     // })
   }
 
-  async get(query) {
-    //. pass query on to correct source - how do?
-    return this.sources[isource].get(query)
+  async get(view) {
+    //. pass view on to correct source
+    return this.sources[isource].get(view)
   }
 
   async add(items) {

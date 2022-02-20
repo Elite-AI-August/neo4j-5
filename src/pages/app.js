@@ -48,9 +48,11 @@ const defaultView = {
     { name: 'id', readonly: true, field: 'id' }, // debug
     // { name: 'data', readonly: true, field: 'data' }, // debug
   ],
-  filters: [{ field: 'name', operator: 'contains', value: 'g' }],
-  groups: [{ field: 'when' }],
-  sorts: [{ field: 'name', order: 'ascending' }],
+  // filters: [{ field: 'name', operator: 'contains', value: 'g' }],
+  filters: [],
+  // groups: [{ field: 'when' }],
+  groups: [],
+  sorts: [{ field: 'modified_at', order: 'descending' }],
   pane: {
     name: 'table',
     options: {},
@@ -59,27 +61,27 @@ const defaultView = {
 
 //. make this a tree eventually - views.js should recurse down it
 const views = [
-  defaultView,
-  { id: 'search', fields: [] },
-  //. better way than specifying fields manually here?
+  defaultView, //. why is this in here?
+  { id: 'search' },
   // {
   //   id: 'system',
   //   name: 'System',
   //   views: [
-  { id: 'all', fields: defaultView.fields },
+  { ...defaultView, id: 'all', hidden: false },
   {
+    ...defaultView,
     id: 'inbox',
-    fields: defaultView.fields,
+    hidden: false,
     filters: [
       {
         tags: { none: true },
       },
     ],
   },
-  // { id: 'recent', fields: defaultView.fields },
   {
+    ...defaultView,
     id: 'trash',
-    fields: defaultView.fields,
+    hidden: false,
     filters: [
       {
         tags: { like: 'trash' },
@@ -110,6 +112,7 @@ const views = [
         tags: { like: 'task' },
       },
     ],
+    sorts: [{ field: 'name', order: 'ascending' }],
   },
   {
     id: 'fish',
@@ -119,6 +122,7 @@ const views = [
         tags: { like: 'fish' },
       },
     ],
+    sorts: [{ field: 'name', order: 'ascending' }],
   },
   //   ],
   // },
