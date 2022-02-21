@@ -5,12 +5,12 @@
 // example - https://react-table.tanstack.com/docs/examples/editable-data
 
 import React from 'react'
-import { PrimaryButton, Checkbox } from '@fluentui/react/lib-commonjs'
+// import { Checkbox } from '@fluentui/react/lib-commonjs'
 import {
   useTable,
   useSortBy,
   useFilters,
-  useRowSelect,
+  // useRowSelect,
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
@@ -19,23 +19,24 @@ import {
 
 const initialState = { hiddenColumns: ['id'] } //. better way?
 
-// eslint-disable-next-line react/display-name
-const IndeterminateCheckbox = React.forwardRef(
-  // @ts-ignore
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-    React.useEffect(() => {
-      // @ts-ignore
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
-    return (
-      <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    )
-  }
-)
+// // checkbox used for selecting rows - not used, as don't like checkboxes.
+// // eslint-disable-next-line react/display-name
+// const IndeterminateCheckbox = React.forwardRef(
+//   // @ts-ignore
+//   ({ indeterminate, ...rest }, ref) => {
+//     const defaultRef = React.useRef()
+//     const resolvedRef = ref || defaultRef
+//     React.useEffect(() => {
+//       // @ts-ignore
+//       resolvedRef.current.indeterminate = indeterminate
+//     }, [resolvedRef, indeterminate])
+//     return (
+//       <>
+//         <input type="checkbox" ref={resolvedRef} {...rest} />
+//       </>
+//     )
+//   }
+// )
 
 function TableUI({ columns, data, updateData, setSelections }) {
   // const filterTypes = React.useMemo(
@@ -167,6 +168,14 @@ function TableUI({ columns, data, updateData, setSelections }) {
               </tr>
             )
           })}
+          <tr>
+            {columns.map(column => (
+              <td key={column.id}>
+                {/* value={value} onChange={onChange} onBlur={onBlur}  */}
+                <input />
+              </td>
+            ))}
+          </tr>
         </tbody>
       </table>
       {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
