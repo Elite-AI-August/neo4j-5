@@ -52,13 +52,25 @@ const IndeterminateCheckbox = React.forwardRef(
       // @ts-ignore
       // resolvedRef.current.indeterminate = indeterminate
     }, [resolvedRef, indeterminate])
-    function clickBox() {
-      alert('hi')
+    function clickRowSelector() {
+      alert('highlight row')
+      // toggle add/remove row from selection? no - do like gsheet
+      //. in gsheet, click selects the whole row in light blue
+      //. use cmd+click to add/remove to/from the growing selection
+      // so for now just do the plain click, and rightclick
+    }
+    function rightClickRowSelector(event) {
+      event.preventDefault() // prevent default context menu from appearing
+      alert('menu')
     }
     return (
       <>
         {/* <input type="checkbox" ref={resolvedRef} {...rest} /> */}
-        <div onClick={clickBox} className="table-checkbox">
+        <div
+          onClick={clickRowSelector}
+          onContextMenu={rightClickRowSelector}
+          className="table-checkbox"
+        >
           &nbsp;
         </div>
       </>
