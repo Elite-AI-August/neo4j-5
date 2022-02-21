@@ -17,6 +17,9 @@ import {
 
 // const showCheckboxes = false
 
+const rowSelectorWidth = 20
+const defaultColumnWidth = 150
+
 const initialState = { hiddenColumns: ['id'] } //. better way?
 
 // checkbox used for selecting rows
@@ -160,12 +163,14 @@ function TableUI({ columns, data, updateData, setSelections }) {
             // eslint-disable-next-line react/jsx-key
             <tr {...headerGroup.getHeaderGroupProps()}>
               {/* <th>foo</th> */}
-              {headerGroup.headers.map(header => (
+              {headerGroup.headers.map((header, i) => (
                 // eslint-disable-next-line react/jsx-key
                 <th
                   {...header.getHeaderProps({
                     ...header.getSortByToggleProps(),
-                    style: { width: 150 }, //. this is just a default for empty cols?
+                    style: {
+                      width: i === 0 ? rowSelectorWidth : defaultColumnWidth,
+                    }, //. this is just a default for empty cols?
                   })}
                 >
                   {header.render('Header')}
