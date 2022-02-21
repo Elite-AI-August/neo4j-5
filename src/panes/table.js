@@ -46,8 +46,8 @@ const initialState = { hiddenColumns: ['id'] } //. better way?
 const RowSelector = React.forwardRef(
   // @ts-ignore
   ({ indeterminate, ...rest }, ref) => {
-    // const defaultRef = React.useRef()
-    // const resolvedRef = ref || defaultRef
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
     // React.useEffect(() => {
     //   // @ts-ignore
     //   // resolvedRef.current.indeterminate = indeterminate
@@ -66,20 +66,18 @@ const RowSelector = React.forwardRef(
     }
     // const selected = rest.checked
     // const selected = selectedRowIds[foo]
-    return (
-      <>
-        {/* <input type="checkbox" ref={resolvedRef} {...rest} /> */}
-        <div
-          onClick={clickRowSelector}
-          onContextMenu={rightClickRowSelector}
-          className="table-checkbox"
-          // className={'table-checkbox' + (selected ? ' selected' : '')}
-          // checked={rest.checked}
-        >
-          &nbsp;
-        </div>
-      </>
-    )
+    return <input type="checkbox" ref={resolvedRef} {...rest} />
+    // return (
+    //   <div
+    //     onClick={clickRowSelector}
+    //     onContextMenu={rightClickRowSelector}
+    //     className="table-checkbox"
+    //     // className={'table-checkbox' + (selected ? ' selected' : '')}
+    //     // checked={rest.checked}
+    //   >
+    //     &nbsp;
+    //   </div>
+    // )
   }
 )
 
@@ -149,14 +147,11 @@ function TableUI({ columns, data, updateData, setSelections }) {
           // The cell can use the individual row's getToggleRowSelectedProps method
           // to the render a checkbox
           EditableCell: ({ row }) => (
-            <div>
-              {/* <IndeterminateCheckbox */}
-              <RowSelector
-                {...row
-                  // @ts-ignore
-                  .getToggleRowSelectedProps()}
-              />
-            </div>
+            <RowSelector
+              {...row
+                // @ts-ignore
+                .getToggleRowSelectedProps()}
+            />
           ),
         },
         ...columns,
@@ -189,6 +184,7 @@ function TableUI({ columns, data, updateData, setSelections }) {
                     ...header.getSortByToggleProps(),
                     style: {
                       width: i === 0 ? rowSelectorWidth : defaultColumnWidth,
+                      minWidth: rowSelectorWidth,
                     }, //. this is just a default for empty cols?
                   })}
                 >
