@@ -201,9 +201,15 @@ function TableUI({ columns, data, updateData, setSelections }) {
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {
             prepareRow(row)
+            // console.log(204, row.original.id)
             return (
               // eslint-disable-next-line react/jsx-key
-              <tr {...row.getRowProps()}>
+              <tr
+                {...row.getRowProps()}
+                style={{
+                  background: selectedRowIds[row.id] ? '#eee' : 'inherit',
+                }}
+              >
                 {/* <td>
                 <Checkbox checked={selected[row.id]} />
               </td> */}
@@ -269,7 +275,14 @@ function EditableCell({
   }, [initialValue])
 
   //. adjust to fill whole cell
-  return <input value={value} onChange={onChange} onBlur={onBlur} />
+  return (
+    <input
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      style={{ background: 'inherit' }}
+    />
+  )
 }
 
 // -----------------------------------------------------------------------

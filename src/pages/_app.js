@@ -1,6 +1,7 @@
 import { Auth } from '@supabase/ui'
 import { supabase } from '../lib/supabase' //. ditch!
 import '../styles/globals.css'
+import '../styles/checkbox.css'
 import '../styles/table.css'
 import Head from 'next/head'
 import { initializeIcons } from '@fluentui/react/lib-commonjs/Icons'
