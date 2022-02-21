@@ -83,16 +83,21 @@ export class Driver {
   // item is like { id: '18372983', data: { name: 'plecy', size: 'sm-lrg' } }
   async set({ id, prop, value }) {
     console.log(`set`, id, prop, value)
-    const { items } = await this.get({ filters: [{ id }] })
-    const item = items[0] || { data: {} }
-    item.data[prop] = value
-    console.log('item', item)
-    const { data, error, status } = await this.db
-      .from('nodes')
-      .update(item)
-      .eq('id', id)
-    console.log('status', status)
-    return { items: data, error }
+    if (id) {
+      const { items } = await this.get({ filters: [{ id }] })
+      const item = items[0] || { data: {} }
+      item.data[prop] = value
+      console.log('item', item)
+      const { data, error, status } = await this.db
+        .from('nodes')
+        .update(item)
+        .eq('id', id)
+      console.log('status', status)
+      return { items: data, error }
+    }
+    // add new item
+    const items = [{ data: { [prop]: value } }]
+    return await this.add(items)
   }
 
   // delete an item

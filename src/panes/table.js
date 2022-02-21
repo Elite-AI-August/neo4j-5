@@ -268,7 +268,7 @@ function Table({ neomem, view }) {
       console.log('fetchd', view)
       // const { items, error } = await neomem.get(query)
       const { items, error } = await neomem.get(view)
-      items.push({ id: 0, data: {} })
+      items.push({ id: null, data: {} })
       setData(items)
     }
     fetchData()
@@ -276,27 +276,44 @@ function Table({ neomem, view }) {
 
   // cell value was updated -
   // called by cell renderer when value is updated.
+  // handles editing existing value as well as new row.
   const updateData = React.useCallback(
     async (row, column, value) => {
       console.log(row, column, value)
       //. check for db error/timeout etc
-      const id = row.values && row.values.id
-      const prop = column.id
+      const id = row.values && row.values.id // eg 'afbe32-d431...' or null
+      const prop = column.id // eg 'name'
       console.log({ id, prop, value })
       const { items, error } = await neomem.set({ id, prop, value }) // update db
       // update table rows also
       if (!error) {
         const rowIndex = row.index // eg 1
-        const columnId = column.id // eg 'notes'
-        setData(oldRows => {
-          const newRows = oldRows.map((row, index) => {
-            if (index === rowIndex) {
-              return { ...oldRows[rowIndex], [columnId]: value }
-            }
-            return row
+        const columnId = column.id // eg 'name'
+        // add new item
+        if (!id) {
+          const newId = items[0].id // eg 'afbe32-d431...'
+          setData(oldRows => {
+            const newRows = oldRows.map((row, i) => {
+              if (i === rowIndex) {
+                return { ...oldRows[i], [columnId]: value, id: newId }
+              }
+              return row
+            })
+            newRows.push({ id: null, data: {} })
+            return newRows
           })
-          return newRows
-        })
+        } else {
+          // edit existing item
+          setData(oldRows => {
+            const newRows = oldRows.map((row, i) => {
+              if (i === rowIndex) {
+                return { ...oldRows[i], [columnId]: value }
+              }
+              return row
+            })
+            return newRows
+          })
+        }
       }
     },
     [neomem]
