@@ -48,6 +48,7 @@ const RowSelector = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef()
     const resolvedRef = ref || defaultRef
+    console.log('resolvedRef, rest', resolvedRef, rest)
     // React.useEffect(() => {
     //   // @ts-ignore
     //   // resolvedRef.current.indeterminate = indeterminate
