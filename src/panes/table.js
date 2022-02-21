@@ -72,7 +72,8 @@ const RowSelector = React.forwardRef(
         <div
           onClick={clickRowSelector}
           onContextMenu={rightClickRowSelector}
-          className={'table-checkbox' + (selected ? ' selected' : '')}
+          className="table-checkbox"
+          // className={'table-checkbox' + (selected ? ' selected' : '')}
           // checked={rest.checked}
         >
           &nbsp;
