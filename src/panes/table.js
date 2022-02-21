@@ -162,8 +162,12 @@ function TableUI({ columns, data, updateData, setSelections }) {
                 <Checkbox checked={selected[row.id]} />
               </td> */}
                 {row.cells.map(cell => {
-                  // eslint-disable-next-line react/jsx-key
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  return (
+                    // eslint-disable-next-line react/jsx-key
+                    <td {...cell.getCellProps()}>
+                      {cell.render('EditableCell')}
+                    </td>
+                  )
                 })}
               </tr>
             )
@@ -246,7 +250,8 @@ function Table({ neomem, view }) {
       accessor: field.field || (row => row.data[field.name] || ''),
       width: field.width || 150,
       // Cell: field.readonly ? () => null : EditableCell, //.
-      Cell: EditableCell,
+      // Cell2: EditableCell,
+      EditableCell,
     }))
   }, [view])
 
