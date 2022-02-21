@@ -133,6 +133,18 @@ const views = [
   {
     ...defaultView,
     hidden: false,
+    id: 'neomem',
+    fields: defaultView.fields,
+    filters: [
+      {
+        tags: { like: 'neomem' },
+      },
+    ],
+    sorts: [{ field: 'data->>name', order: 'ascending' }],
+  },
+  {
+    ...defaultView,
+    hidden: false,
     id: 'fish',
     fields: defaultView.fields,
     filters: [
