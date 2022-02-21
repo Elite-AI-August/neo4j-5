@@ -43,33 +43,37 @@ const initialState = { hiddenColumns: ['id'] } //. better way?
 // )
 
 // eslint-disable-next-line react/display-name
-const IndeterminateCheckbox = React.forwardRef(
+const RowSelector = React.forwardRef(
   // @ts-ignore
   ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-    React.useEffect(() => {
-      // @ts-ignore
-      // resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
+    // const defaultRef = React.useRef()
+    // const resolvedRef = ref || defaultRef
+    // React.useEffect(() => {
+    //   // @ts-ignore
+    //   // resolvedRef.current.indeterminate = indeterminate
+    // }, [resolvedRef, indeterminate])
     function clickRowSelector() {
-      alert('highlight row')
+      // alert('highlight row ' + indeterminate + ' ' + JSON.stringify(rest))
       // toggle add/remove row from selection? no - do like gsheet
       //. in gsheet, click selects the whole row in light blue
       //. use cmd+click to add/remove to/from the growing selection
       // so for now just do the plain click, and rightclick
+      // resolvedRef.current.indeterminate = indeterminate
     }
     function rightClickRowSelector(event) {
       event.preventDefault() // prevent default context menu from appearing
-      alert('menu')
+      // alert('menu')
     }
+    // const selected = rest.checked
+    // const selected = selectedRowIds[foo]
     return (
       <>
         {/* <input type="checkbox" ref={resolvedRef} {...rest} /> */}
         <div
           onClick={clickRowSelector}
           onContextMenu={rightClickRowSelector}
-          className="table-checkbox"
+          className={'table-checkbox' + (selected ? ' selected' : '')}
+          // checked={rest.checked}
         >
           &nbsp;
         </div>
@@ -137,14 +141,16 @@ function TableUI({ columns, data, updateData, setSelections }) {
           // @ts-ignore
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+              {/* <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} /> */}
+              <RowSelector {...getToggleAllRowsSelectedProps()} />
             </div>
           ),
           // The cell can use the individual row's getToggleRowSelectedProps method
           // to the render a checkbox
           EditableCell: ({ row }) => (
             <div>
-              <IndeterminateCheckbox
+              {/* <IndeterminateCheckbox */}
+              <RowSelector
                 {...row
                   // @ts-ignore
                   .getToggleRowSelectedProps()}
@@ -157,13 +163,13 @@ function TableUI({ columns, data, updateData, setSelections }) {
     }
   )
 
-  React.useEffect(() => {
-    console.log(selectedRowIds)
-    // const selected = selectedRowIds.map((row: Row) => row.original)
-    // setSelectedRows(selected)
-    // Object.keys()
-    setSelections(selectedRowIds)
-  }, [setSelections, selectedRowIds])
+  // React.useEffect(() => {
+  //   console.log(selectedRowIds)
+  //   // const selected = selectedRowIds.map((row: Row) => row.original)
+  //   // setSelectedRows(selected)
+  //   // Object.keys()
+  //   setSelections(selectedRowIds)
+  // }, [setSelections, selectedRowIds])
 
   // render the ui for the table
   // note: getHeaderProps etc fns include the key, which eslint complains about not finding

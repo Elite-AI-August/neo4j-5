@@ -87,3 +87,6 @@ textarea {
 .table-checkbox:hover {
   background: #eee;
 }
+.table-checkbox.selected {
+  background: yellowgreen;
+}
