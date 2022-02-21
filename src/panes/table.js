@@ -81,7 +81,7 @@ const RowSelector = React.forwardRef(
   }
 )
 
-function TableUI({ columns, data, updateData, setSelections }) {
+function TableUI({ columns, data, updateData }) {
   // const filterTypes = React.useMemo(
   //   () => ({
   //     // Add a new fuzzyTextFilterFn filter type.
@@ -117,12 +117,11 @@ function TableUI({ columns, data, updateData, setSelections }) {
       columns,
       data,
       initialState, // for hidden columns
-      // note: this isn't part of the API, but anything added to these
-      // options will automatically be available on the instance -
-      // so can call this function from the cell renderer.
+      // note: anything added to these options will automatically be available
+      // on the instance - so can call this function from the cell renderer.
       // @ts-ignore
       updateData,
-      setSelections,
+      // setSelections,
     },
     useFilters,
     useSortBy,
@@ -140,7 +139,6 @@ function TableUI({ columns, data, updateData, setSelections }) {
           // @ts-ignore
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <div>
-              {/* <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} /> */}
               <RowSelector {...getToggleAllRowsSelectedProps()} />
             </div>
           ),
@@ -257,8 +255,8 @@ function EditableCell({
   // need the || '' in case initval is undefined, which confuses the input component.
   const [value, setValue] = React.useState(initialValue || '')
 
-  function onChange(e) {
-    setValue(e.target.value || '')
+  function onChange(event) {
+    setValue(event.target.value || '')
   }
 
   // only update the external data when the input is blurred
@@ -278,6 +276,7 @@ function EditableCell({
   return (
     <input
       value={value}
+      // onClick={() => toggleAllRowsSelected(false)} //. deselect all rows!
       onChange={onChange}
       onBlur={onBlur}
       style={{ background: 'inherit' }}
@@ -307,13 +306,12 @@ function Table({ neomem, view }) {
   // this is data for the table - eg [{ id, data: { name: 'pokpok' }}, ...] ?
   const [data, setData] = React.useState([])
 
-  // this stores the set of selected rows
-  const [selections, setSelections] = React.useState({})
+  // const clearSelections = () => {}
 
   // **fetch initial data for table**
   React.useEffect(() => {
     async function fetchData() {
-      console.log('fetchd', view)
+      console.log('fetchdata', view)
       const { items, error } = await neomem.get(view)
       items.push({ id: null, data: {} })
       setData(items)
@@ -406,7 +404,7 @@ function Table({ neomem, view }) {
         columns={columns}
         data={data}
         updateData={updateData}
-        setSelections={setSelections}
+        // setSelections={setSelections}
       />
     </div>
   )
