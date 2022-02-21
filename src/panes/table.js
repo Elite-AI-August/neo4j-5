@@ -172,14 +172,14 @@ function TableUI({ columns, data, updateData, setSelections }) {
               </tr>
             )
           })}
-          <tr>
+          {/* <tr>
             {columns.map(column => (
               <td key={column.id}>
-                {/* value={value} onChange={onChange} onBlur={onBlur}  */}
+                value={value} onChange={onChange} onBlur={onBlur} 
                 <input />
               </td>
             ))}
-          </tr>
+          </tr> */}
         </tbody>
       </table>
       {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
@@ -268,6 +268,7 @@ function Table({ neomem, view }) {
       console.log('fetchd', view)
       // const { items, error } = await neomem.get(query)
       const { items, error } = await neomem.get(view)
+      items.push({ id: 0, data: {} })
       setData(items)
     }
     fetchData()
@@ -301,36 +302,36 @@ function Table({ neomem, view }) {
     [neomem]
   )
 
-  // handler for Add button
-  const clickAdd = React.useCallback(async () => {
-    // add to database
-    const name = ''
-    const item = { data: { name } }
-    const { items, error } = await neomem.add([item]) // add new item to db
-    if (!error) {
-      console.log('added', items)
-      // if worked okay add to table rows also
-      if (items && items[0]) {
-        item.id = items[0].id // guid eh?
-        setData(oldRows => {
-          const newRows = [...oldRows, item]
-          return newRows
-        })
-      }
-    }
-  }, [neomem])
+  // // handler for Add button
+  // const clickAdd = React.useCallback(async () => {
+  //   // add to database
+  //   const name = ''
+  //   const item = { data: { name } }
+  //   const { items, error } = await neomem.add([item]) // add new item to db
+  //   if (!error) {
+  //     console.log('added', items)
+  //     // if worked okay add to table rows also
+  //     if (items && items[0]) {
+  //       item.id = items[0].id // guid eh?
+  //       setData(oldRows => {
+  //         const newRows = [...oldRows, item]
+  //         return newRows
+  //       })
+  //     }
+  //   }
+  // }, [neomem])
 
-  // handler for Delete button
-  const clickDelete = React.useCallback(async () => {
-    // delete selected rows from database
-    const ids = Object.keys(selections).map(rownum => data[rownum].id)
-    console.log(`delete ids`, ids)
-    for (let id of ids) {
-      await neomem.delete({ id })
-      //. if worked, delete from table rows also
-      setData(oldRows => oldRows.filter(row => row.id !== id))
-    }
-  }, [neomem, selections, data])
+  // // handler for Delete button
+  // const clickDelete = React.useCallback(async () => {
+  //   // delete selected rows from database
+  //   const ids = Object.keys(selections).map(rownum => data[rownum].id)
+  //   console.log(`delete ids`, ids)
+  //   for (let id of ids) {
+  //     await neomem.delete({ id })
+  //     //. if worked, delete from table rows also
+  //     setData(oldRows => oldRows.filter(row => row.id !== id))
+  //   }
+  // }, [neomem, selections, data])
 
   return (
     <div
