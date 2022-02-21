@@ -79,3 +79,11 @@ textarea {
 .bar {
   margin-bottom: 4px;
 }
+
+.table-checkbox {
+  width: 100%;
+  cursor: pointer;
+}
+.table-checkbox:hover {
+  background: #eee;
+}

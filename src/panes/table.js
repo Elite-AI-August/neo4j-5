@@ -10,7 +10,7 @@ import {
   useTable,
   useSortBy,
   useFilters,
-  // useRowSelect,
+  useRowSelect,
   // useGroupBy,
   // useExpanded,
 } from 'react-table'
@@ -19,8 +19,9 @@ import {
 
 const initialState = { hiddenColumns: ['id'] } //. better way?
 
-// // checkbox used for selecting rows - not used, as don't like checkboxes.
-// // eslint-disable-next-line react/display-name
+// checkbox used for selecting rows
+//. not used, as don't like checkboxes.
+// eslint-disable-next-line react/display-name
 // const IndeterminateCheckbox = React.forwardRef(
 //   // @ts-ignore
 //   ({ indeterminate, ...rest }, ref) => {
@@ -28,15 +29,39 @@ const initialState = { hiddenColumns: ['id'] } //. better way?
 //     const resolvedRef = ref || defaultRef
 //     React.useEffect(() => {
 //       // @ts-ignore
-//       resolvedRef.current.indeterminate = indeterminate
+//       // resolvedRef.current.indeterminate = indeterminate
 //     }, [resolvedRef, indeterminate])
 //     return (
 //       <>
-//         <input type="checkbox" ref={resolvedRef} {...rest} />
+//          <input type="checkbox" ref={resolvedRef} {...rest} />
 //       </>
 //     )
 //   }
 // )
+
+// eslint-disable-next-line react/display-name
+const IndeterminateCheckbox = React.forwardRef(
+  // @ts-ignore
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+    React.useEffect(() => {
+      // @ts-ignore
+      // resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+    function clickBox() {
+      alert('hi')
+    }
+    return (
+      <>
+        {/* <input type="checkbox" ref={resolvedRef} {...rest} /> */}
+        <div onClick={clickBox} className="table-checkbox">
+          &nbsp;
+        </div>
+      </>
+    )
+  }
+)
 
 function TableUI({ columns, data, updateData, setSelections }) {
   // const filterTypes = React.useMemo(
@@ -65,7 +90,8 @@ function TableUI({ columns, data, updateData, setSelections }) {
     headerGroups,
     rows,
     prepareRow,
-    // selectedFlatRows,
+    // @ts-ignore
+    selectedFlatRows,
     // @ts-ignore
     state: { selectedRowIds },
   } = useTable(
@@ -81,39 +107,39 @@ function TableUI({ columns, data, updateData, setSelections }) {
       setSelections,
     },
     useFilters,
-    useSortBy
+    useSortBy,
     // useGroupBy,
     // useExpanded, // useGroupBy would be pretty useless without useExpanded
     //
-    // useRowSelect,
-    // hooks => {
-    //   hooks.visibleColumns.push(columns => [
-    //     // make a column for selection
-    //     {
-    //       id: 'selection',
-    //       // The header can use the table's getToggleAllRowsSelectedProps method
-    //       // to render a checkbox
-    //       // @ts-ignore
-    //       Header: ({ getToggleAllRowsSelectedProps }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }) => (
-    //         <div>
-    //           <IndeterminateCheckbox
-    //             {...row
-    //               // @ts-ignore
-    //               .getToggleRowSelectedProps()}
-    //           />
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ])
-    // }
+    useRowSelect,
+    hooks => {
+      hooks.visibleColumns.push(columns => [
+        // make a column for selection
+        {
+          id: 'selection',
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          // @ts-ignore
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          EditableCell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox
+                {...row
+                  // @ts-ignore
+                  .getToggleRowSelectedProps()}
+              />
+            </div>
+          ),
+        },
+        ...columns,
+      ])
+    }
   )
 
   React.useEffect(() => {
@@ -172,14 +198,6 @@ function TableUI({ columns, data, updateData, setSelections }) {
               </tr>
             )
           })}
-          {/* <tr>
-            {columns.map(column => (
-              <td key={column.id}>
-                value={value} onChange={onChange} onBlur={onBlur} 
-                <input />
-              </td>
-            ))}
-          </tr> */}
         </tbody>
       </table>
       {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
@@ -238,9 +256,6 @@ function EditableCell({
 
 // neomem is the Neomem data aggregator
 function Table({ neomem, view }) {
-  // const view = views.find(view => view.id === viewId) //. linear wasteful
-  // const query = view.filters && view.filters[0]
-
   // get columns
   // this is dynamic as view is changed
   const columns = React.useMemo(() => {
@@ -248,10 +263,11 @@ function Table({ neomem, view }) {
     return fields.map(field => ({
       Header: field.name,
       accessor: field.field || (row => row.data[field.name] || ''),
-      width: field.width || 150,
+      width: field.width || 150, //.
       // Cell: field.readonly ? () => null : EditableCell, //.
       // Cell2: EditableCell,
       EditableCell,
+      //. ReadonlyCell
     }))
   }, [view])
 
@@ -262,11 +278,9 @@ function Table({ neomem, view }) {
   const [selections, setSelections] = React.useState({})
 
   // **fetch initial data for table**
-  //. rename neomem to neomem? nm? it's the core, like a graph db. yes
   React.useEffect(() => {
     async function fetchData() {
       console.log('fetchd', view)
-      // const { items, error } = await neomem.get(query)
       const { items, error } = await neomem.get(view)
       items.push({ id: null, data: {} })
       setData(items)
