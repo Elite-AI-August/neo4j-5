@@ -1,4 +1,4 @@
-# Neomem
+# Neo4j-5
 
 Connect to all your data sources in one app.
 
