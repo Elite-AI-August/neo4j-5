@@ -102,11 +102,6 @@ Neomem uses Vercel for hosting - push changes to 'main' branch to deploy. Starti
 
 (better way?)
 
-## Links
-
-Main site - https://neomem.io.
-
-Follow along on Twitter - https://twitter.com/bburnskm and https://twitter.com/neomem_io.
 
 ## License
 
